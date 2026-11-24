@@ -1,24 +1,55 @@
 /* AvatarGroup: overlapping avatars, each cut out of the one before by a
-   canvas-colored ring. Hovering an avatar lifts it above its neighbours. */
+   canvas-colored ring. Hovering an avatar shuffles it to the front. */
 @layer cherry {
+  /* Registered (global), so the name is unique to this component. */
+  @property --_raise {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+  }
+
   .cherry-avatar-group {
     --_overlap: -8px;
     display: inline-flex;
     align-items: center;
     isolation: isolate;
   }
+  /* Raise, driven by one number --_raise (0 rest, 1 raised) so the reverse
+     plays on leave without JS: the avatar slides sideways just past the overlap of
+     its right neighbour (sin: out and back), swaps z-index at the far point
+     of the slide (round), where nothing covers it, and slides back on top,
+     lifted. Leaving runs --_raise back to 0: out, behind, back in. */
   .cherry-avatar-group > .cherry-avatar {
+    --_raise: 0;
+    /* Just past the right neighbour's overlap and its 2px ring. */
+    --_slide: calc(var(--_overlap) - 3px);
+    /* Growth and lift start only after the swap (second half), so the slide
+       stays short and the avatar never covers its left neighbour. */
+    --_up: max(0, var(--_raise) * 2 - 1);
+    z-index: round(var(--_raise));
+    translate: calc(var(--_slide) * sin(var(--_raise) * 180deg))
+      calc(var(--_up) * -2px);
+    scale: calc(1 + var(--_up) * 0.06);
     box-shadow: 0 0 0 2px var(--cherry-bg-canvas);
     transition:
-      transform var(--cherry-duration-base) var(--cherry-easing-spring),
+      --_raise var(--cherry-duration-slow) var(--cherry-easing-standard),
       box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  /* The last avatar already sits on top: it only lifts, no slide. */
+  .cherry-avatar-group > .cherry-avatar:last-child {
+    --_slide: 0px;
   }
   .cherry-avatar-group > .cherry-avatar + .cherry-avatar {
     margin-inline-start: var(--_overlap);
   }
-  .cherry-avatar-group > .cherry-avatar:hover {
-    z-index: 1;
-    transform: translateY(-2px);
+  .cherry-avatar-group > .cherry-avatar:is(:hover, :focus-visible) {
+    --_raise: 1;
+  }
+  .cherry-avatar-group > .cherry-avatar:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--cherry-bg-canvas),
+      0 0 0 4px var(--cherry-border-focus);
   }
   .cherry-avatar-group__overflow {
     color: var(--cherry-fg-muted);
