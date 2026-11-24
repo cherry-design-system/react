@@ -29,7 +29,7 @@
       color var(--cherry-duration-fast) var(--cherry-easing-standard);
   }
   .cherry-menu-item:focus {
-    outline: none;
+    outline: 2px solid transparent;
   }
   .cherry-menu-item:hover:not([aria-disabled="true"]),
   .cherry-menu-item:focus:not([aria-disabled="true"]) {
@@ -69,7 +69,7 @@
   .cherry-menu-item__shortcut {
     flex-shrink: 0;
     margin-left: var(--cherry-space-4);
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
     font-family: var(--cherry-font-sans);
     font-size: var(--cherry-text-body-xs-size);
     line-height: var(--cherry-text-body-xs-line-height);

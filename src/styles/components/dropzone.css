@@ -5,7 +5,7 @@
   .cherry-dropzone {
     --_border: var(--cherry-border-strong);
     --_bg: var(--cherry-bg-canvas);
-    --_ring: none;
+    --_ring: 0 0 #0000;
 
     position: relative;
     display: flex;
@@ -113,7 +113,7 @@
     font-weight: 600;
   }
   .cherry-dropzone__hint {
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
     font-size: var(--cherry-text-body-xs-size);
     line-height: var(--cherry-text-body-xs-line-height);
   }

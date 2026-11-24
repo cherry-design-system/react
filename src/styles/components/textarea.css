@@ -3,7 +3,7 @@
     --_px: var(--cherry-space-3);
     --_py: var(--cherry-space-2);
     --_border: var(--cherry-border-default);
-    --_ring: none;
+    --_ring: 0 0 #0000;
 
     display: flex;
     flex-direction: column;
@@ -47,7 +47,7 @@
     margin: 0;
     padding: 0;
     border: 0;
-    outline: none;
+    outline: 2px solid transparent;
     background: transparent;
     color: inherit;
     font: inherit;
@@ -56,7 +56,7 @@
     scrollbar-width: thin;
   }
   .cherry-textarea__control::placeholder {
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
   }
   .cherry-textarea__control:disabled {
     cursor: not-allowed;

@@ -52,7 +52,7 @@
     }
   }
   .cherry-menu:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
   }
 
   .cherry-menu[data-align="start"] {
@@ -120,7 +120,7 @@
   }
   .cherry-menu__label {
     padding: var(--cherry-space-2) var(--cherry-space-2) var(--cherry-space-1);
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
     font-family: var(--cherry-text-eyebrow-family);
     font-size: var(--cherry-text-eyebrow-size);
     line-height: var(--cherry-text-eyebrow-line-height);

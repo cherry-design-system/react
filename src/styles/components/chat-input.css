@@ -6,7 +6,7 @@
 @layer cherry {
   .cherry-chat-input {
     --_border: var(--cherry-border-default);
-    --_ring: none;
+    --_ring: 0 0 #0000;
     --_halo: 0;
     --_flow: calc(var(--cherry-duration-slow) * 10);
     --_ai: linear-gradient(
@@ -66,7 +66,7 @@
     padding: 0 var(--cherry-space-1);
     overflow-y: auto;
     border: 0;
-    outline: none;
+    outline: 2px solid transparent;
     background: transparent;
     color: var(--cherry-fg-default);
     font: inherit;
@@ -78,7 +78,7 @@
     scrollbar-width: thin;
   }
   .cherry-chat-input__textarea::placeholder {
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
   }
   .cherry-chat-input__textarea:disabled {
     cursor: not-allowed;
@@ -130,7 +130,7 @@
     transform: scale(0.94);
   }
   .cherry-chat-input__send:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-chat-input__send > svg {
@@ -147,7 +147,7 @@
 
   .cherry-chat-input__footnote {
     margin: var(--cherry-space-2) 0 0;
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
     font-size: var(--cherry-text-body-xs-size);
     line-height: var(--cherry-text-body-xs-line-height);
     text-align: center;
@@ -176,7 +176,7 @@
     animation: cherry-chat-input-flow var(--_flow) linear infinite;
   }
   .cherry-chat-input[data-glow]:focus-within {
-    --_ring: none;
+    --_ring: 0 0 #0000;
   }
 
   /* Reduced motion: the gradient border holds still. */

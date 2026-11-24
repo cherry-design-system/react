@@ -29,6 +29,10 @@
       "$type": "color",
       "$value": "#71717a"
     },
+    "550": {
+      "$type": "color",
+      "$value": "#63636b"
+    },
     "600": {
       "$type": "color",
       "$value": "#52525b"
@@ -121,6 +125,10 @@
       "$type": "color",
       "$value": "#059669"
     },
+    "700": {
+      "$type": "color",
+      "$value": "#047857"
+    },
     "900": {
       "$type": "color",
       "$value": "#064e3b"
@@ -150,6 +158,10 @@
     "600": {
       "$type": "color",
       "$value": "#d97706"
+    },
+    "700": {
+      "$type": "color",
+      "$value": "#b45309"
     },
     "900": {
       "$type": "color",

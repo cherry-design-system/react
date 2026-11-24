@@ -8,7 +8,7 @@
     --_px: var(--cherry-space-3);
     --_icon: 16px;
     --_border: var(--cherry-border-default);
-    --_ring: none;
+    --_ring: 0 0 #0000;
     position: relative;
     display: inline-flex;
     min-width: 0;
@@ -49,7 +49,7 @@
   }
   .cherry-date-picker__trigger:focus-visible,
   .cherry-date-picker[data-open] .cherry-date-picker__trigger {
-    outline: none;
+    outline: 2px solid transparent;
     --_border: var(--cherry-border-focus);
     --_ring: var(--cherry-ring);
   }
@@ -81,7 +81,7 @@
     white-space: nowrap;
   }
   .cherry-date-picker__placeholder {
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
   }
 
   .cherry-date-picker[data-size="sm"] {

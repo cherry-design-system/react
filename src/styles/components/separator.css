@@ -20,7 +20,7 @@
     gap: var(--cherry-space-3);
     height: auto;
     background: none;
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
     font-family: var(--cherry-font-sans);
     font-size: var(--cherry-text-eyebrow-size);
     line-height: var(--cherry-text-eyebrow-line-height);

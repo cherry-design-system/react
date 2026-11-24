@@ -11,6 +11,7 @@
     --cherry-zinc-300: #d4d4d8;
     --cherry-zinc-400: #a1a1aa;
     --cherry-zinc-500: #71717a;
+    --cherry-zinc-550: #63636b;
     --cherry-zinc-600: #52525b;
     --cherry-zinc-700: #3f3f46;
     --cherry-zinc-800: #27272a;
@@ -33,6 +34,7 @@
     --cherry-green-400: #34d399;
     --cherry-green-500: #10b981;
     --cherry-green-600: #059669;
+    --cherry-green-700: #047857;
     --cherry-green-900: #064e3b;
     --cherry-green-950: #022c22;
     --cherry-amber-50: #fffbeb;
@@ -40,6 +42,7 @@
     --cherry-amber-400: #fbbf24;
     --cherry-amber-500: #f59e0b;
     --cherry-amber-600: #d97706;
+    --cherry-amber-700: #b45309;
     --cherry-amber-900: #78350f;
     --cherry-amber-950: #451a03;
     --cherry-blue-50: #eff6ff;
@@ -91,7 +94,7 @@
     --cherry-d-bg-overlay: var(--cherry-alpha-black-70);
     --cherry-l-fg-default: var(--cherry-zinc-950);
     --cherry-d-fg-default: var(--cherry-zinc-50);
-    --cherry-l-fg-muted: var(--cherry-zinc-500);
+    --cherry-l-fg-muted: var(--cherry-zinc-550);
     --cherry-d-fg-muted: var(--cherry-zinc-400);
     --cherry-l-fg-subtle: var(--cherry-zinc-400);
     --cherry-d-fg-subtle: var(--cherry-zinc-600);
@@ -122,9 +125,9 @@
     --cherry-l-ghost-hover: var(--cherry-zinc-100);
     --cherry-d-ghost-hover: var(--cherry-zinc-800);
     --cherry-l-accent-default: var(--cherry-cherry-600);
-    --cherry-d-accent-default: var(--cherry-cherry-500);
+    --cherry-d-accent-default: var(--cherry-cherry-600);
     --cherry-l-accent-hover: var(--cherry-cherry-700);
-    --cherry-d-accent-hover: var(--cherry-cherry-400);
+    --cherry-d-accent-hover: var(--cherry-cherry-700);
     --cherry-l-accent-subtle: var(--cherry-cherry-50);
     --cherry-d-accent-subtle: var(--cherry-cherry-950);
     --cherry-l-accent-fg: var(--cherry-cherry-700);
@@ -135,7 +138,7 @@
     --cherry-d-ai-from: var(--cherry-cherry-400);
     --cherry-l-ai-to: var(--cherry-violet-500);
     --cherry-d-ai-to: var(--cherry-violet-400);
-    --cherry-l-success-fg: var(--cherry-green-600);
+    --cherry-l-success-fg: var(--cherry-green-700);
     --cherry-d-success-fg: var(--cherry-green-400);
     --cherry-l-success-bg: var(--cherry-green-50);
     --cherry-d-success-bg: var(--cherry-green-950);
@@ -143,7 +146,7 @@
     --cherry-d-success-border: var(--cherry-green-900);
     --cherry-l-success-solid: var(--cherry-green-600);
     --cherry-d-success-solid: var(--cherry-green-500);
-    --cherry-l-warning-fg: var(--cherry-amber-600);
+    --cherry-l-warning-fg: var(--cherry-amber-700);
     --cherry-d-warning-fg: var(--cherry-amber-400);
     --cherry-l-warning-bg: var(--cherry-amber-50);
     --cherry-d-warning-bg: var(--cherry-amber-950);
@@ -151,14 +154,14 @@
     --cherry-d-warning-border: var(--cherry-amber-900);
     --cherry-l-warning-solid: var(--cherry-amber-500);
     --cherry-d-warning-solid: var(--cherry-amber-400);
-    --cherry-l-danger-fg: var(--cherry-cherry-600);
+    --cherry-l-danger-fg: var(--cherry-cherry-700);
     --cherry-d-danger-fg: var(--cherry-cherry-400);
     --cherry-l-danger-bg: var(--cherry-cherry-50);
     --cherry-d-danger-bg: var(--cherry-cherry-950);
     --cherry-l-danger-border: var(--cherry-cherry-200);
     --cherry-d-danger-border: var(--cherry-cherry-900);
     --cherry-l-danger-solid: var(--cherry-cherry-600);
-    --cherry-d-danger-solid: var(--cherry-cherry-500);
+    --cherry-d-danger-solid: var(--cherry-cherry-600);
     --cherry-l-info-fg: var(--cherry-blue-600);
     --cherry-d-info-fg: var(--cherry-blue-400);
     --cherry-l-info-bg: var(--cherry-blue-50);

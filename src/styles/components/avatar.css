@@ -91,7 +91,7 @@
     --_dot-color: var(--cherry-danger-solid);
   }
   .cherry-avatar[data-status="offline"] .cherry-avatar__status {
-    --_dot-color: var(--cherry-fg-subtle);
+    --_dot-color: var(--cherry-fg-muted);
   }
 
   /* Colors */

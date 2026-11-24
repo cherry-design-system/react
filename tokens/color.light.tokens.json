@@ -43,7 +43,7 @@
     },
     "muted": {
       "$type": "color",
-      "$value": "{zinc.500}"
+      "$value": "{zinc.550}"
     },
     "subtle": {
       "$type": "color",
@@ -145,7 +145,7 @@
   "success": {
     "fg": {
       "$type": "color",
-      "$value": "{green.600}"
+      "$value": "{green.700}"
     },
     "bg": {
       "$type": "color",
@@ -163,7 +163,7 @@
   "warning": {
     "fg": {
       "$type": "color",
-      "$value": "{amber.600}"
+      "$value": "{amber.700}"
     },
     "bg": {
       "$type": "color",
@@ -181,7 +181,7 @@
   "danger": {
     "fg": {
       "$type": "color",
-      "$value": "{cherry.600}"
+      "$value": "{cherry.700}"
     },
     "bg": {
       "$type": "color",
