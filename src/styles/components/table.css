@@ -40,11 +40,22 @@
     text-align: start;
     caption-side: bottom;
   }
+  /* Cells keep their content on one line, so a narrow viewport scrolls the
+     frame instead of crushing columns (and breaking inline code mid-token).
+     Prose cells opt back into wrapping with data-wrap. */
   .cherry-table__table th,
   .cherry-table__table td {
     padding: var(--_cell-y) var(--_cell-x);
     vertical-align: middle;
     text-align: start;
+    white-space: nowrap;
+  }
+  .cherry-table__table [data-wrap] {
+    min-width: 16ch;
+    white-space: normal;
+  }
+  .cherry-table__table td :where(.cherry-inline-code) {
+    overflow-wrap: normal;
   }
   .cherry-table__table thead th {
     background: var(--cherry-bg-subtle);
@@ -52,7 +63,6 @@
     font-size: var(--cherry-text-label-xs-size);
     line-height: var(--cherry-text-label-xs-line-height);
     font-weight: var(--cherry-text-label-xs-weight);
-    white-space: nowrap;
     border-bottom: 1px solid var(--cherry-border-default);
   }
   .cherry-table__table tbody th {

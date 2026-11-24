@@ -24,7 +24,8 @@ export interface TableProps extends TableHTMLAttributes<HTMLTableElement> {
  * A native <table> in a rounded, horizontally scrollable frame. Write plain
  * thead / tbody / tr / th / td inside; mark number columns with
  * `data-numeric` on their th and td to right-align them in tabular figures.
- * No client JS.
+ * Cells stay on one line so narrow screens scroll instead of squeezing
+ * columns; put `data-wrap` on a prose cell to let it wrap. No client JS.
  */
 export const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
   {
