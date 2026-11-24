@@ -92,29 +92,32 @@
 
   /* Pill: a raised surface inside a muted track. */
   .cherry-tabs[data-variant="pill"] > .cherry-tabs__list {
-    gap: 2px;
+    /* Concentric corners: the pill's radius is the track's minus its padding. */
+    --_pad: 3px;
+    --_radius: var(--cherry-radius-md);
+    gap: var(--cherry-space-1);
     width: fit-content;
-    padding: 2px;
-    border-radius: var(--cherry-radius-md);
-    background: var(--cherry-bg-muted);
+    padding: var(--_pad);
+    border-radius: var(--_radius);
+    background: var(--cherry-bg-segment);
   }
   .cherry-tabs[data-variant="pill"] .cherry-tabs__indicator {
-    top: 2px;
-    bottom: 2px;
-    border-radius: var(--cherry-radius-sm);
-    background: var(--cherry-bg-canvas);
-    box-shadow: var(--cherry-elevation-sm);
+    top: var(--_pad);
+    bottom: var(--_pad);
+    border-radius: calc(var(--_radius) - var(--_pad));
+    background: var(--cherry-bg-segment-selected);
+    box-shadow: var(--cherry-elevation-xs);
   }
   .cherry-tabs[data-variant="pill"] .cherry-tabs__tab {
     height: 28px;
     padding: 0 var(--cherry-space-3);
-    border-radius: var(--cherry-radius-sm);
+    border-radius: calc(var(--_radius) - var(--_pad));
   }
   .cherry-tabs[data-variant="pill"]
     .cherry-tabs__list:not([data-indicator])
     .cherry-tabs__tab[aria-selected="true"] {
-    background: var(--cherry-bg-canvas);
-    box-shadow: var(--cherry-elevation-sm);
+    background: var(--cherry-bg-segment-selected);
+    box-shadow: var(--cherry-elevation-xs);
   }
 
   /* Underline: a 2px bar on the list's bottom border. */

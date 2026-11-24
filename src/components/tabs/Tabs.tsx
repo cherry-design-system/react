@@ -139,8 +139,13 @@ export const TabList = forwardRef<HTMLDivElement, TabListProps>(
           el.removeAttribute("data-indicator");
           return;
         }
-        el.style.setProperty("--_indicator-x", `${active.offsetLeft}px`);
-        el.style.setProperty("--_indicator-w", `${active.offsetWidth}px`);
+        // Sub-pixel geometry: offsetLeft/offsetWidth round to whole pixels,
+        // which leaves the pill up to a pixel off its tab at either end.
+        const listBox = el.getBoundingClientRect();
+        const tabBox = active.getBoundingClientRect();
+        const x = tabBox.left - listBox.left - el.clientLeft + el.scrollLeft;
+        el.style.setProperty("--_indicator-x", `${x}px`);
+        el.style.setProperty("--_indicator-w", `${tabBox.width}px`);
         if (el.getAttribute("data-indicator") !== "ready") {
           if (!el.hasAttribute("data-indicator"))
             el.setAttribute("data-indicator", "static");
