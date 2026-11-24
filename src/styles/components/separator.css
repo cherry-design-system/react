@@ -1,0 +1,41 @@
+/* Separator: a 1px rule (Figma "Separator"), optionally with a centered
+   label. Static: nothing here changes state, so nothing animates. */
+@layer cherry {
+  .cherry-separator {
+    flex-shrink: 0;
+    background: var(--cherry-border-default);
+  }
+  .cherry-separator[data-orientation="horizontal"] {
+    width: 100%;
+    height: 1px;
+  }
+  .cherry-separator[data-orientation="vertical"] {
+    align-self: stretch;
+    width: 1px;
+    min-height: 1em;
+  }
+  .cherry-separator[data-labelled] {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-3);
+    height: auto;
+    background: none;
+    color: var(--cherry-fg-subtle);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-eyebrow-size);
+    line-height: var(--cherry-text-eyebrow-line-height);
+    letter-spacing: var(--cherry-text-eyebrow-tracking);
+    font-weight: var(--cherry-text-eyebrow-weight);
+    text-transform: uppercase;
+  }
+  .cherry-separator[data-labelled]::before,
+  .cherry-separator[data-labelled]::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--cherry-border-default);
+  }
+  .cherry-separator__label {
+    flex-shrink: 0;
+  }
+}

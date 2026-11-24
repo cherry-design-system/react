@@ -1,0 +1,209 @@
+/* AvatarDropzone: a round drop target, dashed while empty. The picture
+   scales in, the remove badge pops on its corner, and removing fades the
+   picture out (the component keeps it mounted for that). */
+@layer cherry {
+  .cherry-avatar-dropzone {
+    --_size: 96px;
+    --_icon: 24px;
+    --_border: var(--cherry-border-strong);
+    --_bg: var(--cherry-bg-canvas);
+    --_ring: none;
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    width: var(--_size);
+    height: var(--_size);
+  }
+
+  .cherry-avatar-dropzone__target {
+    position: relative;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 1px dashed var(--_border);
+    border-radius: var(--cherry-radius-full);
+    background: var(--_bg);
+    box-shadow: var(--_ring);
+    color: var(--cherry-fg-muted);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-base) var(--cherry-easing-spring);
+  }
+  .cherry-avatar-dropzone:hover:not([data-disabled])
+    .cherry-avatar-dropzone__target {
+    --_border: var(--cherry-border-focus);
+    --_bg: var(--cherry-bg-subtle);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-avatar-dropzone:has(.cherry-avatar-dropzone__input:focus-visible) {
+    --_border: var(--cherry-border-focus);
+    --_ring: var(--cherry-ring);
+  }
+  .cherry-avatar-dropzone[data-drag-over] {
+    --_border: var(--cherry-fg-muted);
+    --_bg: var(--cherry-bg-muted);
+  }
+  .cherry-avatar-dropzone[data-drag-over] .cherry-avatar-dropzone__target {
+    transform: scale(1.04);
+  }
+  .cherry-avatar-dropzone[data-filled] {
+    --_border: transparent;
+  }
+  .cherry-avatar-dropzone[data-invalid] {
+    --_border: var(--cherry-danger-fg);
+    --_ring: var(--cherry-ring-danger);
+  }
+  .cherry-avatar-dropzone[data-disabled] {
+    opacity: 0.5;
+  }
+  .cherry-avatar-dropzone[data-disabled] .cherry-avatar-dropzone__target {
+    cursor: not-allowed;
+  }
+
+  .cherry-avatar-dropzone__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    border: 0;
+    white-space: nowrap;
+  }
+
+  .cherry-avatar-dropzone__icon,
+  .cherry-avatar-dropzone__image {
+    grid-area: 1 / 1;
+  }
+  .cherry-avatar-dropzone__icon {
+    display: inline-flex;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-base) var(--cherry-easing-spring);
+  }
+  .cherry-avatar-dropzone__icon > svg {
+    width: var(--_icon);
+    height: var(--_icon);
+  }
+  .cherry-avatar-dropzone[data-filled] .cherry-avatar-dropzone__icon {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  .cherry-avatar-dropzone__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(0.92);
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-avatar-dropzone[data-filled] .cherry-avatar-dropzone__image {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--cherry-duration-base) var(--cherry-easing-out),
+      transform var(--cherry-duration-slow) var(--cherry-easing-spring);
+  }
+  @starting-style {
+    .cherry-avatar-dropzone[data-filled] .cherry-avatar-dropzone__image {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+  }
+
+  /* Remove badge: pops in on the corner, outside the clipped circle. */
+  .cherry-avatar-dropzone__remove {
+    appearance: none;
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-elevated);
+    color: var(--cherry-fg-muted);
+    box-shadow: var(--cherry-elevation-sm);
+    cursor: pointer;
+    transition:
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+    animation: cherry-avatar-dropzone-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop) calc(var(--cherry-duration-base) * 0.4) both;
+  }
+  /* Exit: shrinks away with the picture (kept mounted, inert, meanwhile). */
+  .cherry-avatar-dropzone:not([data-filled]) .cherry-avatar-dropzone__remove {
+    opacity: 0;
+    transform: scale(0.4);
+    pointer-events: none;
+    animation: none;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-avatar-dropzone__remove > svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.5;
+  }
+  .cherry-avatar-dropzone__remove:hover:not(:disabled) {
+    color: var(--cherry-danger-fg);
+  }
+  .cherry-avatar-dropzone__remove:active:not(:disabled) {
+    transform: scale(0.94);
+  }
+  .cherry-avatar-dropzone__remove:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-elevation-sm), var(--cherry-ring);
+  }
+  .cherry-avatar-dropzone__remove:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Sizes (Figma: 64 / 96 / 128) */
+  .cherry-avatar-dropzone[data-size="sm"] {
+    --_size: 64px;
+    --_icon: 20px;
+  }
+  .cherry-avatar-dropzone[data-size="sm"] .cherry-avatar-dropzone__remove {
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
+  .cherry-avatar-dropzone[data-size="md"] {
+    --_size: 96px;
+    --_icon: 24px;
+  }
+  .cherry-avatar-dropzone[data-size="lg"] {
+    --_size: 128px;
+    --_icon: 28px;
+  }
+
+  @keyframes cherry-avatar-dropzone-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}

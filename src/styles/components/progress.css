@@ -1,0 +1,114 @@
+/* Progress. Determinate: the fill is full width and translated by the
+   value (--_value, 0..1), so new values ease with a transform; on mount it
+   grows in from empty. Indeterminate: a 40% segment slides across. */
+@layer cherry {
+  .cherry-progress {
+    --_value: 0;
+    --_height: 6px;
+    --_fill: var(--cherry-primary-default);
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-2);
+    width: 100%;
+    font-family: var(--cherry-font-sans);
+  }
+
+  .cherry-progress__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--cherry-space-3);
+  }
+  .cherry-progress__label {
+    min-width: 0;
+    color: var(--cherry-fg-default);
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: var(--cherry-text-label-md-weight);
+  }
+  .cherry-progress__value {
+    flex-shrink: 0;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cherry-progress__track {
+    position: relative;
+    height: var(--_height);
+    overflow: hidden;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-muted);
+  }
+  .cherry-progress__fill {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--_fill);
+    transform: translateX(calc((var(--_value) - 1) * 100%));
+    transition:
+      transform var(--cherry-duration-slow) var(--cherry-easing-standard),
+      background-color var(--cherry-duration-base) var(--cherry-easing-standard);
+  }
+  @starting-style {
+    .cherry-progress__fill {
+      transform: translateX(-100%);
+    }
+  }
+
+  .cherry-progress[data-indeterminate] .cherry-progress__fill {
+    right: auto;
+    width: 40%;
+    transform: translateX(-100%);
+    transition: none;
+    animation: cherry-progress-indeterminate 1400ms
+      var(--cherry-easing-standard) infinite;
+  }
+
+  .cherry-progress[data-variant="default"] {
+    --_fill: var(--cherry-primary-default);
+  }
+  .cherry-progress[data-variant="success"] {
+    --_fill: var(--cherry-success-solid);
+  }
+  .cherry-progress[data-variant="danger"] {
+    --_fill: var(--cherry-danger-solid);
+  }
+
+  .cherry-progress[data-size="sm"] {
+    --_height: 4px;
+  }
+  .cherry-progress[data-size="md"] {
+    --_height: 6px;
+  }
+
+  /* Reduced motion: no sliding; the indeterminate bar breathes instead. */
+  @media (prefers-reduced-motion: reduce) {
+    .cherry-progress[data-indeterminate] .cherry-progress__fill {
+      width: 100%;
+      transform: none;
+      animation: cherry-progress-pulse 2400ms var(--cherry-easing-standard)
+        infinite;
+    }
+  }
+
+  @keyframes cherry-progress-indeterminate {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(250%);
+    }
+  }
+  @keyframes cherry-progress-pulse {
+    0%,
+    100% {
+      opacity: 0.25;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+}

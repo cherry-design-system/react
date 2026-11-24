@@ -1,0 +1,24 @@
+{
+  "name": "radio",
+  "class": "cherry-radio",
+  "attributes": {
+    "size": ["sm", "md", "lg"],
+    "orientation": ["vertical", "horizontal"]
+  },
+  "states": [
+    ":checked",
+    ":disabled",
+    ":focus-visible",
+    ":hover",
+    ":active",
+    "data-invalid",
+    "data-disabled"
+  ],
+  "parts": [
+    "cherry-radio-group",
+    "cherry-radio__control",
+    "cherry-radio__input",
+    "cherry-radio__dot",
+    "cherry-radio__label"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "nav-pill",
+  "class": "cherry-nav-pill",
+  "attributes": {},
+  "states": [
+    "data-indicator",
+    "[aria-current=\"page\"]",
+    ":hover",
+    ":focus-visible"
+  ],
+  "parts": [
+    "cherry-nav-pill__list",
+    "cherry-nav-pill__indicator",
+    "cherry-nav-item",
+    "cherry-nav-item__link",
+    "cherry-nav-item__icon"
+  ]
+}

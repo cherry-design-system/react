@@ -1,0 +1,7 @@
+{
+  "name": "container",
+  "class": "cherry-container",
+  "attributes": {},
+  "states": ["data-fluid"],
+  "parts": []
+}

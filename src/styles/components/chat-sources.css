@@ -1,0 +1,108 @@
+/* ChatSources (Figma "ChatSource"): pill links numbered by a CSS counter.
+   The index circle sits on bg-muted with the default text color, so it
+   stays readable in light mode; on hover it fills with primary. Chips
+   arrive one after another. */
+@layer cherry {
+  .cherry-chat-sources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cherry-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: cherry-chat-source;
+  }
+  .cherry-chat-sources__item {
+    display: flex;
+    min-width: 0;
+    counter-increment: cherry-chat-source;
+    animation: cherry-chat-sources-in var(--cherry-duration-base)
+      var(--cherry-easing-out) backwards;
+  }
+  .cherry-chat-sources__item:nth-child(2) {
+    animation-delay: calc(var(--cherry-duration-base) * 0.2);
+  }
+  .cherry-chat-sources__item:nth-child(3) {
+    animation-delay: calc(var(--cherry-duration-base) * 0.4);
+  }
+  .cherry-chat-sources__item:nth-child(4) {
+    animation-delay: calc(var(--cherry-duration-base) * 0.6);
+  }
+  .cherry-chat-sources__item:nth-child(n + 5) {
+    animation-delay: calc(var(--cherry-duration-base) * 0.8);
+  }
+
+  .cherry-chat-source {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    height: 28px;
+    padding: 0 var(--cherry-space-3) 0 6px;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-canvas);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-label-sm-size);
+    line-height: var(--cherry-text-label-sm-line-height);
+    font-weight: var(--cherry-text-label-sm-weight);
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-chat-source::before {
+    content: counter(cherry-chat-source);
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    box-sizing: border-box;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-muted);
+    color: var(--cherry-fg-default);
+    font-size: 0.625rem;
+    line-height: 1;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-chat-source__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .cherry-chat-source:hover {
+    border-color: var(--cherry-border-strong);
+    background: var(--cherry-bg-subtle);
+  }
+  .cherry-chat-source:hover::before {
+    background: var(--cherry-primary-default);
+    color: var(--cherry-primary-fg);
+  }
+  .cherry-chat-source:active {
+    transform: scale(0.98);
+  }
+  .cherry-chat-source:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+
+  @keyframes cherry-chat-sources-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

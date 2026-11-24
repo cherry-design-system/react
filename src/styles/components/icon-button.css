@@ -73,7 +73,17 @@
     --_fg-hover: var(--cherry-primary-fg);
   }
 
-  .cherry-icon-button[data-size="sm"] { --_size: 28px; --_icon: 14px; border-radius: var(--cherry-radius-sm); }
-  .cherry-icon-button[data-size="md"] { --_size: 32px; --_icon: 16px; }
-  .cherry-icon-button[data-size="lg"] { --_size: 36px; --_icon: 18px; }
+  .cherry-icon-button[data-size="sm"] {
+    --_size: 28px;
+    --_icon: 14px;
+    border-radius: var(--cherry-radius-sm);
+  }
+  .cherry-icon-button[data-size="md"] {
+    --_size: 32px;
+    --_icon: 16px;
+  }
+  .cherry-icon-button[data-size="lg"] {
+    --_size: 36px;
+    --_icon: 18px;
+  }
 }

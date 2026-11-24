@@ -1,0 +1,14 @@
+{
+  "name": "card",
+  "class": "cherry-card",
+  "attributes": {
+    "variant": ["outline", "elevated", "filled"],
+    "padding": ["none", "sm", "md", "lg"]
+  },
+  "states": ["data-interactive", ":hover", ":focus-within"],
+  "parts": [
+    "cherry-card__icon",
+    "cherry-card__title",
+    "cherry-card__description"
+  ]
+}

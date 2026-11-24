@@ -3,5 +3,10 @@
   "class": "cherry-toggle",
   "attributes": { "size": ["sm", "md", "lg"] },
   "states": [":checked", ":disabled", ":focus-visible", "data-invalid"],
-  "parts": ["cherry-toggle__input", "cherry-toggle__track", "cherry-toggle__thumb", "cherry-toggle__label"]
+  "parts": [
+    "cherry-toggle__input",
+    "cherry-toggle__track",
+    "cherry-toggle__thumb",
+    "cherry-toggle__label"
+  ]
 }

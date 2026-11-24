@@ -1,0 +1,153 @@
+/* Flex + Stack: a ported 1.x flex row (wraps, gutter gap that widens at
+   lg), every prop responsive through custom properties. */
+@layer cherry {
+  /* Responsive props arrive as inline custom properties per breakpoint
+     (--_<prop>-xs ... --_<prop>-xxxl). Each is reset to initial here so a
+     nested layout never inherits its parent's values, then folded into an
+     "at" chain so a value set at md holds through every larger breakpoint.
+     Media queries cannot read custom properties, so the breakpoint widths
+     are hardcoded below and mirror --cherry-breakpoint-sm ... -xxxl
+     (576 / 768 / 992 / 1200 / 1440 / 1920). */
+  .cherry-flex {
+    --_direction-xs: initial;
+    --_direction-sm: initial;
+    --_direction-md: initial;
+    --_direction-lg: initial;
+    --_direction-xl: initial;
+    --_direction-xxl: initial;
+    --_direction-xxxl: initial;
+    --_justify-xs: initial;
+    --_justify-sm: initial;
+    --_justify-md: initial;
+    --_justify-lg: initial;
+    --_justify-xl: initial;
+    --_justify-xxl: initial;
+    --_justify-xxxl: initial;
+    --_align-xs: initial;
+    --_align-sm: initial;
+    --_align-md: initial;
+    --_align-lg: initial;
+    --_align-xl: initial;
+    --_align-xxl: initial;
+    --_align-xxxl: initial;
+    --_wrap-xs: initial;
+    --_wrap-sm: initial;
+    --_wrap-md: initial;
+    --_wrap-lg: initial;
+    --_wrap-xl: initial;
+    --_wrap-xxl: initial;
+    --_wrap-xxxl: initial;
+    --_gap-xs: initial;
+    --_gap-sm: initial;
+    --_gap-md: initial;
+    --_gap-lg: initial;
+    --_gap-xl: initial;
+    --_gap-xxl: initial;
+    --_gap-xxxl: initial;
+    --_direction-at-xs: var(--_direction-xs);
+    --_direction-at-sm: var(--_direction-sm, var(--_direction-at-xs));
+    --_direction-at-md: var(--_direction-md, var(--_direction-at-sm));
+    --_direction-at-lg: var(--_direction-lg, var(--_direction-at-md));
+    --_direction-at-xl: var(--_direction-xl, var(--_direction-at-lg));
+    --_direction-at-xxl: var(--_direction-xxl, var(--_direction-at-xl));
+    --_direction-at-xxxl: var(--_direction-xxxl, var(--_direction-at-xxl));
+    --_justify-at-xs: var(--_justify-xs);
+    --_justify-at-sm: var(--_justify-sm, var(--_justify-at-xs));
+    --_justify-at-md: var(--_justify-md, var(--_justify-at-sm));
+    --_justify-at-lg: var(--_justify-lg, var(--_justify-at-md));
+    --_justify-at-xl: var(--_justify-xl, var(--_justify-at-lg));
+    --_justify-at-xxl: var(--_justify-xxl, var(--_justify-at-xl));
+    --_justify-at-xxxl: var(--_justify-xxxl, var(--_justify-at-xxl));
+    --_align-at-xs: var(--_align-xs);
+    --_align-at-sm: var(--_align-sm, var(--_align-at-xs));
+    --_align-at-md: var(--_align-md, var(--_align-at-sm));
+    --_align-at-lg: var(--_align-lg, var(--_align-at-md));
+    --_align-at-xl: var(--_align-xl, var(--_align-at-lg));
+    --_align-at-xxl: var(--_align-xxl, var(--_align-at-xl));
+    --_align-at-xxxl: var(--_align-xxxl, var(--_align-at-xxl));
+    --_wrap-at-xs: var(--_wrap-xs);
+    --_wrap-at-sm: var(--_wrap-sm, var(--_wrap-at-xs));
+    --_wrap-at-md: var(--_wrap-md, var(--_wrap-at-sm));
+    --_wrap-at-lg: var(--_wrap-lg, var(--_wrap-at-md));
+    --_wrap-at-xl: var(--_wrap-xl, var(--_wrap-at-lg));
+    --_wrap-at-xxl: var(--_wrap-xxl, var(--_wrap-at-xl));
+    --_wrap-at-xxxl: var(--_wrap-xxxl, var(--_wrap-at-xxl));
+    --_gap-at-xs: var(--_gap-xs);
+    --_gap-at-sm: var(--_gap-sm, var(--_gap-at-xs));
+    --_gap-at-md: var(--_gap-md, var(--_gap-at-sm));
+    --_gap-at-lg: var(--_gap-lg, var(--_gap-at-md));
+    --_gap-at-xl: var(--_gap-xl, var(--_gap-at-lg));
+    --_gap-at-xxl: var(--_gap-xxl, var(--_gap-at-xl));
+    --_gap-at-xxxl: var(--_gap-xxxl, var(--_gap-at-xxl));
+    flex-direction: var(--_direction-at-xs, row);
+    justify-content: var(--_justify-at-xs, flex-start);
+    align-items: var(--_align-at-xs, stretch);
+    flex-wrap: var(--_wrap-at-xs, wrap);
+    gap: var(--_gap-at-xs, var(--cherry-gutter-mobile));
+  }
+  @media (min-width: 576px) {
+    .cherry-flex {
+      flex-direction: var(--_direction-at-sm, row);
+      justify-content: var(--_justify-at-sm, flex-start);
+      align-items: var(--_align-at-sm, stretch);
+      flex-wrap: var(--_wrap-at-sm, wrap);
+      gap: var(--_gap-at-sm, var(--cherry-gutter-mobile));
+    }
+  }
+  @media (min-width: 768px) {
+    .cherry-flex {
+      flex-direction: var(--_direction-at-md, row);
+      justify-content: var(--_justify-at-md, flex-start);
+      align-items: var(--_align-at-md, stretch);
+      flex-wrap: var(--_wrap-at-md, wrap);
+      gap: var(--_gap-at-md, var(--cherry-gutter-mobile));
+    }
+  }
+  @media (min-width: 992px) {
+    .cherry-flex {
+      flex-direction: var(--_direction-at-lg, row);
+      justify-content: var(--_justify-at-lg, flex-start);
+      align-items: var(--_align-at-lg, stretch);
+      flex-wrap: var(--_wrap-at-lg, wrap);
+      gap: var(--_gap-at-lg, var(--cherry-gutter-desktop));
+    }
+  }
+  @media (min-width: 1200px) {
+    .cherry-flex {
+      flex-direction: var(--_direction-at-xl, row);
+      justify-content: var(--_justify-at-xl, flex-start);
+      align-items: var(--_align-at-xl, stretch);
+      flex-wrap: var(--_wrap-at-xl, wrap);
+      gap: var(--_gap-at-xl, var(--cherry-gutter-desktop));
+    }
+  }
+  @media (min-width: 1440px) {
+    .cherry-flex {
+      flex-direction: var(--_direction-at-xxl, row);
+      justify-content: var(--_justify-at-xxl, flex-start);
+      align-items: var(--_align-at-xxl, stretch);
+      flex-wrap: var(--_wrap-at-xxl, wrap);
+      gap: var(--_gap-at-xxl, var(--cherry-gutter-desktop));
+    }
+  }
+  @media (min-width: 1920px) {
+    .cherry-flex {
+      flex-direction: var(--_direction-at-xxxl, row);
+      justify-content: var(--_justify-at-xxxl, flex-start);
+      align-items: var(--_align-at-xxxl, stretch);
+      flex-wrap: var(--_wrap-at-xxxl, wrap);
+      gap: var(--_gap-at-xxxl, var(--cherry-gutter-desktop));
+    }
+  }
+
+  .cherry-flex {
+    display: flex;
+    min-width: 0;
+  }
+  .cherry-flex[data-inline] {
+    display: inline-flex;
+  }
+  .cherry-flex[data-full-width] {
+    width: 100%;
+  }
+}

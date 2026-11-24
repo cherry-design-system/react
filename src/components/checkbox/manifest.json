@@ -1,0 +1,23 @@
+{
+  "name": "checkbox",
+  "class": "cherry-checkbox",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": [
+    ":checked",
+    ":indeterminate",
+    ":disabled",
+    ":focus-visible",
+    ":hover",
+    ":active",
+    "data-invalid",
+    "data-disabled"
+  ],
+  "parts": [
+    "cherry-checkbox__control",
+    "cherry-checkbox__input",
+    "cherry-checkbox__icon",
+    "cherry-checkbox__check",
+    "cherry-checkbox__dash",
+    "cherry-checkbox__label"
+  ]
+}

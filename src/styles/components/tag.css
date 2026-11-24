@@ -1,0 +1,145 @@
+/* Tag: removable value chip. It fades and scales in on mount; on removal it
+   fades, shrinks and collapses its width (from the measured --_w) so the
+   tags after it close the gap, then React drops it on animationend. */
+@layer cherry {
+  .cherry-tag {
+    --_h: 26px;
+    --_px: 10px;
+    --_bg: var(--cherry-bg-muted);
+    --_fg: var(--cherry-fg-default);
+    --_border: transparent;
+    --_remove-fg: var(--cherry-fg-muted);
+    --_remove-hover: var(--cherry-secondary-hover);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cherry-space-1);
+    box-sizing: border-box;
+    max-width: 100%;
+    height: var(--_h);
+    padding: 0 var(--_px);
+    border: 1px solid var(--_border);
+    border-radius: var(--cherry-radius-sm);
+    background: var(--_bg);
+    color: var(--_fg);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-label-sm-size);
+    line-height: var(--cherry-text-label-sm-line-height);
+    letter-spacing: var(--cherry-text-label-sm-tracking);
+    font-weight: var(--cherry-text-label-sm-weight);
+    white-space: nowrap;
+    vertical-align: middle;
+    transform-origin: center;
+    animation: cherry-tag-in var(--cherry-duration-fast)
+      var(--cherry-easing-out);
+  }
+  .cherry-tag:has(.cherry-tag__remove) {
+    padding-inline-end: 4px;
+  }
+  .cherry-tag__label {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cherry-tag__remove {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--cherry-radius-xs);
+    background: transparent;
+    color: var(--_remove-fg);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-tag__remove > svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 2.5;
+  }
+  .cherry-tag__remove:hover:not(:disabled) {
+    background: var(--_remove-hover);
+    color: var(--_fg);
+  }
+  .cherry-tag__remove:active:not(:disabled) {
+    transform: scale(0.94);
+  }
+  .cherry-tag__remove:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-tag__remove:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .cherry-tag[data-exiting] {
+    width: var(--_w);
+    overflow: hidden;
+    pointer-events: none;
+    animation: cherry-tag-out var(--cherry-duration-base)
+      var(--cherry-easing-standard) forwards;
+  }
+  .cherry-tag[data-exiting] .cherry-tag__remove:disabled {
+    opacity: 1;
+  }
+
+  /* Variants */
+  .cherry-tag[data-variant="neutral"] {
+    --_bg: var(--cherry-bg-muted);
+  }
+  .cherry-tag[data-variant="outline"] {
+    --_bg: var(--cherry-bg-canvas);
+    --_border: var(--cherry-border-default);
+    --_remove-hover: var(--cherry-ghost-hover);
+  }
+  .cherry-tag[data-variant="accent"] {
+    --_bg: var(--cherry-accent-subtle);
+    --_fg: var(--cherry-accent-fg);
+    --_border: var(--cherry-danger-border);
+    --_remove-fg: var(--cherry-accent-fg);
+    --_remove-hover: var(--cherry-danger-border);
+  }
+
+  /* Sizes */
+  .cherry-tag[data-size="sm"] {
+    --_h: 22px;
+    --_px: var(--cherry-space-2);
+    font-size: var(--cherry-text-label-xs-size);
+    line-height: var(--cherry-text-label-xs-line-height);
+    letter-spacing: var(--cherry-text-label-xs-tracking);
+  }
+  .cherry-tag[data-size="sm"] .cherry-tag__remove {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-tag[data-size="md"] {
+    --_h: 26px;
+  }
+
+  @keyframes cherry-tag-in {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+  }
+  @keyframes cherry-tag-out {
+    to {
+      opacity: 0;
+      transform: scale(0.85);
+      width: 0;
+      padding-inline: 0;
+      border-width: 0;
+      margin-inline: 0;
+    }
+  }
+}

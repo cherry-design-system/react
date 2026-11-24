@@ -1,0 +1,15 @@
+{
+  "name": "breadcrumb",
+  "class": "cherry-breadcrumb",
+  "attributes": {
+    "separator": ["chevron", "slash"]
+  },
+  "states": ["[aria-current=\"page\"]", ":hover", ":focus-visible"],
+  "parts": [
+    "cherry-breadcrumb__list",
+    "cherry-breadcrumb__item",
+    "cherry-breadcrumb__link",
+    "cherry-breadcrumb__current",
+    "cherry-breadcrumb__separator"
+  ]
+}

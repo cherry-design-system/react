@@ -1,0 +1,13 @@
+{
+  "name": "search-result",
+  "class": "cherry-search-result",
+  "attributes": {},
+  "states": ["data-active", "aria-selected", "aria-disabled", ":hover"],
+  "parts": [
+    "cherry-search-result__icon",
+    "cherry-search-result__text",
+    "cherry-search-result__label",
+    "cherry-search-result__description",
+    "cherry-search-result__arrow"
+  ]
+}

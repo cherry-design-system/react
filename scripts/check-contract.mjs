@@ -17,8 +17,14 @@ function checkLayer(file, css) {
   for (let i = 0; i < clean.length; i++) {
     const ch = clean[i];
     if (ch === "{") {
-      if (depth === 0 && !/^\s*@layer\s+cherry\b/.test(header) && !/^\s*@layer\s+cherry\s*;?\s*$/.test(header)) {
-        errors.push(`${file}: top-level block outside @layer cherry: "${header.trim().slice(0, 60)}"`);
+      if (
+        depth === 0 &&
+        !/^\s*@layer\s+cherry\b/.test(header) &&
+        !/^\s*@layer\s+cherry\s*;?\s*$/.test(header)
+      ) {
+        errors.push(
+          `${file}: top-level block outside @layer cherry: "${header.trim().slice(0, 60)}"`,
+        );
       }
       depth++;
       header = "";
@@ -35,7 +41,8 @@ function checkImportant(file, css) {
   const clean = css.replace(/\/\*[\s\S]*?\*\//g, "");
   const count = (clean.match(/!important/g) || []).length;
   const allowed = file === "base.css" ? 1 : 0;
-  if (count > allowed) errors.push(`${file}: ${count} !important (allowed ${allowed})`);
+  if (count > allowed)
+    errors.push(`${file}: ${count} !important (allowed ${allowed})`);
 }
 
 for (const f of ["tokens.css", "base.css"]) {
@@ -45,7 +52,9 @@ for (const f of ["tokens.css", "base.css"]) {
 }
 
 const compDir = new URL("../src/components/", import.meta.url);
-for (const dir of readdirSync(compDir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)) {
+for (const dir of readdirSync(compDir, { withFileTypes: true })
+  .filter((d) => d.isDirectory())
+  .map((d) => d.name)) {
   const mf = new URL(`${dir}/manifest.json`, compDir);
   if (!existsSync(mf)) continue;
   const m = JSON.parse(readFileSync(mf));
@@ -57,10 +66,16 @@ for (const dir of readdirSync(compDir, { withFileTypes: true }).filter((d) => d.
   const css = readFileSync(cssFile, "utf8");
   checkLayer(`components/${m.name}.css`, css);
   checkImportant(`components/${m.name}.css`, css);
-  if (!css.includes(`.${m.class}`)) errors.push(`${m.name}: CSS never uses .${m.class}`);
+  if (!css.includes(`.${m.class}`))
+    errors.push(`${m.name}: CSS never uses .${m.class}`);
   for (const [attr, values] of Object.entries(m.attributes ?? {})) {
     for (const v of values) {
-      if (m.defaults && m.defaults[attr] === v && !(m.requireDefaultSelector ?? false)) continue;
+      if (
+        m.defaults &&
+        m.defaults[attr] === v &&
+        !(m.requireDefaultSelector ?? false)
+      )
+        continue;
       const sel = `[data-${attr}="${v}"]`;
       if (!css.includes(sel)) errors.push(`${m.name}: no selector for ${sel}`);
     }
@@ -68,7 +83,10 @@ for (const dir of readdirSync(compDir, { withFileTypes: true }).filter((d) => d.
 }
 
 if (errors.length) {
-  console.error(`contract: ${errors.length} problem(s)\n` + errors.map((e) => `  - ${e}`).join("\n"));
+  console.error(
+    `contract: ${errors.length} problem(s)\n` +
+      errors.map((e) => `  - ${e}`).join("\n"),
+  );
   process.exit(1);
 }
 console.log("contract: ok");

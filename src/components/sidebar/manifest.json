@@ -1,0 +1,27 @@
+{
+  "name": "sidebar",
+  "class": "cherry-sidebar",
+  "attributes": {},
+  "states": [
+    "data-collapsed",
+    "[aria-current=\"page\"]",
+    "[open]",
+    ":disabled",
+    ":hover",
+    ":focus-visible"
+  ],
+  "parts": [
+    "cherry-sidebar__header",
+    "cherry-sidebar__nav",
+    "cherry-sidebar__footer",
+    "cherry-sidebar__group",
+    "cherry-sidebar__group-label",
+    "cherry-sidebar__group-chevron",
+    "cherry-sidebar__list",
+    "cherry-sidebar__item",
+    "cherry-sidebar__link",
+    "cherry-sidebar__icon",
+    "cherry-sidebar__label",
+    "cherry-sidebar__badge"
+  ]
+}

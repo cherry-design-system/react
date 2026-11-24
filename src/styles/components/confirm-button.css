@@ -1,0 +1,206 @@
+/* ConfirmButton: a square trigger that, on the first click, slides a
+   confirm / cancel pill out beside it. The control's width grows by the
+   pill's (known) width on the spring easing, clipping the pill while it
+   fades and scales in from the trigger side; everything reverses on exit. */
+@layer cherry {
+  .cherry-confirm-button {
+    --_size: 36px;
+    --_action: 28px;
+    --_icon: 16px;
+    --_action-icon: 14px;
+    --_overlap: 6px;
+    /* Pill beside the trigger: two actions, an 8px gap, 4px padding. */
+    --_panel: calc(var(--_action) * 2 + var(--cherry-space-2) + 8px);
+    display: inline-grid;
+    grid-template-columns: var(--_size) minmax(0, 1fr);
+    align-items: center;
+    box-sizing: border-box;
+    width: var(--_size);
+    vertical-align: middle;
+    transition: width var(--cherry-duration-base) var(--cherry-easing-spring);
+  }
+  .cherry-confirm-button[data-state="confirm"] {
+    width: calc(var(--_size) + var(--_panel));
+  }
+  .cherry-confirm-button[data-state="idle"] .cherry-confirm-button__panel {
+    pointer-events: none;
+  }
+
+  .cherry-confirm-button__trigger {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    width: var(--_size);
+    height: var(--_size);
+    padding: 0;
+    border: 0;
+    border-radius: var(--cherry-radius-md);
+    background: var(--cherry-secondary-default);
+    color: var(--cherry-fg-muted);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      border-radius var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-confirm-button__trigger:hover:not(:disabled) {
+    background: var(--cherry-secondary-hover);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-confirm-button__trigger:active:not(:disabled) {
+    transform: scale(0.94);
+  }
+  .cherry-confirm-button__trigger:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-confirm-button__trigger:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  /* Confirm state: the trigger runs on under the pill. */
+  .cherry-confirm-button[data-state="confirm"] .cherry-confirm-button__trigger {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+    background: var(--cherry-secondary-default);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-confirm-button__glyph {
+    display: grid;
+    place-items: center;
+    transition: transform var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop);
+  }
+  .cherry-confirm-button__glyph > svg {
+    width: var(--_icon);
+    height: var(--_icon);
+  }
+  .cherry-confirm-button[data-state="confirm"] .cherry-confirm-button__glyph {
+    transform: rotate(-12deg) scale(1.05);
+  }
+
+  /* The growing track clips the pill; the margin keeps its shadow. */
+  .cherry-confirm-button__clip {
+    min-width: 0;
+    overflow: clip;
+    overflow-clip-margin: 12px;
+  }
+  .cherry-confirm-button__panel {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    width: max-content;
+    height: var(--_size);
+    box-sizing: border-box;
+    margin-inline-start: calc(var(--_overlap) * -1);
+    padding: 4px 4px 4px calc(4px + var(--_overlap));
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-elevated);
+    box-shadow: var(--cherry-elevation-md);
+    transform-origin: left center;
+    opacity: 0;
+    transform: translateX(-8px) scale(0.96);
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-confirm-button[data-state="confirm"] .cherry-confirm-button__panel {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-out),
+      transform var(--cherry-duration-base) var(--cherry-easing-spring);
+  }
+
+  .cherry-confirm-button__action {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    width: var(--_action);
+    height: var(--_action);
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--cherry-bg-muted);
+    color: var(--cherry-fg-muted);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-confirm-button__action > svg {
+    width: var(--_action-icon);
+    height: var(--_action-icon);
+    stroke-width: 2.5;
+  }
+  .cherry-confirm-button__action:hover {
+    background: var(--cherry-secondary-hover);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-confirm-button__action:active {
+    transform: scale(0.94);
+  }
+  .cherry-confirm-button__action:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  /* The destructive choice carries the accent. */
+  .cherry-confirm-button__action[data-action="confirm"] {
+    color: var(--cherry-danger-fg);
+  }
+  .cherry-confirm-button__action[data-action="confirm"]:hover {
+    background: var(--cherry-danger-bg);
+    color: var(--cherry-danger-fg);
+  }
+  .cherry-confirm-button__action[data-action="cancel"] {
+    color: var(--cherry-fg-muted);
+  }
+  /* Each action pops in just after the pill lands. */
+  .cherry-confirm-button__action > svg {
+    transform: scale(0.4);
+    opacity: 0;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-confirm-button[data-state="confirm"]
+    .cherry-confirm-button__action
+    > svg {
+    transform: none;
+    opacity: 1;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-out) 60ms,
+      transform var(--cherry-duration-emphasis) var(--cherry-easing-pop) 60ms;
+  }
+  .cherry-confirm-button[data-state="confirm"]
+    .cherry-confirm-button__action
+    + .cherry-confirm-button__action
+    > svg {
+    transition-delay: 120ms;
+  }
+
+  .cherry-confirm-button[data-size="md"] {
+    --_size: 36px;
+    --_action: 28px;
+  }
+  .cherry-confirm-button[data-size="lg"] {
+    --_size: 44px;
+    --_action: 36px;
+    --_icon: 18px;
+    --_action-icon: 16px;
+  }
+  .cherry-confirm-button[data-size="lg"] .cherry-confirm-button__trigger {
+    border-radius: var(--cherry-radius-lg);
+  }
+  .cherry-confirm-button[data-size="lg"][data-state="confirm"]
+    .cherry-confirm-button__trigger {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "modal",
+  "class": "cherry-modal",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": ["[open]", "::backdrop"],
+  "parts": [
+    "cherry-modal__header",
+    "cherry-modal__title",
+    "cherry-modal__description",
+    "cherry-modal__close",
+    "cherry-modal__body",
+    "cherry-modal__footer"
+  ]
+}

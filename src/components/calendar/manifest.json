@@ -1,0 +1,36 @@
+{
+  "name": "calendar",
+  "class": "cherry-calendar",
+  "attributes": {
+    "mode": ["single", "range"],
+    "direction": ["next", "prev"],
+    "range": ["start", "middle", "end"]
+  },
+  "defaults": { "mode": "single" },
+  "states": [
+    "data-outside",
+    "data-today",
+    "data-selected",
+    "data-preview",
+    "data-leaving",
+    "aria-selected",
+    "aria-current",
+    "aria-disabled",
+    ":focus-visible",
+    ":hover"
+  ],
+  "parts": [
+    "cherry-calendar__header",
+    "cherry-calendar__nav",
+    "cherry-calendar__title",
+    "cherry-calendar__title-text",
+    "cherry-calendar__grid",
+    "cherry-calendar__weekdays",
+    "cherry-calendar__weekday",
+    "cherry-calendar__viewport",
+    "cherry-calendar__weeks",
+    "cherry-calendar__week",
+    "cherry-calendar__cell",
+    "cherry-calendar__day"
+  ]
+}

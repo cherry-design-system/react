@@ -10,4 +10,11 @@ export {
   type ToastUpdate,
   type ToasterProps,
 } from "./Toast";
-export { toastColors, toastAligns, toastPositions, type ToastColor, type ToastAlign, type ToastPosition } from "./variants.gen";
+export {
+  toastColors,
+  toastAligns,
+  toastPositions,
+  type ToastColor,
+  type ToastAlign,
+  type ToastPosition,
+} from "./variants.gen";

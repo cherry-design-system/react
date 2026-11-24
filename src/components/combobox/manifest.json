@@ -1,0 +1,28 @@
+{
+  "name": "combobox",
+  "class": "cherry-combobox",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": [
+    "data-open",
+    "data-invalid",
+    "data-disabled",
+    "data-active",
+    "aria-selected",
+    "aria-disabled",
+    ":popover-open",
+    ":focus-within",
+    ":hover"
+  ],
+  "parts": [
+    "cherry-combobox__input",
+    "cherry-combobox__trigger",
+    "cherry-combobox__popover",
+    "cherry-combobox__listbox",
+    "cherry-combobox__option",
+    "cherry-combobox__option-label",
+    "cherry-combobox__check",
+    "cherry-combobox__empty",
+    "cherry-combobox__empty-title",
+    "cherry-combobox__empty-hint"
+  ]
+}

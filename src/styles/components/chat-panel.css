@@ -1,0 +1,337 @@
+/* ChatPanel (Figma "ChatPanel", 1.x chat-panel). Overlay variants are a
+   native <dialog>: the drawer slides from its edge, fullscreen fades and
+   scales, both ways, with @starting-style and allow-discrete on display
+   and overlay (no JS for the exit). The backdrop of a modal panel fades. */
+@layer cherry {
+  .cherry-chat-panel {
+    --_width: 420px;
+    --_enter: var(--cherry-duration-base) var(--cherry-easing-out);
+    --_exit: var(--cherry-duration-fast) var(--cherry-easing-standard);
+
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--cherry-bg-canvas);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+  }
+  /* A closed dialog stays display: none (the UA rule), so only open ones
+     take the flex layout. */
+  dialog.cherry-chat-panel:not([open]) {
+    display: none;
+  }
+
+  /* Inline: a bordered panel sized by its parent. */
+  .cherry-chat-panel[data-variant="inline"] {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-lg);
+  }
+
+  /* Drawer: fixed to one edge, full width below lg, 420px from lg. */
+  .cherry-chat-panel[data-variant="drawer"] {
+    position: fixed;
+    inset: 0 0 0 auto;
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+    box-shadow: var(--cherry-elevation-xl);
+    transform: translateX(100%);
+    opacity: 0;
+    transition:
+      transform var(--_exit),
+      opacity var(--_exit),
+      display var(--_exit) allow-discrete,
+      overlay var(--_exit) allow-discrete;
+  }
+  .cherry-chat-panel[data-variant="drawer"][data-side="right"] {
+    inset: 0 0 0 auto;
+    border-inline-start: 1px solid var(--cherry-border-default);
+  }
+  .cherry-chat-panel[data-variant="drawer"][data-side="left"] {
+    inset: 0 auto 0 0;
+    border-inline-end: 1px solid var(--cherry-border-default);
+    transform: translateX(-100%);
+  }
+  .cherry-chat-panel[data-variant="drawer"][open] {
+    transform: none;
+    opacity: 1;
+    transition:
+      transform var(--_enter),
+      opacity var(--_enter),
+      display var(--_enter) allow-discrete,
+      overlay var(--_enter) allow-discrete;
+  }
+  @starting-style {
+    .cherry-chat-panel[data-variant="drawer"][data-side="right"][open] {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    .cherry-chat-panel[data-variant="drawer"][data-side="left"][open] {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+  /* Breakpoint lg (--cherry-breakpoint-lg); media queries cannot read it. */
+  @media (min-width: 992px) {
+    .cherry-chat-panel[data-variant="drawer"] {
+      width: var(--_width);
+    }
+  }
+
+  /* Fullscreen: covers the viewport, fades and scales from 0.96. */
+  .cherry-chat-panel[data-variant="fullscreen"] {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100dvh;
+    max-height: 100dvh;
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+      transform var(--_exit),
+      opacity var(--_exit),
+      display var(--_exit) allow-discrete,
+      overlay var(--_exit) allow-discrete;
+  }
+  .cherry-chat-panel[data-variant="fullscreen"][open] {
+    opacity: 1;
+    transform: none;
+    transition:
+      transform var(--_enter),
+      opacity var(--_enter),
+      display var(--_enter) allow-discrete,
+      overlay var(--_enter) allow-discrete;
+  }
+  @starting-style {
+    .cherry-chat-panel[data-variant="fullscreen"][open] {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+
+  .cherry-chat-panel::backdrop {
+    background: var(--cherry-bg-overlay);
+    opacity: 0;
+    transition:
+      opacity var(--_exit),
+      display var(--_exit) allow-discrete,
+      overlay var(--_exit) allow-discrete;
+  }
+  .cherry-chat-panel[open]::backdrop {
+    opacity: 1;
+    transition:
+      opacity var(--_enter),
+      display var(--_enter) allow-discrete,
+      overlay var(--_enter) allow-discrete;
+  }
+  @starting-style {
+    .cherry-chat-panel[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  /* A modal panel freezes the page behind it. */
+  :root:has(.cherry-chat-panel:modal) {
+    overflow: hidden;
+  }
+
+  .cherry-chat-panel__header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--cherry-space-3);
+    min-height: 52px;
+    padding: var(--cherry-space-2) var(--cherry-space-3) var(--cherry-space-2)
+      var(--cherry-space-4);
+    border-bottom: 1px solid var(--cherry-border-default);
+  }
+  .cherry-chat-panel__title {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    min-width: 0;
+  }
+  .cherry-chat-panel__title > h2 {
+    margin: 0;
+    overflow: hidden;
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .cherry-chat-panel__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+  .cherry-chat-panel__icon > svg {
+    width: 18px;
+    height: 18px;
+  }
+  .cherry-chat-panel__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-1);
+  }
+
+  .cherry-chat-panel__body {
+    --_gap: var(--cherry-space-5);
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--_gap);
+    min-height: 0;
+    padding: var(--cherry-space-5) var(--cherry-space-4);
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+  /* A folded ChatTyping takes no room: pull back the gap it would add,
+     in step with its own fold. */
+  .cherry-chat-panel__body > .cherry-chat-typing {
+    margin-top: calc(var(--_gap) * -1);
+    transition:
+      grid-template-rows var(--cherry-duration-fast)
+        var(--cherry-easing-standard),
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      margin-top var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-chat-panel__body > .cherry-chat-typing[data-active] {
+    margin-top: 0;
+    transition:
+      grid-template-rows var(--cherry-duration-base) var(--cherry-easing-out),
+      opacity var(--cherry-duration-base) var(--cherry-easing-out),
+      margin-top var(--cherry-duration-base) var(--cherry-easing-out);
+  }
+  @starting-style {
+    .cherry-chat-panel__body > .cherry-chat-typing[data-active] {
+      margin-top: calc(var(--_gap) * -1);
+    }
+  }
+
+  .cherry-chat-panel > .cherry-chat-input {
+    flex-shrink: 0;
+    box-sizing: border-box;
+    padding: var(--cherry-space-3);
+  }
+
+  /* ChatLauncher: compact "Ask AI" pill. With data-glow its border is the
+     flowing AI gradient (two background layers: canvas on the padding box,
+     gradient on the border box). */
+  .cherry-chat-launcher {
+    --_ai: linear-gradient(
+      90deg,
+      var(--cherry-ai-from),
+      var(--cherry-ai-to),
+      var(--cherry-ai-from),
+      var(--cherry-ai-to)
+    );
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 32px;
+    padding: 0 var(--cherry-space-3);
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-canvas);
+    color: var(--cherry-fg-default);
+    box-shadow: var(--cherry-elevation-xs);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-label-sm-size);
+    line-height: var(--cherry-text-label-sm-line-height);
+    font-weight: var(--cherry-text-label-sm-weight);
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-chat-launcher:hover {
+    border-color: var(--cherry-border-strong);
+    background-color: var(--cherry-ghost-hover);
+  }
+  .cherry-chat-launcher:active {
+    transform: scale(0.98);
+  }
+  .cherry-chat-launcher:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-elevation-xs), var(--cherry-ring);
+  }
+  .cherry-chat-launcher[aria-expanded="true"] {
+    background-color: var(--cherry-bg-muted);
+  }
+  .cherry-chat-launcher__icon {
+    display: inline-flex;
+    color: var(--cherry-accent-fg);
+    transition: transform var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop);
+  }
+  .cherry-chat-launcher__icon > svg {
+    width: 14px;
+    height: 14px;
+  }
+  .cherry-chat-launcher:hover .cherry-chat-launcher__icon {
+    transform: rotate(-12deg) scale(1.12);
+  }
+  .cherry-chat-launcher[data-glow] {
+    border-color: transparent;
+    background:
+      linear-gradient(var(--cherry-bg-canvas), var(--cherry-bg-canvas))
+        padding-box,
+      var(--_ai) border-box;
+    background-size:
+      100% 100%,
+      300% 100%;
+    animation: cherry-chat-launcher-flow calc(var(--cherry-duration-slow) * 10)
+      linear infinite;
+  }
+  .cherry-chat-launcher[data-glow]:hover,
+  .cherry-chat-launcher[data-glow][aria-expanded="true"] {
+    box-shadow:
+      -4px 0 14px -4px var(--cherry-ai-from),
+      4px 0 14px -4px var(--cherry-ai-to);
+  }
+  .cherry-chat-launcher[data-glow]:focus-visible {
+    box-shadow:
+      -4px 0 14px -4px var(--cherry-ai-from),
+      4px 0 14px -4px var(--cherry-ai-to),
+      var(--cherry-ring);
+  }
+
+  /* Reduced motion: the launcher's gradient border holds still. */
+  @media (prefers-reduced-motion: reduce) {
+    .cherry-chat-launcher[data-glow] {
+      animation: none;
+    }
+  }
+
+  @keyframes cherry-chat-launcher-flow {
+    from {
+      background-position:
+        0 0,
+        0% 50%;
+    }
+    to {
+      background-position:
+        0 0,
+        100% 50%;
+    }
+  }
+}

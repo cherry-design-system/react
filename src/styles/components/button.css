@@ -52,7 +52,7 @@
     box-shadow: var(--_shadow), var(--cherry-ring);
   }
   .cherry-button:disabled,
-  .cherry-button[aria-disabled="true"] {
+  .cherry-button[aria-disabled="true"]:not([data-loading]) {
     opacity: 0.45;
     cursor: not-allowed;
   }

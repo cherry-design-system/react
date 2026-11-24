@@ -1,10 +1,19 @@
 "use client";
-import { forwardRef, useId, useMemo, type HTMLAttributes, type ReactNode } from "react";
+import {
+  forwardRef,
+  useId,
+  useMemo,
+  type HTMLAttributes,
+  type ReactNode,
+} from "react";
 import { CircleX } from "lucide-react";
 import { cx } from "../../utils/cx";
 import { FieldContext } from "./field-context";
 
-export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, "children"> {
+export interface FieldProps extends Omit<
+  HTMLAttributes<HTMLDivElement>,
+  "children"
+> {
   label: ReactNode;
   /** Helper text under the control. Hidden while an error shows. */
   hint?: ReactNode;
@@ -19,21 +28,45 @@ export interface FieldProps extends Omit<HTMLAttributes<HTMLDivElement>, "childr
 
 /** Label + control + hint/error, wired for assistive tech. */
 export const Field = forwardRef<HTMLDivElement, FieldProps>(function Field(
-  { label, hint, error, id, disabled = false, required = false, className, children, ...rest },
+  {
+    label,
+    hint,
+    error,
+    id,
+    disabled = false,
+    required = false,
+    className,
+    children,
+    ...rest
+  },
   ref,
 ) {
   const autoId = useId();
   const controlId = id ?? `cherry-field-${autoId}`;
   const messageId = `${controlId}-message`;
+  const labelId = `${controlId}-label`;
   const invalid = Boolean(error);
   const hasMessage = invalid || Boolean(hint);
   const value = useMemo(
-    () => ({ id: controlId, describedBy: hasMessage ? messageId : undefined, invalid, disabled, required }),
-    [controlId, hasMessage, messageId, invalid, disabled, required],
+    () => ({
+      id: controlId,
+      labelId,
+      describedBy: hasMessage ? messageId : undefined,
+      invalid,
+      disabled,
+      required,
+    }),
+    [controlId, labelId, hasMessage, messageId, invalid, disabled, required],
   );
   return (
-    <div ref={ref} className={cx("cherry-field", className)} data-invalid={invalid || undefined} data-disabled={disabled || undefined} {...rest}>
-      <label className="cherry-field__label" htmlFor={controlId}>
+    <div
+      ref={ref}
+      className={cx("cherry-field", className)}
+      data-invalid={invalid || undefined}
+      data-disabled={disabled || undefined}
+      {...rest}
+    >
+      <label className="cherry-field__label" id={labelId} htmlFor={controlId}>
         {label}
         {required ? (
           <span className="cherry-field__required" aria-hidden="true">

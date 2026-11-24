@@ -1,0 +1,19 @@
+{
+  "name": "stepper",
+  "class": "cherry-stepper",
+  "attributes": {
+    "orientation": ["horizontal", "vertical"],
+    "state": ["complete", "current", "upcoming"]
+  },
+  "states": ["[aria-current=\"step\"]"],
+  "parts": [
+    "cherry-stepper__step",
+    "cherry-stepper__marker",
+    "cherry-stepper__check",
+    "cherry-stepper__number",
+    "cherry-stepper__connector",
+    "cherry-stepper__text",
+    "cherry-stepper__label",
+    "cherry-stepper__description"
+  ]
+}

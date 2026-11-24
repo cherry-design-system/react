@@ -1,0 +1,262 @@
+/* Sidebar. Collapsing to the icon rail eases the width (a large layout move:
+   slow + spring) while labels, badges and group titles fade out; groups fold
+   with the same height animation as the Accordion. */
+@layer cherry {
+  .cherry-sidebar {
+    --_w: 256px;
+    --_pad: var(--cherry-space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-4);
+    box-sizing: border-box;
+    width: var(--_w);
+    height: 100%;
+    padding: var(--_pad);
+    overflow: hidden;
+    border-right: 1px solid var(--cherry-border-default);
+    background: var(--cherry-bg-subtle);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    interpolate-size: allow-keywords;
+    transition:
+      width var(--cherry-duration-slow) var(--cherry-easing-spring),
+      padding var(--cherry-duration-slow) var(--cherry-easing-spring);
+  }
+  .cherry-sidebar[data-collapsed] {
+    --_w: 64px;
+    --_pad: 14px;
+  }
+
+  .cherry-sidebar__header,
+  .cherry-sidebar__footer {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    min-width: 0;
+  }
+  .cherry-sidebar__footer {
+    margin-top: auto;
+  }
+
+  .cherry-sidebar__nav {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--cherry-space-4);
+    min-height: 0;
+    margin: 0 calc(var(--_pad) * -1);
+    padding: 0 var(--_pad);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .cherry-sidebar__group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-1);
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .cherry-sidebar__group-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 24px;
+    padding: 0 var(--cherry-space-2);
+    border-radius: var(--cherry-radius-sm);
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-eyebrow-size);
+    line-height: var(--cherry-text-eyebrow-line-height);
+    letter-spacing: var(--cherry-text-eyebrow-tracking);
+    font-weight: var(--cherry-text-eyebrow-weight);
+    text-transform: uppercase;
+    white-space: nowrap;
+    list-style: none;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  summary.cherry-sidebar__group-label {
+    cursor: pointer;
+    user-select: none;
+  }
+  summary.cherry-sidebar__group-label::-webkit-details-marker {
+    display: none;
+  }
+  summary.cherry-sidebar__group-label::marker {
+    content: "";
+  }
+  summary.cherry-sidebar__group-label:hover {
+    color: var(--cherry-fg-default);
+  }
+  summary.cherry-sidebar__group-label:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-sidebar__group-chevron {
+    width: 14px;
+    height: 14px;
+    transform: rotate(-90deg);
+    transition: transform var(--cherry-duration-base)
+      var(--cherry-easing-standard);
+  }
+  .cherry-sidebar__group[open] .cherry-sidebar__group-chevron {
+    transform: none;
+  }
+
+  /* Folding groups: the Accordion's height animation. */
+  details.cherry-sidebar__group::details-content {
+    height: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      height var(--cherry-duration-base) var(--cherry-easing-standard),
+      opacity var(--cherry-duration-base) var(--cherry-easing-standard),
+      content-visibility var(--cherry-duration-base) allow-discrete;
+  }
+  details.cherry-sidebar__group[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+
+  .cherry-sidebar__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .cherry-sidebar__item {
+    display: block;
+  }
+
+  .cherry-sidebar__link {
+    appearance: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    box-sizing: border-box;
+    width: 100%;
+    height: 32px;
+    margin: 0;
+    padding: 0 var(--cherry-space-2);
+    border: 0;
+    border-radius: var(--cherry-radius-md);
+    background: transparent;
+    color: var(--cherry-fg-muted);
+    font-family: inherit;
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: var(--cherry-text-label-md-weight);
+    text-align: left;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard),
+      padding var(--cherry-duration-slow) var(--cherry-easing-spring),
+      height var(--cherry-duration-slow) var(--cherry-easing-spring);
+  }
+  .cherry-sidebar__link:hover:not(:disabled) {
+    background: var(--cherry-ghost-hover);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-sidebar__link:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+  .cherry-sidebar__link[aria-current="page"],
+  .cherry-sidebar__link[aria-current="true"] {
+    background: var(--cherry-ghost-hover);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-sidebar__link:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-sidebar__link:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .cherry-sidebar__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+  .cherry-sidebar__icon > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-sidebar__label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-sidebar__badge {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-label-xs-size);
+    line-height: var(--cherry-text-label-xs-line-height);
+    font-weight: var(--cherry-text-label-xs-weight);
+    font-variant-numeric: tabular-nums;
+    transition: opacity var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+
+  /* Collapsed icon rail: 36px square items. Icons stay on their line while
+     the width eases; labels shrink with the link and fade, badges fade out of
+     the flow. Both stay in the accessibility tree, so items keep names. */
+  .cherry-sidebar[data-collapsed] .cherry-sidebar__link {
+    height: 36px;
+    padding: 0 10px;
+  }
+  .cherry-sidebar[data-collapsed] .cherry-sidebar__label {
+    opacity: 0;
+  }
+  .cherry-sidebar[data-collapsed] .cherry-sidebar__badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    opacity: 0;
+  }
+  /* Group titles become a hairline separator in the rail. */
+  .cherry-sidebar[data-collapsed] .cherry-sidebar__group-label {
+    height: 1px;
+    margin: var(--cherry-space-1) var(--cherry-space-2);
+    padding: 0;
+    overflow: hidden;
+    background: var(--cherry-border-default);
+    color: transparent;
+    font-size: 0;
+    pointer-events: none;
+  }
+  .cherry-sidebar[data-collapsed] .cherry-sidebar__group-chevron {
+    display: none;
+  }
+  .cherry-sidebar[data-collapsed]
+    .cherry-sidebar__group:first-child
+    .cherry-sidebar__group-label {
+    opacity: 0;
+  }
+  /* A folded group still shows its icons in the rail. */
+  .cherry-sidebar[data-collapsed]
+    details.cherry-sidebar__group::details-content {
+    height: auto;
+    opacity: 1;
+    content-visibility: visible;
+  }
+}

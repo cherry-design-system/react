@@ -12,10 +12,18 @@
     height: 100%;
     animation: cherry-spin 800ms linear infinite;
   }
-  .cherry-spinner[data-size="xs"] { --_size: 14px; }
-  .cherry-spinner[data-size="sm"] { --_size: 16px; }
-  .cherry-spinner[data-size="md"] { --_size: 20px; }
-  .cherry-spinner[data-size="lg"] { --_size: 24px; }
+  .cherry-spinner[data-size="xs"] {
+    --_size: 14px;
+  }
+  .cherry-spinner[data-size="sm"] {
+    --_size: 16px;
+  }
+  .cherry-spinner[data-size="md"] {
+    --_size: 20px;
+  }
+  .cherry-spinner[data-size="lg"] {
+    --_size: 24px;
+  }
 
   /* Reduced motion: keep a slow spin (it conveys "busy"), not a stop. */
   @media (prefers-reduced-motion: reduce) {

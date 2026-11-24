@@ -1,0 +1,13 @@
+{
+  "name": "snippet",
+  "class": "cherry-snippet",
+  "attributes": {},
+  "states": ["data-copied", ":hover", ":focus-within"],
+  "parts": [
+    "cherry-snippet__prompt",
+    "cherry-snippet__code",
+    "cherry-snippet__copy",
+    "cherry-snippet__icons",
+    "cherry-snippet__icon"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "textarea",
+  "class": "cherry-textarea",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": [
+    "data-invalid",
+    "data-disabled",
+    "data-auto-resize",
+    "data-limit",
+    ":focus-within",
+    ":hover"
+  ],
+  "parts": ["cherry-textarea__control", "cherry-textarea__count"]
+}

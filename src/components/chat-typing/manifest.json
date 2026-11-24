@@ -1,0 +1,12 @@
+{
+  "name": "chat-typing",
+  "class": "cherry-chat-typing",
+  "attributes": {},
+  "states": ["data-active"],
+  "parts": [
+    "cherry-chat-typing__inner",
+    "cherry-chat-typing__dots",
+    "cherry-chat-typing__dot",
+    "cherry-chat-typing__label"
+  ]
+}

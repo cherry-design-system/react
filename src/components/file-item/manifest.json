@@ -1,0 +1,17 @@
+{
+  "name": "file-item",
+  "class": "cherry-file-item",
+  "attributes": { "status": ["uploading", "complete", "error"] },
+  "states": ["data-removing"],
+  "parts": [
+    "cherry-file-item__tile",
+    "cherry-file-item__glyph",
+    "cherry-file-item__body",
+    "cherry-file-item__name",
+    "cherry-file-item__meta",
+    "cherry-file-item__check",
+    "cherry-file-item__progress",
+    "cherry-file-item__bar",
+    "cherry-file-item__remove"
+  ]
+}

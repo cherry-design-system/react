@@ -1,0 +1,197 @@
+/* Tabs. The indicator (raised pill or underline) is one element that slides
+   to the selected tab: TabList measures the tab and sets --_indicator-x /
+   --_indicator-w. Until that first measure (server HTML, before hydration)
+   the selected tab paints its own static indicator. Panels cross-fade: they
+   share one grid cell, the new one rises in while the old one fades out. */
+@layer cherry {
+  .cherry-tabs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--cherry-space-4);
+    font-family: var(--cherry-font-sans);
+  }
+
+  .cherry-tabs__list {
+    --_indicator-x: 0px;
+    --_indicator-w: 0px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    isolation: isolate;
+  }
+  .cherry-tabs__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cherry-tabs__indicator {
+    position: absolute;
+    left: 0;
+    z-index: -1;
+    width: var(--_indicator-w);
+    transform: translateX(var(--_indicator-x));
+    opacity: 0;
+    pointer-events: none;
+  }
+  .cherry-tabs__list[data-indicator] .cherry-tabs__indicator {
+    opacity: 1;
+  }
+  .cherry-tabs__list[data-indicator="ready"] .cherry-tabs__indicator {
+    transition:
+      transform var(--cherry-duration-base) var(--cherry-easing-spring),
+      width var(--cherry-duration-base) var(--cherry-easing-spring),
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+
+  .cherry-tabs__tab {
+    appearance: none;
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: var(--cherry-space-2);
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: var(--cherry-fg-muted);
+    font-family: inherit;
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: var(--cherry-text-label-md-weight);
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-tabs__tab:hover:not(:disabled),
+  .cherry-tabs__tab[aria-selected="true"] {
+    color: var(--cherry-fg-default);
+  }
+  .cherry-tabs__tab:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-tabs__tab:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .cherry-tabs__icon {
+    display: inline-flex;
+  }
+  .cherry-tabs__icon > svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Pill: a raised surface inside a muted track. */
+  .cherry-tabs[data-variant="pill"] > .cherry-tabs__list {
+    gap: 2px;
+    width: fit-content;
+    padding: 2px;
+    border-radius: var(--cherry-radius-md);
+    background: var(--cherry-bg-muted);
+  }
+  .cherry-tabs[data-variant="pill"] .cherry-tabs__indicator {
+    top: 2px;
+    bottom: 2px;
+    border-radius: var(--cherry-radius-sm);
+    background: var(--cherry-bg-canvas);
+    box-shadow: var(--cherry-elevation-sm);
+  }
+  .cherry-tabs[data-variant="pill"] .cherry-tabs__tab {
+    height: 28px;
+    padding: 0 var(--cherry-space-3);
+    border-radius: var(--cherry-radius-sm);
+  }
+  .cherry-tabs[data-variant="pill"]
+    .cherry-tabs__list:not([data-indicator])
+    .cherry-tabs__tab[aria-selected="true"] {
+    background: var(--cherry-bg-canvas);
+    box-shadow: var(--cherry-elevation-sm);
+  }
+
+  /* Underline: a 2px bar on the list's bottom border. */
+  .cherry-tabs[data-variant="underline"] > .cherry-tabs__list {
+    gap: var(--cherry-space-1);
+    box-shadow: inset 0 -1px 0 var(--cherry-border-default);
+  }
+  .cherry-tabs[data-variant="underline"] .cherry-tabs__indicator {
+    bottom: 0;
+    height: 2px;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-fg-default);
+    z-index: 1;
+  }
+  .cherry-tabs[data-variant="underline"] .cherry-tabs__tab {
+    height: 40px;
+    padding: 0 var(--cherry-space-3);
+    border-radius: var(--cherry-radius-sm) var(--cherry-radius-sm) 0 0;
+  }
+  /* Hover hint: a soft bar that fades in under unselected tabs. */
+  .cherry-tabs[data-variant="underline"] .cherry-tabs__tab::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-border-strong);
+    opacity: 0;
+    transition: opacity var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-tabs[data-variant="underline"]
+    .cherry-tabs__tab:hover:not(:disabled, [aria-selected="true"])::after {
+    opacity: 1;
+  }
+  .cherry-tabs[data-variant="underline"]
+    .cherry-tabs__list:not([data-indicator])
+    .cherry-tabs__tab[aria-selected="true"]::after {
+    background: var(--cherry-fg-default);
+    opacity: 1;
+  }
+
+  /* Panels share one cell so the outgoing one fades over the incoming. */
+  .cherry-tabs__panel {
+    grid-row: 2;
+    grid-column: 1;
+    min-width: 0;
+    color: var(--cherry-fg-default);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    border-radius: var(--cherry-radius-sm);
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--cherry-duration-base) var(--cherry-easing-out),
+      transform var(--cherry-duration-base) var(--cherry-easing-out),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      display var(--cherry-duration-base) allow-discrete;
+  }
+  @starting-style {
+    .cherry-tabs__panel:not([hidden]) {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+  .cherry-tabs__panel[hidden] {
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      display var(--cherry-duration-fast) allow-discrete;
+  }
+  .cherry-tabs__panel:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+}

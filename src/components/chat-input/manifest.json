@@ -1,0 +1,22 @@
+{
+  "name": "chat-input",
+  "class": "cherry-chat-input",
+  "attributes": {},
+  "states": [
+    "data-glow",
+    "data-disabled",
+    "data-ready",
+    ":hover",
+    ":focus-within"
+  ],
+  "parts": [
+    "cherry-chat-input__frame",
+    "cherry-chat-input__surface",
+    "cherry-chat-input__textarea",
+    "cherry-chat-input__footer",
+    "cherry-chat-input__actions",
+    "cherry-chat-input__send",
+    "cherry-chat-input__arrow",
+    "cherry-chat-input__footnote"
+  ]
+}

@@ -1,0 +1,125 @@
+@layer cherry {
+  .cherry-number-field {
+    --_height: 36px;
+    --_icon: 14px;
+    --_radius: var(--cherry-radius-md);
+    --_border: var(--cherry-border-default);
+    --_ring: none;
+
+    display: inline-flex;
+    align-items: stretch;
+    width: 160px;
+    max-width: 100%;
+    height: var(--_height);
+    border: 1px solid var(--_border);
+    border-radius: var(--_radius);
+    background: var(--cherry-bg-canvas);
+    box-shadow: var(--cherry-elevation-xs), var(--_ring);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-number-field:hover:not([data-disabled]) {
+    --_border: var(--cherry-border-strong);
+  }
+  .cherry-number-field:focus-within {
+    --_border: var(--cherry-border-focus);
+    --_ring: var(--cherry-ring);
+  }
+  .cherry-number-field[data-invalid] {
+    --_border: var(--cherry-danger-fg);
+    --_ring: var(--cherry-ring-danger);
+  }
+  .cherry-number-field[data-disabled] {
+    background: var(--cherry-bg-muted);
+    box-shadow: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .cherry-number-field__input {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 0 var(--cherry-space-2);
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: inherit;
+    text-align: center;
+  }
+  .cherry-number-field__input:disabled {
+    cursor: not-allowed;
+  }
+
+  /* The buttons live inside the border box, so their dividers stop at the
+     inner edge of the outer border instead of crossing it. */
+  .cherry-number-field__button {
+    appearance: none;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: calc(var(--_height) - 2px);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--cherry-fg-muted);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-number-field__decrement {
+    border-inline-end: 1px solid var(--cherry-border-default);
+    border-start-start-radius: calc(var(--_radius) - 1px);
+    border-end-start-radius: calc(var(--_radius) - 1px);
+  }
+  .cherry-number-field__increment {
+    border-inline-start: 1px solid var(--cherry-border-default);
+    border-start-end-radius: calc(var(--_radius) - 1px);
+    border-end-end-radius: calc(var(--_radius) - 1px);
+  }
+  .cherry-number-field__button > svg {
+    width: var(--_icon);
+    height: var(--_icon);
+    transition: transform var(--cherry-duration-instant)
+      var(--cherry-easing-standard);
+  }
+  .cherry-number-field__button:hover:not(:disabled) {
+    background: var(--cherry-ghost-hover);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-number-field__button:active:not(:disabled) > svg {
+    transform: scale(0.82);
+  }
+  .cherry-number-field__button:disabled {
+    color: var(--cherry-fg-subtle);
+    cursor: not-allowed;
+  }
+
+  .cherry-number-field[data-size="sm"] {
+    --_height: 32px;
+    --_icon: 12px;
+    --_radius: var(--cherry-radius-sm);
+    width: 136px;
+  }
+  .cherry-number-field[data-size="md"] {
+    --_height: 36px;
+  }
+  .cherry-number-field[data-size="lg"] {
+    --_height: 44px;
+    --_icon: 16px;
+    width: 184px;
+    font-size: var(--cherry-text-body-md-size);
+    line-height: var(--cherry-text-body-md-line-height);
+  }
+}

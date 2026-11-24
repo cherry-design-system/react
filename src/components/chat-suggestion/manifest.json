@@ -1,0 +1,11 @@
+{
+  "name": "chat-suggestion",
+  "class": "cherry-chat-suggestion",
+  "attributes": {},
+  "states": ["disabled", ":hover", ":active", ":focus-visible"],
+  "parts": [
+    "cherry-chat-suggestions",
+    "cherry-chat-suggestion__icon",
+    "cherry-chat-suggestion__label"
+  ]
+}

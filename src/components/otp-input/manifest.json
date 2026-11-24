@@ -1,0 +1,18 @@
+{
+  "name": "otp-input",
+  "class": "cherry-otp-input",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": [
+    "data-invalid",
+    "data-disabled",
+    "data-separator",
+    "data-filled",
+    ":focus-within"
+  ],
+  "parts": [
+    "cherry-otp-input__slot",
+    "cherry-otp-input__char",
+    "cherry-otp-input__caret",
+    "cherry-otp-input__separator"
+  ]
+}

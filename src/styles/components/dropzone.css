@@ -1,0 +1,143 @@
+/* Dropzone: dashed drop target around a visually hidden (still focusable)
+   file input. Ported from 1.x: the accent answers hover and drag-over, the
+   icon tile lifts while a file hovers and bumps when one lands. */
+@layer cherry {
+  .cherry-dropzone {
+    --_border: var(--cherry-border-strong);
+    --_bg: var(--cherry-bg-canvas);
+    --_ring: none;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--cherry-space-3);
+    box-sizing: border-box;
+    width: 100%;
+    padding: var(--cherry-space-6) var(--cherry-space-5);
+    border: 1px dashed var(--_border);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--_bg);
+    box-shadow: var(--_ring);
+    color: var(--cherry-fg-muted);
+    font-family: var(--cherry-font-sans);
+    text-align: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-dropzone:hover:not([data-disabled]) {
+    --_border: var(--cherry-border-focus);
+    --_bg: var(--cherry-bg-subtle);
+  }
+  .cherry-dropzone:has(.cherry-dropzone__input:focus-visible) {
+    --_border: var(--cherry-border-focus);
+    --_ring: var(--cherry-ring);
+  }
+  .cherry-dropzone[data-drag-over] {
+    --_border: var(--cherry-fg-muted);
+    --_bg: var(--cherry-bg-muted);
+    border-style: dashed;
+    border-width: 1px;
+  }
+  .cherry-dropzone[data-invalid] {
+    --_border: var(--cherry-danger-fg);
+  }
+  .cherry-dropzone[data-invalid]:has(.cherry-dropzone__input:focus-visible) {
+    --_ring: var(--cherry-ring-danger);
+  }
+  .cherry-dropzone[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* The real input: hidden from sight, not from Tab or assistive tech. */
+  .cherry-dropzone__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    border: 0;
+    white-space: nowrap;
+  }
+
+  .cherry-dropzone__tile {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-md);
+    background: var(--cherry-bg-elevated);
+    box-shadow: var(--cherry-elevation-xs);
+    color: var(--cherry-fg-default);
+    transition:
+      transform var(--cherry-duration-base) var(--cherry-easing-spring),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-dropzone__tile > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-dropzone[data-drag-over] .cherry-dropzone__tile {
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: var(--cherry-elevation-md);
+  }
+  .cherry-dropzone__tile[data-dropped] {
+    animation: cherry-dropzone-drop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop);
+  }
+
+  .cherry-dropzone__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-1);
+    min-width: 0;
+  }
+  .cherry-dropzone__prompt {
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+  }
+  .cherry-dropzone__prompt > strong {
+    color: var(--cherry-fg-default);
+    font-weight: 600;
+  }
+  .cherry-dropzone__hint {
+    color: var(--cherry-fg-subtle);
+    font-size: var(--cherry-text-body-xs-size);
+    line-height: var(--cherry-text-body-xs-line-height);
+  }
+
+  /* Inline: one compact row that sits next to form controls. */
+  .cherry-dropzone[data-inline] {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: var(--cherry-space-3) var(--cherry-space-4);
+    text-align: start;
+  }
+  .cherry-dropzone[data-inline] .cherry-dropzone__text {
+    gap: 0;
+  }
+
+  @keyframes cherry-dropzone-drop {
+    0% {
+      transform: translateY(-3px) scale(1.08);
+    }
+    45% {
+      transform: translateY(1px) scale(0.94);
+    }
+    100% {
+      transform: none;
+    }
+  }
+}

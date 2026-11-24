@@ -72,8 +72,13 @@
     height: var(--_icon);
   }
 
-  .cherry-input[data-size="sm"] { --_height: 32px; --_icon: 14px; }
-  .cherry-input[data-size="md"] { --_height: 36px; }
+  .cherry-input[data-size="sm"] {
+    --_height: 32px;
+    --_icon: 14px;
+  }
+  .cherry-input[data-size="md"] {
+    --_height: 36px;
+  }
   .cherry-input[data-size="lg"] {
     --_height: 44px;
     --_px: var(--cherry-space-4);

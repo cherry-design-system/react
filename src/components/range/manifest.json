@@ -1,0 +1,15 @@
+{
+  "name": "range",
+  "class": "cherry-range",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": [
+    "data-invalid",
+    "data-disabled",
+    "data-full-width",
+    ":hover",
+    ":active",
+    ":focus-visible",
+    ":disabled"
+  ],
+  "parts": ["cherry-range__input"]
+}

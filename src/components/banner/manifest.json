@@ -1,0 +1,16 @@
+{
+  "name": "banner",
+  "class": "cherry-banner",
+  "attributes": {
+    "variant": ["inverse", "accent", "subtle"]
+  },
+  "states": ["data-dismissed", ":hover", ":focus-visible"],
+  "parts": [
+    "cherry-banner__inner",
+    "cherry-banner__content",
+    "cherry-banner__icon",
+    "cherry-banner__message",
+    "cherry-banner__action",
+    "cherry-banner__dismiss"
+  ]
+}

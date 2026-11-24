@@ -1,0 +1,75 @@
+/* Link: two stacked 1px underlines drawn as backgrounds (so they clear
+   descenders, wrap across lines and animate). The resting line is --_line;
+   on hover the --_line-hover one sweeps in over it from the start edge. */
+@layer cherry {
+  .cherry-link {
+    --_fg: var(--cherry-fg-default);
+    --_fg-hover: var(--cherry-accent-fg);
+    --_line: var(--cherry-fg-default);
+    --_line-hover: var(--cherry-accent-fg);
+    --_rest: 100%;
+    --_sweep: 0%;
+
+    color: var(--_fg);
+    text-decoration: none;
+    background-image:
+      linear-gradient(var(--_line-hover), var(--_line-hover)),
+      linear-gradient(var(--_line), var(--_line));
+    background-repeat: no-repeat;
+    background-position:
+      0 100%,
+      0 100%;
+    background-size:
+      var(--_sweep) 1px,
+      var(--_rest) 1px;
+    border-radius: var(--cherry-radius-xs);
+    padding-bottom: 1px;
+    cursor: pointer;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition:
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      background-size var(--cherry-duration-base) var(--cherry-easing-spring),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-link:hover {
+    --_sweep: 100%;
+    color: var(--_fg-hover);
+  }
+  .cherry-link:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--cherry-bg-canvas),
+      0 0 0 4px var(--cherry-border-focus);
+  }
+  .cherry-link:dir(rtl) {
+    background-position:
+      100% 100%,
+      100% 100%;
+  }
+
+  .cherry-link[data-variant="default"] {
+    --_fg: var(--cherry-fg-default);
+    --_line: var(--cherry-fg-default);
+    --_rest: 100%;
+  }
+  .cherry-link[data-variant="muted"] {
+    --_fg: var(--cherry-fg-muted);
+    --_fg-hover: var(--cherry-fg-default);
+    --_line-hover: var(--cherry-fg-default);
+    --_rest: 0%;
+  }
+
+  .cherry-link__icon {
+    display: inline-block;
+    width: 0.875em;
+    height: 0.875em;
+    margin-inline-start: 0.125em;
+    vertical-align: -0.0625em;
+    transition: transform var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-link:hover .cherry-link__icon {
+    transform: translate(1px, -1px);
+  }
+}

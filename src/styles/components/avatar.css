@@ -1,0 +1,145 @@
+/* Avatar: image over initials (or an icon), with a presence dot. The image
+   fades in once loaded, so a slow or broken URL never shows a blank circle. */
+@layer cherry {
+  .cherry-avatar {
+    --_size: 32px;
+    --_icon: 16px;
+    --_text: var(--cherry-text-label-xs-size);
+    --_dot: 8px;
+    --_bg: var(--cherry-bg-muted);
+    --_fg: var(--cherry-fg-default);
+
+    position: relative;
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: var(--_size);
+    height: var(--_size);
+    border-radius: var(--cherry-radius-full);
+    background: var(--_bg);
+    color: var(--_fg);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--_text);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0;
+    user-select: none;
+    vertical-align: middle;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+
+  .cherry-avatar__fallback,
+  .cherry-avatar__image {
+    grid-area: 1 / 1;
+  }
+  .cherry-avatar__fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-avatar__fallback > svg {
+    width: var(--_icon);
+    height: var(--_icon);
+  }
+  .cherry-avatar__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.04);
+    transition:
+      opacity var(--cherry-duration-base) var(--cherry-easing-out),
+      transform var(--cherry-duration-base) var(--cherry-easing-out);
+  }
+  .cherry-avatar[data-loaded] .cherry-avatar__image {
+    opacity: 1;
+    transform: none;
+  }
+  .cherry-avatar[data-loaded] .cherry-avatar__fallback {
+    opacity: 0;
+  }
+
+  /* Presence dot: pops in, cross-fades between statuses. */
+  .cherry-avatar__status {
+    --_dot-color: var(--cherry-fg-subtle);
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: var(--_dot);
+    height: var(--_dot);
+    border-radius: var(--cherry-radius-full);
+    background: var(--_dot-color);
+    box-shadow: 0 0 0 2px var(--cherry-bg-canvas);
+    transition: background-color var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+    animation: cherry-avatar-status-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop) both;
+  }
+  .cherry-avatar[data-status="online"] .cherry-avatar__status {
+    --_dot-color: var(--cherry-success-solid);
+  }
+  .cherry-avatar[data-status="away"] .cherry-avatar__status {
+    --_dot-color: var(--cherry-warning-solid);
+  }
+  .cherry-avatar[data-status="busy"] .cherry-avatar__status {
+    --_dot-color: var(--cherry-danger-solid);
+  }
+  .cherry-avatar[data-status="offline"] .cherry-avatar__status {
+    --_dot-color: var(--cherry-fg-subtle);
+  }
+
+  /* Colors */
+  .cherry-avatar[data-color="neutral"] {
+    --_bg: var(--cherry-bg-muted);
+    --_fg: var(--cherry-fg-default);
+  }
+  .cherry-avatar[data-color="accent"] {
+    --_bg: var(--cherry-accent-subtle);
+    --_fg: var(--cherry-accent-fg);
+  }
+  .cherry-avatar[data-color="ai"] {
+    --_bg: linear-gradient(135deg, var(--cherry-ai-from), var(--cherry-ai-to));
+    --_fg: var(--cherry-fg-on-accent);
+  }
+
+  /* Sizes (Figma: 24 / 32 / 40 / 56) */
+  .cherry-avatar[data-size="sm"] {
+    --_size: 24px;
+    --_icon: 12px;
+    --_text: 0.625rem;
+    --_dot: 6px;
+  }
+  .cherry-avatar[data-size="md"] {
+    --_size: 32px;
+    --_icon: 16px;
+    --_text: var(--cherry-text-label-xs-size);
+    --_dot: 8px;
+  }
+  .cherry-avatar[data-size="lg"] {
+    --_size: 40px;
+    --_icon: 18px;
+    --_text: var(--cherry-text-label-sm-size);
+    --_dot: 10px;
+  }
+  .cherry-avatar[data-size="xl"] {
+    --_size: 56px;
+    --_icon: 24px;
+    --_text: var(--cherry-text-label-lg-size);
+    --_dot: 12px;
+  }
+
+  @keyframes cherry-avatar-status-pop {
+    from {
+      transform: scale(0);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "date-picker",
+  "class": "cherry-date-picker",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": [
+    "data-open",
+    "data-invalid",
+    "data-disabled",
+    "data-full-width",
+    ":popover-open",
+    ":focus-visible",
+    ":hover"
+  ],
+  "parts": [
+    "cherry-date-picker__trigger",
+    "cherry-date-picker__icon",
+    "cherry-date-picker__value",
+    "cherry-date-picker__placeholder",
+    "cherry-date-picker__popover"
+  ]
+}

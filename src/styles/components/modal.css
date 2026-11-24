@@ -1,0 +1,155 @@
+/* Modal: a native <dialog> opened with showModal(). Ported from cherry 1.x
+   (fading backdrop, card rising into place), now in CSS only: the closed
+   state is the transition target, [open] the entry, @starting-style the
+   first frame, and display/overlay transition allow-discrete so the exit
+   plays before the dialog leaves the top layer. */
+@layer cherry {
+  .cherry-modal {
+    --_width: 480px;
+    --_pad: var(--cherry-space-6);
+    --_rise: 16px;
+    --_out: var(--cherry-duration-fast) var(--cherry-easing-standard);
+    --_in: var(--cherry-duration-base) var(--cherry-easing-out);
+
+    box-sizing: border-box;
+    flex-direction: column;
+    gap: var(--cherry-space-4);
+    width: min(var(--_width), 100% - var(--cherry-space-4) * 2);
+    max-width: none;
+    max-height: calc(100dvh - var(--cherry-space-6) * 2);
+    margin: auto;
+    padding: var(--_pad);
+    overflow: hidden;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-2xl);
+    background: var(--cherry-bg-elevated);
+    color: var(--cherry-fg-default);
+    box-shadow: var(--cherry-elevation-xl);
+    font-family: var(--cherry-font-sans);
+
+    /* Closed: where the exit goes. */
+    opacity: 0;
+    transform: translateY(var(--_rise)) scale(0.96);
+    transition:
+      opacity var(--_out),
+      transform var(--_out),
+      display var(--_out) allow-discrete,
+      overlay var(--_out) allow-discrete;
+  }
+  .cherry-modal[open] {
+    display: flex;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--_in),
+      transform var(--_in),
+      display var(--_in) allow-discrete,
+      overlay var(--_in) allow-discrete;
+  }
+  @starting-style {
+    .cherry-modal[open] {
+      opacity: 0;
+      transform: translateY(var(--_rise)) scale(0.96);
+    }
+  }
+
+  .cherry-modal::backdrop {
+    background-color: transparent;
+    transition:
+      background-color var(--_out),
+      display var(--_out) allow-discrete,
+      overlay var(--_out) allow-discrete;
+  }
+  .cherry-modal[open]::backdrop {
+    background-color: var(--cherry-bg-overlay);
+    transition:
+      background-color var(--_in),
+      display var(--_in) allow-discrete,
+      overlay var(--_in) allow-discrete;
+  }
+  @starting-style {
+    .cherry-modal[open]::backdrop {
+      background-color: transparent;
+    }
+  }
+
+  :root:has(.cherry-modal[open]) {
+    overflow: hidden;
+  }
+
+  .cherry-modal:focus-visible {
+    outline: none;
+  }
+
+  .cherry-modal[data-size="sm"] {
+    --_width: 400px;
+  }
+  .cherry-modal[data-size="md"] {
+    --_width: 480px;
+  }
+  .cherry-modal[data-size="lg"] {
+    --_width: 640px;
+  }
+
+  .cherry-modal__header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--cherry-space-4);
+    row-gap: var(--cherry-space-1);
+    align-items: start;
+  }
+  .cherry-modal__title {
+    grid-column: 1;
+    margin: 0;
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-text-h5-family);
+    font-size: var(--cherry-text-h5-size);
+    line-height: var(--cherry-text-h5-line-height);
+    letter-spacing: var(--cherry-text-h5-tracking);
+    font-weight: var(--cherry-text-h5-weight);
+  }
+  .cherry-modal__description {
+    grid-column: 1;
+    margin: 0;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+  }
+  .cherry-modal__close {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: calc(var(--cherry-space-1) * -1) calc(var(--cherry-space-1) * -1) 0
+      0;
+  }
+  /* No title: the close button floats in the corner beside the content. */
+  .cherry-modal__header:has(> .cherry-modal__close:only-child) {
+    position: absolute;
+    top: var(--cherry-space-5);
+    right: var(--cherry-space-5);
+  }
+  .cherry-modal:has(> .cherry-modal__header > .cherry-modal__close:only-child)
+    > .cherry-modal__body {
+    padding-right: var(--cherry-space-8);
+  }
+
+  .cherry-modal__body {
+    flex: 1 1 auto;
+    min-height: 0;
+    /* Room for focus rings inside the scroll clip, reabsorbed by the margin. */
+    margin: calc(var(--cherry-space-1) * -1);
+    padding: var(--cherry-space-1);
+    overflow-y: auto;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+  }
+  .cherry-modal__footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--cherry-space-2);
+    margin-top: var(--cherry-space-2);
+  }
+}

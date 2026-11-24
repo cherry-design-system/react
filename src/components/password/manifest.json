@@ -1,0 +1,12 @@
+{
+  "name": "password",
+  "class": "cherry-password",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": ["aria-pressed", "data-invalid", "data-disabled"],
+  "parts": [
+    "cherry-password__toggle",
+    "cherry-password__icon",
+    "cherry-password__icon-show",
+    "cherry-password__icon-hide"
+  ]
+}

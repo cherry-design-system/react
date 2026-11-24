@@ -1,0 +1,10 @@
+{
+  "name": "tag",
+  "class": "cherry-tag",
+  "attributes": {
+    "variant": ["neutral", "outline", "accent"],
+    "size": ["sm", "md"]
+  },
+  "states": ["data-exiting", ":focus-visible", ":hover", ":disabled"],
+  "parts": ["cherry-tag__label", "cherry-tag__remove"]
+}

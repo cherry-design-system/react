@@ -1,0 +1,21 @@
+{
+  "name": "dropzone",
+  "class": "cherry-dropzone",
+  "attributes": {},
+  "states": [
+    "data-inline",
+    "data-drag-over",
+    "data-disabled",
+    "data-invalid",
+    "data-dropped",
+    ":focus-within",
+    ":hover"
+  ],
+  "parts": [
+    "cherry-dropzone__input",
+    "cherry-dropzone__tile",
+    "cherry-dropzone__text",
+    "cherry-dropzone__prompt",
+    "cherry-dropzone__hint"
+  ]
+}

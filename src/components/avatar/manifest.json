@@ -1,0 +1,15 @@
+{
+  "name": "avatar",
+  "class": "cherry-avatar",
+  "attributes": {
+    "size": ["sm", "md", "lg", "xl"],
+    "color": ["neutral", "accent", "ai"],
+    "status": ["online", "away", "busy", "offline"]
+  },
+  "states": ["data-loaded"],
+  "parts": [
+    "cherry-avatar__fallback",
+    "cherry-avatar__image",
+    "cherry-avatar__status"
+  ]
+}

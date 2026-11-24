@@ -1,0 +1,13 @@
+{
+  "name": "callout",
+  "class": "cherry-callout",
+  "attributes": {
+    "variant": ["neutral", "info", "success", "warning", "danger"]
+  },
+  "parts": [
+    "cherry-callout__icon",
+    "cherry-callout__content",
+    "cherry-callout__title",
+    "cherry-callout__body"
+  ]
+}

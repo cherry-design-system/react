@@ -1,0 +1,53 @@
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
+:root {
+  --cherry-font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+  --cherry-font-mono: "Geist Mono Variable", ui-monospace, monospace;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+.pg {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 32px 24px 96px;
+}
+.pg-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+:where(.pg-header) > h1 {
+  margin: 0;
+  font-size: var(--cherry-text-h4-size);
+  letter-spacing: var(--cherry-text-h4-tracking);
+}
+.pg-section {
+  padding: 24px;
+  margin-bottom: 16px;
+  border: 1px solid var(--cherry-border-default);
+  border-radius: var(--cherry-radius-xl);
+  background: var(--cherry-bg-canvas);
+  color: var(--cherry-fg-default);
+}
+:where(.pg-section) > h2 {
+  margin: 0 0 16px;
+  font-size: var(--cherry-text-label-md-size);
+  color: var(--cherry-fg-muted);
+  font-weight: 500;
+}
+.pg-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.pg-stack {
+  display: grid;
+  gap: 16px;
+  max-width: 360px;
+}

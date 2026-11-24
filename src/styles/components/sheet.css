@@ -1,0 +1,171 @@
+/* Sheet: a native <dialog> pinned to an edge. It slides in from that edge
+   over a fading backdrop and slides back out on close; the exit runs in CSS
+   (display/overlay allow-discrete), no JS timers. */
+@layer cherry {
+  .cherry-sheet {
+    --_width: 400px;
+    --_inset: var(--cherry-space-2);
+    --_pad: var(--cherry-space-6);
+    --_from: translateX(calc(100% + var(--_inset)));
+    --_out: var(--cherry-duration-fast) var(--cherry-easing-standard);
+    --_in: var(--cherry-duration-base) var(--cherry-easing-out);
+
+    box-sizing: border-box;
+    position: fixed;
+    flex-direction: column;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-2xl);
+    background: var(--cherry-bg-elevated);
+    color: var(--cherry-fg-default);
+    box-shadow: var(--cherry-elevation-xl);
+    font-family: var(--cherry-font-sans);
+
+    transform: var(--_from);
+    transition:
+      transform var(--_out),
+      display var(--_out) allow-discrete,
+      overlay var(--_out) allow-discrete;
+  }
+  .cherry-sheet[open] {
+    display: flex;
+    transform: none;
+    transition:
+      transform var(--_in),
+      display var(--_in) allow-discrete,
+      overlay var(--_in) allow-discrete;
+  }
+  @starting-style {
+    .cherry-sheet[open] {
+      transform: var(--_from);
+    }
+  }
+
+  .cherry-sheet::backdrop {
+    background-color: transparent;
+    transition:
+      background-color var(--_out),
+      display var(--_out) allow-discrete,
+      overlay var(--_out) allow-discrete;
+  }
+  .cherry-sheet[open]::backdrop {
+    background-color: var(--cherry-bg-overlay);
+    transition:
+      background-color var(--_in),
+      display var(--_in) allow-discrete,
+      overlay var(--_in) allow-discrete;
+  }
+  @starting-style {
+    .cherry-sheet[open]::backdrop {
+      background-color: transparent;
+    }
+  }
+
+  :root:has(.cherry-sheet[open]) {
+    overflow: hidden;
+  }
+  .cherry-sheet:focus-visible {
+    outline: none;
+  }
+
+  /* Sides: left and right float inside the viewport, bottom sits on it. */
+  .cherry-sheet[data-side="right"],
+  .cherry-sheet[data-side="left"] {
+    top: var(--_inset);
+    bottom: var(--_inset);
+    width: min(var(--_width), 100% - var(--_inset) * 2);
+    height: auto;
+  }
+  .cherry-sheet[data-side="right"] {
+    right: var(--_inset);
+    left: auto;
+    --_from: translateX(calc(100% + var(--_inset)));
+  }
+  .cherry-sheet[data-side="left"] {
+    left: var(--_inset);
+    right: auto;
+    --_from: translateX(calc(-100% - var(--_inset)));
+  }
+  .cherry-sheet[data-side="bottom"] {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 85dvh;
+    border-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    --_from: translateY(100%);
+  }
+
+  .cherry-sheet__handle {
+    flex-shrink: 0;
+    width: 36px;
+    height: 4px;
+    margin: var(--cherry-space-2) auto 0;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-border-strong);
+  }
+
+  .cherry-sheet__header {
+    display: grid;
+    flex-shrink: 0;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--cherry-space-4);
+    row-gap: var(--cherry-space-1);
+    align-items: start;
+    padding: var(--_pad) var(--_pad) var(--cherry-space-5);
+  }
+  .cherry-sheet[data-side="bottom"] .cherry-sheet__header {
+    padding-top: var(--cherry-space-4);
+  }
+  .cherry-sheet__title {
+    grid-column: 1;
+    margin: 0;
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-text-h5-family);
+    font-size: var(--cherry-text-h5-size);
+    line-height: var(--cherry-text-h5-line-height);
+    letter-spacing: var(--cherry-text-h5-tracking);
+    font-weight: var(--cherry-text-h5-weight);
+  }
+  .cherry-sheet__description {
+    grid-column: 1;
+    margin: 0;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+  }
+  .cherry-sheet__close {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    margin: calc(var(--cherry-space-1) * -1) calc(var(--cherry-space-1) * -1) 0
+      0;
+  }
+
+  .cherry-sheet__body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0 var(--_pad) var(--_pad);
+    overflow-y: auto;
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+  }
+  .cherry-sheet__footer {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--cherry-space-2);
+    margin-top: auto;
+    padding: var(--cherry-space-3) var(--_pad);
+    border-top: 1px solid var(--cherry-border-default);
+  }
+}

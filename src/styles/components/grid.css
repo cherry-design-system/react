@@ -1,0 +1,138 @@
+/* Grid + Col: a ported 1.x grid (repeat(n, minmax(0, 1fr)) columns,
+   gutter gap that widens at lg), responsive through custom properties. */
+@layer cherry {
+  /* Responsive props arrive as inline custom properties per breakpoint
+     (--_<prop>-xs ... --_<prop>-xxxl). Each is reset to initial here so a
+     nested layout never inherits its parent's values, then folded into an
+     "at" chain so a value set at md holds through every larger breakpoint.
+     Media queries cannot read custom properties, so the breakpoint widths
+     are hardcoded below and mirror --cherry-breakpoint-sm ... -xxxl
+     (576 / 768 / 992 / 1200 / 1440 / 1920). */
+  .cherry-grid {
+    --_cols-xs: initial;
+    --_cols-sm: initial;
+    --_cols-md: initial;
+    --_cols-lg: initial;
+    --_cols-xl: initial;
+    --_cols-xxl: initial;
+    --_cols-xxxl: initial;
+    --_gap-xs: initial;
+    --_gap-sm: initial;
+    --_gap-md: initial;
+    --_gap-lg: initial;
+    --_gap-xl: initial;
+    --_gap-xxl: initial;
+    --_gap-xxxl: initial;
+    --_cols-at-xs: var(--_cols-xs);
+    --_cols-at-sm: var(--_cols-sm, var(--_cols-at-xs));
+    --_cols-at-md: var(--_cols-md, var(--_cols-at-sm));
+    --_cols-at-lg: var(--_cols-lg, var(--_cols-at-md));
+    --_cols-at-xl: var(--_cols-xl, var(--_cols-at-lg));
+    --_cols-at-xxl: var(--_cols-xxl, var(--_cols-at-xl));
+    --_cols-at-xxxl: var(--_cols-xxxl, var(--_cols-at-xxl));
+    --_gap-at-xs: var(--_gap-xs);
+    --_gap-at-sm: var(--_gap-sm, var(--_gap-at-xs));
+    --_gap-at-md: var(--_gap-md, var(--_gap-at-sm));
+    --_gap-at-lg: var(--_gap-lg, var(--_gap-at-md));
+    --_gap-at-xl: var(--_gap-xl, var(--_gap-at-lg));
+    --_gap-at-xxl: var(--_gap-xxl, var(--_gap-at-xl));
+    --_gap-at-xxxl: var(--_gap-xxxl, var(--_gap-at-xxl));
+    grid-template-columns: repeat(var(--_cols-at-xs, 3), minmax(0, 1fr));
+    gap: var(--_gap-at-xs, var(--cherry-gutter-mobile));
+  }
+  @media (min-width: 576px) {
+    .cherry-grid {
+      grid-template-columns: repeat(var(--_cols-at-sm, 3), minmax(0, 1fr));
+      gap: var(--_gap-at-sm, var(--cherry-gutter-mobile));
+    }
+  }
+  @media (min-width: 768px) {
+    .cherry-grid {
+      grid-template-columns: repeat(var(--_cols-at-md, 3), minmax(0, 1fr));
+      gap: var(--_gap-at-md, var(--cherry-gutter-mobile));
+    }
+  }
+  @media (min-width: 992px) {
+    .cherry-grid {
+      grid-template-columns: repeat(var(--_cols-at-lg, 3), minmax(0, 1fr));
+      gap: var(--_gap-at-lg, var(--cherry-gutter-desktop));
+    }
+  }
+  @media (min-width: 1200px) {
+    .cherry-grid {
+      grid-template-columns: repeat(var(--_cols-at-xl, 3), minmax(0, 1fr));
+      gap: var(--_gap-at-xl, var(--cherry-gutter-desktop));
+    }
+  }
+  @media (min-width: 1440px) {
+    .cherry-grid {
+      grid-template-columns: repeat(var(--_cols-at-xxl, 3), minmax(0, 1fr));
+      gap: var(--_gap-at-xxl, var(--cherry-gutter-desktop));
+    }
+  }
+  @media (min-width: 1920px) {
+    .cherry-grid {
+      grid-template-columns: repeat(var(--_cols-at-xxxl, 3), minmax(0, 1fr));
+      gap: var(--_gap-at-xxxl, var(--cherry-gutter-desktop));
+    }
+  }
+
+  .cherry-grid {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Col: grid-column per breakpoint ("span 2", "1 / -1"), auto when unset. */
+  .cherry-col {
+    --_span-xs: initial;
+    --_span-sm: initial;
+    --_span-md: initial;
+    --_span-lg: initial;
+    --_span-xl: initial;
+    --_span-xxl: initial;
+    --_span-xxxl: initial;
+    --_span-at-xs: var(--_span-xs);
+    --_span-at-sm: var(--_span-sm, var(--_span-at-xs));
+    --_span-at-md: var(--_span-md, var(--_span-at-sm));
+    --_span-at-lg: var(--_span-lg, var(--_span-at-md));
+    --_span-at-xl: var(--_span-xl, var(--_span-at-lg));
+    --_span-at-xxl: var(--_span-xxl, var(--_span-at-xl));
+    --_span-at-xxxl: var(--_span-xxxl, var(--_span-at-xxl));
+    grid-column: var(--_span-at-xs, auto);
+  }
+  @media (min-width: 576px) {
+    .cherry-col {
+      grid-column: var(--_span-at-sm, auto);
+    }
+  }
+  @media (min-width: 768px) {
+    .cherry-col {
+      grid-column: var(--_span-at-md, auto);
+    }
+  }
+  @media (min-width: 992px) {
+    .cherry-col {
+      grid-column: var(--_span-at-lg, auto);
+    }
+  }
+  @media (min-width: 1200px) {
+    .cherry-col {
+      grid-column: var(--_span-at-xl, auto);
+    }
+  }
+  @media (min-width: 1440px) {
+    .cherry-col {
+      grid-column: var(--_span-at-xxl, auto);
+    }
+  }
+  @media (min-width: 1920px) {
+    .cherry-col {
+      grid-column: var(--_span-at-xxxl, auto);
+    }
+  }
+
+  .cherry-col {
+    min-width: 0;
+  }
+}

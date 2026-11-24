@@ -1,0 +1,21 @@
+{
+  "name": "tabs",
+  "class": "cherry-tabs",
+  "attributes": {
+    "variant": ["pill", "underline"]
+  },
+  "states": [
+    "[aria-selected=\"true\"]",
+    "data-indicator",
+    ":disabled",
+    ":focus-visible",
+    ":hover",
+    "[hidden]"
+  ],
+  "parts": [
+    "cherry-tabs__list",
+    "cherry-tabs__indicator",
+    "cherry-tabs__tab",
+    "cherry-tabs__panel"
+  ]
+}

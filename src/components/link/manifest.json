@@ -1,0 +1,7 @@
+{
+  "name": "link",
+  "class": "cherry-link",
+  "attributes": { "variant": ["default", "muted"] },
+  "states": ["data-external", ":hover", ":focus-visible"],
+  "parts": ["cherry-link__icon"]
+}

@@ -1,0 +1,289 @@
+/* Calendar: month grid. The weeks of a month are one element keyed by month,
+   so a month change mounts a new one that slides in while the previous one
+   (kept for one animation, aria-hidden and inert) slides out the other way. */
+@layer cherry {
+  .cherry-calendar {
+    --_cell: 36px;
+    --_slide: 24px;
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--cherry-space-2);
+    box-sizing: border-box;
+    width: max-content;
+    padding: var(--cherry-space-3);
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-xl);
+    background: var(--cherry-bg-elevated);
+    box-shadow: var(--cherry-elevation-md);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+  }
+
+  /* Header: previous / month title / next. */
+  .cherry-calendar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 28px;
+  }
+  .cherry-calendar__title {
+    flex: 1;
+    overflow: hidden;
+    text-align: center;
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: 600;
+  }
+  .cherry-calendar__title-text {
+    display: inline-block;
+  }
+  .cherry-calendar__title-text[data-direction="next"] {
+    animation: cherry-calendar-title-in-next var(--cherry-duration-base)
+      var(--cherry-easing-out);
+  }
+  .cherry-calendar__title-text[data-direction="prev"] {
+    animation: cherry-calendar-title-in-prev var(--cherry-duration-base)
+      var(--cherry-easing-out);
+  }
+  .cherry-calendar__nav {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--cherry-radius-sm);
+    background: transparent;
+    color: var(--cherry-fg-muted);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-calendar__nav > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-calendar__nav:hover:not(:disabled) {
+    background: var(--cherry-ghost-hover);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-calendar__nav:active:not(:disabled) {
+    transform: scale(0.94);
+  }
+  .cherry-calendar__nav:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-calendar__nav:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  /* Grid */
+  .cherry-calendar__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cherry-calendar__weekdays,
+  .cherry-calendar__week {
+    display: grid;
+    grid-template-columns: repeat(7, var(--_cell));
+  }
+  .cherry-calendar__weekday {
+    display: grid;
+    place-items: center;
+    height: 28px;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-label-xs-size);
+    line-height: var(--cherry-text-label-xs-line-height);
+    font-weight: var(--cherry-text-label-xs-weight);
+  }
+  /* Both months stack in one cell while one leaves and the other arrives.
+     The clip keeps the slide inside the card; the margin leaves room for
+     focus rings on the edge days. */
+  .cherry-calendar__viewport {
+    display: grid;
+    overflow: clip;
+    overflow-clip-margin: 4px;
+  }
+  .cherry-calendar__weeks {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .cherry-calendar__weeks[data-direction="next"] {
+    animation: cherry-calendar-in-next var(--cherry-duration-base)
+      var(--cherry-easing-out);
+  }
+  .cherry-calendar__weeks[data-direction="prev"] {
+    animation: cherry-calendar-in-prev var(--cherry-duration-base)
+      var(--cherry-easing-out);
+  }
+  .cherry-calendar__weeks[data-leaving] {
+    pointer-events: none;
+  }
+  .cherry-calendar__weeks[data-leaving][data-direction="next"] {
+    animation: cherry-calendar-out-next var(--cherry-duration-fast)
+      var(--cherry-easing-standard) forwards;
+  }
+  .cherry-calendar__weeks[data-leaving][data-direction="prev"] {
+    animation: cherry-calendar-out-prev var(--cherry-duration-fast)
+      var(--cherry-easing-standard) forwards;
+  }
+
+  /* One day. The cell paints the range strip, the button the day itself. */
+  .cherry-calendar__cell {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: var(--_cell);
+  }
+  .cherry-calendar__cell[data-range]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--cherry-bg-muted);
+    transition: opacity var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-calendar__cell[data-range="start"]::before {
+    inset-inline-start: 50%;
+  }
+  .cherry-calendar__cell[data-range="middle"]::before {
+    inset-inline: 0;
+  }
+  .cherry-calendar__cell[data-range="end"]::before {
+    inset-inline-end: 50%;
+  }
+  /* While the second end is still being picked, the strip is a preview. */
+  .cherry-calendar__cell[data-preview]::before {
+    opacity: 0.6;
+  }
+
+  .cherry-calendar__day {
+    appearance: none;
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: var(--_cell);
+    height: var(--_cell);
+    padding: 0;
+    border: 0;
+    border-radius: var(--cherry-radius-md);
+    background: transparent;
+    color: var(--cherry-fg-default);
+    font: inherit;
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-calendar__day:hover:not([aria-disabled="true"], [data-selected]) {
+    background: var(--cherry-ghost-hover);
+  }
+  .cherry-calendar__day:active:not([aria-disabled="true"]) {
+    transform: scale(0.94);
+  }
+  .cherry-calendar__day:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-calendar__day[data-outside] {
+    color: var(--cherry-fg-subtle);
+  }
+  .cherry-calendar__day[data-today] {
+    font-weight: 600;
+  }
+  .cherry-calendar__day[data-today]::after {
+    content: "";
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: var(--cherry-accent-default);
+    transition: background-color var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-calendar__day[data-selected] {
+    background: var(--cherry-primary-default);
+    color: var(--cherry-primary-fg);
+    animation: cherry-calendar-day-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop);
+  }
+  .cherry-calendar__day[data-selected]::after {
+    background: var(--cherry-primary-fg);
+  }
+  .cherry-calendar__day[aria-disabled="true"] {
+    color: var(--cherry-fg-subtle);
+    text-decoration: line-through;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* On the range strip, hover needs a step darker than the strip. */
+  .cherry-calendar[data-mode="range"]
+    .cherry-calendar__cell[data-range]
+    .cherry-calendar__day:not([data-selected]):hover {
+    background: var(--cherry-secondary-hover);
+  }
+
+  @keyframes cherry-calendar-in-next {
+    from {
+      opacity: 0;
+      transform: translateX(var(--_slide));
+    }
+  }
+  @keyframes cherry-calendar-in-prev {
+    from {
+      opacity: 0;
+      transform: translateX(calc(var(--_slide) * -1));
+    }
+  }
+  @keyframes cherry-calendar-out-next {
+    to {
+      opacity: 0;
+      transform: translateX(calc(var(--_slide) * -1));
+    }
+  }
+  @keyframes cherry-calendar-out-prev {
+    to {
+      opacity: 0;
+      transform: translateX(var(--_slide));
+    }
+  }
+  @keyframes cherry-calendar-title-in-next {
+    from {
+      opacity: 0;
+      transform: translateX(8px);
+    }
+  }
+  @keyframes cherry-calendar-title-in-prev {
+    from {
+      opacity: 0;
+      transform: translateX(-8px);
+    }
+  }
+  @keyframes cherry-calendar-day-pop {
+    from {
+      transform: scale(0.85);
+    }
+  }
+}

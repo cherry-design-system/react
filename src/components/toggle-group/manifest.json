@@ -1,0 +1,18 @@
+{
+  "name": "toggle-group",
+  "class": "cherry-toggle-group",
+  "attributes": {
+    "type": ["single", "multiple"],
+    "size": ["sm", "md"]
+  },
+  "states": [
+    "data-ready",
+    "aria-checked",
+    "aria-pressed",
+    "aria-disabled",
+    ":disabled",
+    ":focus-visible",
+    ":hover"
+  ],
+  "parts": ["cherry-toggle-group__indicator", "cherry-toggle-group__item"]
+}

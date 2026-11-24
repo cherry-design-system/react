@@ -1,0 +1,86 @@
+@layer cherry {
+  .cherry-callout {
+    --_bg: var(--cherry-bg-subtle);
+    --_border: var(--cherry-border-default);
+    --_icon: var(--cherry-fg-muted);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--cherry-space-3);
+    box-sizing: border-box;
+    max-width: 100%;
+    padding: var(--cherry-space-3) var(--cherry-space-4);
+    border: 1px solid var(--_border);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--_bg);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+
+  .cherry-callout__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    height: calc(1em * var(--cherry-text-body-sm-line-height));
+    color: var(--_icon);
+    transition: color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-callout__icon > svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .cherry-callout__content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--cherry-space-1);
+    min-width: 0;
+  }
+  .cherry-callout__title {
+    margin: 0;
+    font-weight: 600;
+  }
+  .cherry-callout__body > :first-child {
+    margin-top: 0;
+  }
+  .cherry-callout__body > :last-child {
+    margin-bottom: 0;
+  }
+  .cherry-callout__body a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cherry-callout[data-variant="neutral"] {
+    --_bg: var(--cherry-bg-subtle);
+    --_border: var(--cherry-border-default);
+    --_icon: var(--cherry-fg-muted);
+  }
+  .cherry-callout[data-variant="info"] {
+    --_bg: var(--cherry-info-bg);
+    --_border: var(--cherry-info-border);
+    --_icon: var(--cherry-info-fg);
+  }
+  .cherry-callout[data-variant="success"] {
+    --_bg: var(--cherry-success-bg);
+    --_border: var(--cherry-success-border);
+    --_icon: var(--cherry-success-fg);
+  }
+  .cherry-callout[data-variant="warning"] {
+    --_bg: var(--cherry-warning-bg);
+    --_border: var(--cherry-warning-border);
+    --_icon: var(--cherry-warning-fg);
+  }
+  .cherry-callout[data-variant="danger"] {
+    --_bg: var(--cherry-danger-bg);
+    --_border: var(--cherry-danger-border);
+    --_icon: var(--cherry-danger-fg);
+  }
+}

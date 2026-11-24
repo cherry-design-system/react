@@ -1,0 +1,105 @@
+/* Card: the Figma "Box" surface (1.x Box: light fill, radius lg, 1px border),
+   with elevation and padding variants. Interactive cards lift on hover. */
+@layer cherry {
+  .cherry-card {
+    --_bg: var(--cherry-bg-elevated);
+    --_border: var(--cherry-border-default);
+    --_shadow: none;
+    --_shadow-hover: var(--cherry-elevation-md);
+    --_pad: var(--cherry-space-5);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-1);
+    box-sizing: border-box;
+    min-width: 0;
+    padding: var(--_pad);
+    border: 1px solid var(--_border);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--_bg);
+    box-shadow: var(--_shadow);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-base) var(--cherry-easing-spring);
+  }
+
+  .cherry-card[data-variant="outline"] {
+    --_bg: var(--cherry-bg-elevated);
+    --_border: var(--cherry-border-default);
+    --_shadow: none;
+  }
+  .cherry-card[data-variant="elevated"] {
+    --_bg: var(--cherry-bg-elevated);
+    --_border: var(--cherry-border-default);
+    --_shadow: var(--cherry-elevation-sm);
+    --_shadow-hover: var(--cherry-elevation-lg);
+  }
+  .cherry-card[data-variant="filled"] {
+    --_bg: var(--cherry-bg-subtle);
+    --_border: transparent;
+    --_shadow: none;
+  }
+
+  .cherry-card[data-padding="none"] {
+    --_pad: 0px;
+  }
+  .cherry-card[data-padding="sm"] {
+    --_pad: var(--cherry-space-3);
+  }
+  .cherry-card[data-padding="md"] {
+    --_pad: var(--cherry-space-5);
+  }
+  .cherry-card[data-padding="lg"] {
+    --_pad: var(--cherry-space-8);
+  }
+
+  .cherry-card[data-interactive] {
+    cursor: pointer;
+  }
+  .cherry-card[data-interactive]:hover {
+    --_border: var(--cherry-border-strong);
+    box-shadow: var(--_shadow-hover);
+    transform: translateY(-2px);
+  }
+  .cherry-card[data-interactive]:active {
+    transform: translateY(0) scale(0.99);
+    transition-duration: var(--cherry-duration-instant);
+  }
+  .cherry-card[data-interactive]:has(:focus-visible) {
+    box-shadow: var(--_shadow), var(--cherry-ring);
+  }
+
+  .cherry-card__icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    margin-bottom: var(--cherry-space-3);
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-sm);
+    background: var(--cherry-bg-subtle);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-card__icon > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-card__title {
+    margin: 0;
+    color: var(--cherry-fg-default);
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: 600;
+  }
+  .cherry-card__description {
+    margin: 0;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "chat-sources",
+  "class": "cherry-chat-sources",
+  "attributes": {},
+  "states": [":hover", ":focus-visible"],
+  "parts": [
+    "cherry-chat-sources__item",
+    "cherry-chat-source",
+    "cherry-chat-source__label"
+  ]
+}

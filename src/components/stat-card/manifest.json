@@ -1,0 +1,19 @@
+{
+  "name": "stat-card",
+  "class": "cherry-stat-card",
+  "attributes": { "trend": ["up", "down", "neutral"] },
+  "states": ["data-inverse"],
+  "parts": [
+    "cherry-stat-card__label",
+    "cherry-stat-card__row",
+    "cherry-stat-card__value",
+    "cherry-stat-card__spark",
+    "cherry-stat-card__stop",
+    "cherry-stat-card__area",
+    "cherry-stat-card__line",
+    "cherry-stat-card__dot",
+    "cherry-stat-card__footer",
+    "cherry-stat-card__delta",
+    "cherry-stat-card__delta-label"
+  ]
+}

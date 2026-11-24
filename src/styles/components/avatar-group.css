@@ -1,0 +1,37 @@
+/* AvatarGroup: overlapping avatars, each cut out of the one before by a
+   canvas-colored ring. Hovering an avatar lifts it above its neighbours. */
+@layer cherry {
+  .cherry-avatar-group {
+    --_overlap: -8px;
+    display: inline-flex;
+    align-items: center;
+    isolation: isolate;
+  }
+  .cherry-avatar-group > .cherry-avatar {
+    box-shadow: 0 0 0 2px var(--cherry-bg-canvas);
+    transition:
+      transform var(--cherry-duration-base) var(--cherry-easing-spring),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-avatar-group > .cherry-avatar + .cherry-avatar {
+    margin-inline-start: var(--_overlap);
+  }
+  .cherry-avatar-group > .cherry-avatar:hover {
+    z-index: 1;
+    transform: translateY(-2px);
+  }
+  .cherry-avatar-group__overflow {
+    color: var(--cherry-fg-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cherry-avatar-group[data-size="sm"] {
+    --_overlap: -6px;
+  }
+  .cherry-avatar-group[data-size="md"] {
+    --_overlap: -8px;
+  }
+  .cherry-avatar-group[data-size="lg"] {
+    --_overlap: -10px;
+  }
+}

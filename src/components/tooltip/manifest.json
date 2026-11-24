@@ -1,0 +1,7 @@
+{
+  "name": "tooltip",
+  "class": "cherry-tooltip",
+  "attributes": { "placement": ["top", "bottom", "left", "right"] },
+  "states": [":popover-open"],
+  "parts": ["cherry-tooltip__trigger"]
+}

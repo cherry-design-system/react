@@ -1,0 +1,12 @@
+{
+  "name": "table",
+  "class": "cherry-table",
+  "attributes": { "size": ["sm", "md"] },
+  "states": [
+    "data-striped",
+    "data-hoverable",
+    "data-numeric",
+    ":focus-visible"
+  ],
+  "parts": ["cherry-table__table"]
+}

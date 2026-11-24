@@ -1,0 +1,7 @@
+{
+  "name": "avatar-group",
+  "class": "cherry-avatar-group",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": [":hover"],
+  "parts": ["cherry-avatar-group__overflow"]
+}

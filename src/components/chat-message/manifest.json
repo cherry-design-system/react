@@ -1,0 +1,12 @@
+{
+  "name": "chat-message",
+  "class": "cherry-chat-message",
+  "attributes": { "role": ["user", "assistant"] },
+  "states": ["data-streaming", "data-still"],
+  "parts": [
+    "cherry-chat-message__avatar",
+    "cherry-chat-message__main",
+    "cherry-chat-message__content",
+    "cherry-chat-message__actions"
+  ]
+}

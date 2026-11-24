@@ -1,0 +1,205 @@
+/* FileItem: a file row (Figma "FileItem"). Enters with a short rise, the
+   progress fill eases with each update, the glyph pops on a status change,
+   an error shakes once, and a removed row fades and collapses out. */
+@layer cherry {
+  .cherry-file-item {
+    --_border: var(--cherry-border-default);
+    --_tile-bg: var(--cherry-bg-muted);
+    --_tile-fg: var(--cherry-fg-muted);
+    --_meta: var(--cherry-fg-muted);
+
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-3);
+    box-sizing: border-box;
+    width: 100%;
+    padding: var(--cherry-space-3);
+    border: 1px solid var(--_border);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--cherry-bg-elevated);
+    box-shadow: var(--cherry-elevation-xs);
+    font-family: var(--cherry-font-sans);
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-fast) var(--cherry-easing-standard);
+    /* backwards, not both: a held end state would block the exit
+       transition on transform. */
+    animation: cherry-file-item-in var(--cherry-duration-base)
+      var(--cherry-easing-out) backwards;
+  }
+  .cherry-file-item[data-status="uploading"] {
+    --_meta: var(--cherry-fg-muted);
+  }
+  .cherry-file-item[data-status="complete"] {
+    --_meta: var(--cherry-fg-muted);
+  }
+  .cherry-file-item[data-status="error"] {
+    --_border: var(--cherry-danger-border);
+    --_tile-bg: var(--cherry-danger-bg);
+    --_tile-fg: var(--cherry-danger-fg);
+    --_meta: var(--cherry-danger-fg);
+    animation:
+      cherry-file-item-in var(--cherry-duration-base) var(--cherry-easing-out)
+        backwards,
+      cherry-file-item-shake var(--cherry-duration-slow)
+        var(--cherry-easing-standard) var(--cherry-duration-instant);
+  }
+  .cherry-file-item[data-removing] {
+    opacity: 0;
+    transform: scale(0.98) translateY(-4px);
+    pointer-events: none;
+  }
+
+  .cherry-file-item__tile {
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--cherry-radius-md);
+    background: var(--_tile-bg);
+    color: var(--_tile-fg);
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-file-item__glyph {
+    display: grid;
+    place-items: center;
+    animation: cherry-file-item-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop) both;
+  }
+  .cherry-file-item__glyph > svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .cherry-file-item__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .cherry-file-item__name {
+    overflow: hidden;
+    color: var(--cherry-fg-default);
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: var(--cherry-text-label-md-weight);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .cherry-file-item__meta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cherry-space-1);
+    color: var(--_meta);
+    font-size: var(--cherry-text-body-xs-size);
+    line-height: var(--cherry-text-body-xs-line-height);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-file-item__check {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--cherry-success-fg);
+    animation: cherry-file-item-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop) calc(var(--cherry-duration-instant) * 0.8) both;
+  }
+
+  .cherry-file-item__progress {
+    display: block;
+    height: 4px;
+    margin-top: var(--cherry-space-1);
+    overflow: hidden;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-muted);
+  }
+  .cherry-file-item__bar {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--cherry-primary-default);
+    transform: scaleX(var(--_progress, 0));
+    transform-origin: left center;
+    transition: transform var(--cherry-duration-base)
+      var(--cherry-easing-standard);
+  }
+  .cherry-file-item__bar:dir(rtl) {
+    transform-origin: right center;
+  }
+
+  .cherry-file-item__remove {
+    appearance: none;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--cherry-radius-sm);
+    background: transparent;
+    color: var(--cherry-fg-muted);
+    cursor: pointer;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-file-item__remove > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-file-item__remove:hover {
+    background: var(--cherry-ghost-hover);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-file-item__remove:active {
+    transform: scale(0.94);
+  }
+  .cherry-file-item__remove:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+
+  @keyframes cherry-file-item-in {
+    from {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes cherry-file-item-shake {
+    0%,
+    100% {
+      transform: none;
+    }
+    20%,
+    60% {
+      transform: translateX(-3px);
+    }
+    40%,
+    80% {
+      transform: translateX(3px);
+    }
+  }
+  @keyframes cherry-file-item-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}

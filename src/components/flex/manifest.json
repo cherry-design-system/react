@@ -1,0 +1,7 @@
+{
+  "name": "flex",
+  "class": "cherry-flex",
+  "attributes": {},
+  "states": ["data-inline", "data-full-width"],
+  "parts": []
+}

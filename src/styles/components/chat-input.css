@@ -1,0 +1,208 @@
+/* ChatInput (Figma "ChatInput", 1.x chat-input). The frame is a 1px
+   padding box whose background is the border, so the plain and the glow
+   variants share one geometry: plain paints a border token, glow paints a
+   flowing AI gradient (background-position, no @property needed) plus a
+   blurred halo (::after) that brightens on hover and focus. */
+@layer cherry {
+  .cherry-chat-input {
+    --_border: var(--cherry-border-default);
+    --_ring: none;
+    --_halo: 0;
+    --_flow: calc(var(--cherry-duration-slow) * 10);
+    --_ai: linear-gradient(
+      90deg,
+      var(--cherry-ai-from),
+      var(--cherry-ai-to),
+      var(--cherry-ai-from),
+      var(--cherry-ai-to)
+    );
+
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    font-family: var(--cherry-font-sans);
+  }
+
+  .cherry-chat-input__frame {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 1px;
+    border-radius: var(--cherry-radius-xl);
+    background: var(--_border);
+    box-shadow: var(--cherry-elevation-sm), var(--_ring);
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-chat-input:hover:not([data-disabled]) {
+    --_border: var(--cherry-border-strong);
+    --_halo: 0.35;
+  }
+  .cherry-chat-input:focus-within {
+    --_border: var(--cherry-border-focus);
+    --_ring: var(--cherry-ring);
+    --_halo: 0.55;
+  }
+  .cherry-chat-input[data-disabled] {
+    opacity: 0.6;
+  }
+
+  .cherry-chat-input__surface {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-2);
+    padding: var(--cherry-space-3) var(--cherry-space-3) var(--cherry-space-2);
+    border-radius: calc(var(--cherry-radius-xl) - 1px);
+    background: var(--cherry-bg-canvas);
+  }
+
+  .cherry-chat-input__textarea {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 1lh;
+    margin: 0;
+    padding: 0 var(--cherry-space-1);
+    overflow-y: auto;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--cherry-fg-default);
+    font: inherit;
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+    resize: none;
+    field-sizing: content;
+    scrollbar-width: thin;
+  }
+  .cherry-chat-input__textarea::placeholder {
+    color: var(--cherry-fg-subtle);
+  }
+  .cherry-chat-input__textarea:disabled {
+    cursor: not-allowed;
+  }
+
+  .cherry-chat-input__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--cherry-space-2);
+  }
+  .cherry-chat-input__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-1);
+    min-width: 0;
+    color: var(--cherry-fg-muted);
+  }
+
+  /* Send: muted until there is something to send, then primary with a pop. */
+  .cherry-chat-input__send {
+    appearance: none;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-muted);
+    color: var(--cherry-fg-subtle);
+    cursor: not-allowed;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-chat-input__send[data-ready] {
+    background: var(--cherry-primary-default);
+    color: var(--cherry-primary-fg);
+    cursor: pointer;
+  }
+  .cherry-chat-input__send[data-ready]:hover {
+    background: var(--cherry-primary-hover);
+  }
+  .cherry-chat-input__send[data-ready]:active {
+    transform: scale(0.94);
+  }
+  .cherry-chat-input__send:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-chat-input__send > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-chat-input__send[data-ready] > .cherry-chat-input__arrow {
+    animation: cherry-chat-input-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop);
+  }
+  .cherry-chat-input__send .cherry-spinner {
+    color: inherit;
+  }
+
+  .cherry-chat-input__footnote {
+    margin: var(--cherry-space-2) 0 0;
+    color: var(--cherry-fg-subtle);
+    font-size: var(--cherry-text-body-xs-size);
+    line-height: var(--cherry-text-body-xs-line-height);
+    text-align: center;
+  }
+
+  /* Glow: the AI gradient flows along the border; the halo is the same
+     gradient, blurred, faded in by hover and focus. */
+  .cherry-chat-input[data-glow] .cherry-chat-input__frame {
+    background: var(--_ai);
+    background-size: 300% 100%;
+    animation: cherry-chat-input-flow var(--_flow) linear infinite;
+  }
+  .cherry-chat-input[data-glow] .cherry-chat-input__frame::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--_ai);
+    background-size: 300% 100%;
+    filter: blur(14px);
+    opacity: var(--_halo);
+    pointer-events: none;
+    transition: opacity var(--cherry-duration-base)
+      var(--cherry-easing-standard);
+    animation: cherry-chat-input-flow var(--_flow) linear infinite;
+  }
+  .cherry-chat-input[data-glow]:focus-within {
+    --_ring: none;
+  }
+
+  /* Reduced motion: the gradient border holds still. */
+  @media (prefers-reduced-motion: reduce) {
+    .cherry-chat-input[data-glow] .cherry-chat-input__frame,
+    .cherry-chat-input[data-glow] .cherry-chat-input__frame::after {
+      animation: none;
+    }
+  }
+
+  @keyframes cherry-chat-input-flow {
+    from {
+      background-position: 0% 50%;
+    }
+    to {
+      background-position: 100% 50%;
+    }
+  }
+  @keyframes cherry-chat-input-pop {
+    from {
+      opacity: 0;
+      transform: translateY(4px) scale(0.6);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

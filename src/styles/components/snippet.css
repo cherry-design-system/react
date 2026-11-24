@@ -1,0 +1,82 @@
+/* Snippet: a one-line command pill with a copy button (icon-button.css).
+   Both glyphs share one grid cell; on copy the copy icon shrinks away while
+   the check pops in (and the reverse when it resets). */
+@layer cherry {
+  .cherry-snippet {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+    max-width: 100%;
+    height: 42px;
+    padding: 0 6px 0 16px;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-subtle);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-mono);
+    font-size: var(--cherry-text-mono-sm-size);
+    line-height: var(--cherry-text-mono-sm-line-height);
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-snippet:hover {
+    border-color: var(--cherry-border-strong);
+  }
+  .cherry-snippet:has(:focus-visible) {
+    border-color: var(--cherry-border-focus);
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-snippet__prompt {
+    flex-shrink: 0;
+    color: var(--cherry-fg-subtle);
+    user-select: none;
+  }
+  .cherry-snippet__code {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    font: inherit;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+  .cherry-snippet__code::-webkit-scrollbar {
+    display: none;
+  }
+  /* The pill carries the focus ring; the button keeps a quieter one. */
+  .cherry-snippet .cherry-snippet__copy {
+    border-radius: 50%;
+  }
+  .cherry-snippet .cherry-snippet__copy:focus-visible {
+    box-shadow: none;
+  }
+  .cherry-snippet[data-copied] .cherry-snippet__copy {
+    background: var(--cherry-success-bg);
+    color: var(--cherry-success-fg);
+  }
+
+  .cherry-snippet__icons {
+    display: grid;
+  }
+  .cherry-snippet__icon {
+    grid-area: 1 / 1;
+    width: 14px;
+    height: 14px;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-emphasis) var(--cherry-easing-pop);
+  }
+  .cherry-snippet__icon[data-icon="check"] {
+    opacity: 0;
+    transform: scale(0.4) rotate(-20deg);
+  }
+  .cherry-snippet[data-copied] .cherry-snippet__icon[data-icon="copy"] {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  .cherry-snippet[data-copied] .cherry-snippet__icon[data-icon="check"] {
+    opacity: 1;
+    transform: none;
+  }
+}

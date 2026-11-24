@@ -11,24 +11,41 @@ import { readdirSync, readFileSync, writeFileSync, existsSync } from "node:fs";
 
 const root = new URL("../src/components/", import.meta.url);
 const api = {};
+const plural = (s) => (/(s|x|z|ch|sh)$/.test(s) ? `${s}es` : `${s}s`);
 const pascal = (s) => s.replace(/(^|[-_])(\w)/g, (_, __, c) => c.toUpperCase());
 
-for (const dir of readdirSync(root, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name).sort()) {
+for (const dir of readdirSync(root, { withFileTypes: true })
+  .filter((d) => d.isDirectory())
+  .map((d) => d.name)
+  .sort()) {
   const file = new URL(`${dir}/manifest.json`, root);
   if (!existsSync(file)) continue;
   const m = JSON.parse(readFileSync(file));
-  if (!m.name || !m.class) throw new Error(`${dir}/manifest.json needs "name" and "class"`);
+  if (!m.name || !m.class)
+    throw new Error(`${dir}/manifest.json needs "name" and "class"`);
   const comp = pascal(m.name);
   const attrs = m.attributes ?? {};
   let ts = `// Generated from manifest.json by scripts/build-manifests.mjs. Do not edit.\n`;
   for (const [attr, values] of Object.entries(attrs)) {
-    const constName = `${m.name.replace(/-(\w)/g, (_, c) => c.toUpperCase())}${pascal(attr)}s`;
+    const constName = plural(
+      `${m.name.replace(/-(\w)/g, (_, c) => c.toUpperCase())}${pascal(attr)}`,
+    );
     ts += `export const ${constName} = ${JSON.stringify(values)} as const;\n`;
     ts += `export type ${comp}${pascal(attr)} = (typeof ${constName})[number];\n`;
   }
   writeFileSync(new URL(`${dir}/variants.gen.ts`, root), ts);
-  api[m.name] = { class: m.class, attributes: Object.fromEntries(Object.entries(attrs).map(([k, v]) => [`data-${k}`, v])), states: m.states ?? [], parts: m.parts ?? [] };
+  api[m.name] = {
+    class: m.class,
+    attributes: Object.fromEntries(
+      Object.entries(attrs).map(([k, v]) => [`data-${k}`, v]),
+    ),
+    states: m.states ?? [],
+    parts: m.parts ?? [],
+  };
 }
 
-writeFileSync(new URL("../src/style-api.json", import.meta.url), JSON.stringify(api, null, 2) + "\n");
+writeFileSync(
+  new URL("../src/style-api.json", import.meta.url),
+  JSON.stringify(api, null, 2) + "\n",
+);
 console.log(`manifests: ${Object.keys(api).length} components`);

@@ -1,0 +1,8 @@
+{
+  "name": "skeleton",
+  "class": "cherry-skeleton",
+  "attributes": {
+    "shape": ["text", "circle", "rect"]
+  },
+  "parts": ["cherry-skeleton__line"]
+}

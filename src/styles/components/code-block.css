@@ -1,0 +1,156 @@
+/* CodeBlock: framed listing (Figma "CodeBlock"). Lines are blocks so a
+   highlight spans the full scroll width; numbers are a CSS counter, never
+   part of the selection. The copy glyph pops into a check when copied. */
+@layer cherry {
+  .cherry-code-block {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--cherry-bg-subtle);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+  }
+
+  .cherry-code-block__header {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    min-height: 40px;
+    padding: 0 var(--cherry-space-2) 0 var(--cherry-space-4);
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-label-sm-size);
+    line-height: var(--cherry-text-label-sm-line-height);
+  }
+  .cherry-code-block__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+  .cherry-code-block__icon > svg {
+    width: 14px;
+    height: 14px;
+  }
+  .cherry-code-block__filename {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    color: var(--cherry-fg-default);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .cherry-code-block__language {
+    color: var(--cherry-fg-subtle);
+    font-size: var(--cherry-text-eyebrow-size);
+    letter-spacing: var(--cherry-text-eyebrow-tracking);
+    font-weight: var(--cherry-text-eyebrow-weight);
+    text-transform: uppercase;
+  }
+
+  .cherry-code-block__copy {
+    appearance: none;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--cherry-radius-sm);
+    background: transparent;
+    color: var(--cherry-fg-muted);
+    cursor: pointer;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-code-block__copy:hover {
+    background: var(--cherry-ghost-hover);
+    color: var(--cherry-fg-default);
+  }
+  .cherry-code-block__copy:active {
+    transform: scale(0.94);
+  }
+  .cherry-code-block__copy:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-code-block__copy[data-copied] {
+    color: var(--cherry-success-fg);
+  }
+  .cherry-code-block__glyph {
+    display: grid;
+    place-items: center;
+    animation: cherry-code-block-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop);
+  }
+  .cherry-code-block__glyph > svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .cherry-code-block__pre {
+    margin: 0;
+    padding: var(--cherry-space-3) 0;
+    overflow-x: auto;
+    border-top: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-lg) var(--cherry-radius-lg) 0 0;
+    background: var(--cherry-bg-canvas);
+    font-family: var(--cherry-font-mono);
+    font-size: var(--cherry-text-mono-sm-size);
+    line-height: var(--cherry-text-mono-sm-line-height);
+    tab-size: 2;
+    scrollbar-width: thin;
+    transition: box-shadow var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-code-block__pre:first-child {
+    border-top: 0;
+  }
+  .cherry-code-block__pre:focus-visible {
+    outline: none;
+    box-shadow: inset var(--cherry-ring);
+  }
+  .cherry-code-block__code {
+    display: inline-block;
+    min-width: 100%;
+    font: inherit;
+    counter-reset: cherry-code-line;
+  }
+  .cherry-code-block__line {
+    display: block;
+    min-height: 1lh;
+    padding: 0 var(--cherry-space-4);
+    white-space: pre;
+  }
+  .cherry-code-block[data-line-numbers] .cherry-code-block__line {
+    counter-increment: cherry-code-line;
+  }
+  .cherry-code-block[data-line-numbers] .cherry-code-block__line::before {
+    content: counter(cherry-code-line);
+    display: inline-block;
+    width: 2ch;
+    margin-inline-end: var(--cherry-space-4);
+    color: var(--cherry-fg-subtle);
+    text-align: end;
+    user-select: none;
+  }
+  .cherry-code-block__line[data-highlighted] {
+    background: var(--cherry-accent-subtle);
+    box-shadow: inset 2px 0 0 var(--cherry-accent-default);
+  }
+
+  @keyframes cherry-code-block-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}

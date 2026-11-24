@@ -1,0 +1,7 @@
+{
+  "name": "prose",
+  "class": "cherry-prose",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": ["data-compact"],
+  "parts": []
+}

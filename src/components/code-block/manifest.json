@@ -1,0 +1,17 @@
+{
+  "name": "code-block",
+  "class": "cherry-code-block",
+  "attributes": {},
+  "states": ["data-line-numbers", "data-highlighted", "data-copied"],
+  "parts": [
+    "cherry-code-block__header",
+    "cherry-code-block__icon",
+    "cherry-code-block__filename",
+    "cherry-code-block__language",
+    "cherry-code-block__copy",
+    "cherry-code-block__glyph",
+    "cherry-code-block__pre",
+    "cherry-code-block__code",
+    "cherry-code-block__line"
+  ]
+}

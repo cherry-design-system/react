@@ -68,7 +68,11 @@ export interface ToastApi {
   /** Immediate removal, no exit animation. */
   remove: (id: number) => void;
   /** Loading toast that turns into success / error when the task settles. */
-  promise: <T>(task: Promise<T> | (() => Promise<T>), messages: ToastPromiseMessages<T>, options?: ToastOptions) => Promise<T>;
+  promise: <T>(
+    task: Promise<T> | (() => Promise<T>),
+    messages: ToastPromiseMessages<T>,
+    options?: ToastOptions,
+  ) => Promise<T>;
 }
 
 // The exit fade runs on --cherry-duration-slow (400ms); the toast is dropped
@@ -153,7 +157,11 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setToasts((prev) =>
       prev.map((item) => {
         if (item.id !== id || item.exiting) return item;
-        const next = { ...item, ...rest, title: title === undefined ? item.title : title };
+        const next = {
+          ...item,
+          ...rest,
+          title: title === undefined ? item.title : title,
+        };
         if (next.color === "loading") next.autoHide = 0;
         return next;
       }),
@@ -172,7 +180,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   // exit transition has finished.
   const dismiss = useCallback((id: number) => {
     if (exitTimers.current.has(id)) return;
-    setToasts((prev) => prev.map((item) => (item.id === id ? { ...item, exiting: true } : item)));
+    setToasts((prev) =>
+      prev.map((item) => (item.id === id ? { ...item, exiting: true } : item)),
+    );
     exitTimers.current.set(
       id,
       window.setTimeout(() => {
@@ -183,46 +193,99 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const promise = useCallback(
-    <T,>(task: Promise<T> | (() => Promise<T>), messages: ToastPromiseMessages<T>, options: ToastOptions = {}) => {
+    <T,>(
+      task: Promise<T> | (() => Promise<T>),
+      messages: ToastPromiseMessages<T>,
+      options: ToastOptions = {},
+    ) => {
       const id = show(messages.loading, { ...options, color: "loading" });
       const autoHide = options.autoHide ?? PROMISE_AUTO_HIDE_MS;
       const pending = typeof task === "function" ? task() : task;
       // Swap the same toast in place. One dismissed while loading stays gone:
       // update() skips ids that are exiting or removed.
       pending
-        .then((data) => update(id, { title: resolve(messages.success, data), color: "success", autoHide }))
+        .then((data) =>
+          update(id, {
+            title: resolve(messages.success, data),
+            color: "success",
+            autoHide,
+          }),
+        )
         // After .then, so a throwing success message still clears the spinner.
-        .catch((error: unknown) => update(id, { title: resolve(messages.error, error), color: "error", autoHide }));
+        .catch((error: unknown) =>
+          update(id, {
+            title: resolve(messages.error, error),
+            color: "error",
+            autoHide,
+          }),
+        );
       return pending;
     },
     [show, update],
   );
 
-  const value = useMemo(() => ({ toasts, show, update, dismiss, remove, promise }), [toasts, show, update, dismiss, remove, promise]);
-  return <ToastContext.Provider value={value}>{children}</ToastContext.Provider>;
+  const value = useMemo(
+    () => ({ toasts, show, update, dismiss, remove, promise }),
+    [toasts, show, update, dismiss, remove, promise],
+  );
+  return (
+    <ToastContext.Provider value={value}>{children}</ToastContext.Provider>
+  );
 }
 
 function ToastGlyph({ color }: { color: ToastColor }) {
   if (color === "loading") return <Spinner size="md" label={null} />;
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      {color === "success" && <path className="cherry-toast__stroke" pathLength={1} d="M5.5 12.5 10 17l8.5-9.5" />}
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={3}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {color === "success" && (
+        <path
+          className="cherry-toast__stroke"
+          pathLength={1}
+          d="M5.5 12.5 10 17l8.5-9.5"
+        />
+      )}
       {color === "error" && (
         <>
-          <path className="cherry-toast__stroke" pathLength={1} d="M7 7l10 10" />
-          <path className="cherry-toast__stroke" pathLength={1} d="M17 7 7 17" />
+          <path
+            className="cherry-toast__stroke"
+            pathLength={1}
+            d="M7 7l10 10"
+          />
+          <path
+            className="cherry-toast__stroke"
+            pathLength={1}
+            d="M17 7 7 17"
+          />
         </>
       )}
       {color === "warning" && (
         <>
           <path className="cherry-toast__stroke" pathLength={1} d="M12 5.5v8" />
-          <circle cx="12" cy="18.25" r="1.6" fill="currentColor" stroke="none" />
+          <circle
+            cx="12"
+            cy="18.25"
+            r="1.6"
+            fill="currentColor"
+            stroke="none"
+          />
         </>
       )}
       {color === "info" && (
         <>
           <circle cx="12" cy="5.75" r="1.6" fill="currentColor" stroke="none" />
-          <path className="cherry-toast__stroke" pathLength={1} d="M12 10.5v8" />
+          <path
+            className="cherry-toast__stroke"
+            pathLength={1}
+            d="M12 10.5v8"
+          />
         </>
       )}
     </svg>
@@ -236,7 +299,12 @@ function ToastTile({ color }: { color: Exclude<ToastColor, "default"> }) {
   const settled = color !== initialColor;
   return (
     // key: a swap restarts the bump and glyph keyframes.
-    <span key={settled ? color : "initial"} className="cherry-toast__tile" data-settled={settled || undefined} aria-hidden="true">
+    <span
+      key={settled ? color : "initial"}
+      className="cherry-toast__tile"
+      data-settled={settled || undefined}
+      aria-hidden="true"
+    >
       <span className="cherry-toast__glyph">
         <ToastGlyph color={color} />
       </span>
@@ -262,7 +330,14 @@ export interface ToasterProps {
 type Placement = { index: number; offset: number };
 
 /** Renders the toasts of the nearest <ToastProvider>. Place it once. */
-export function Toaster({ align = "center", position = "top", expand = false, visibleToasts = 3, label = "Notifications", dismissLabel = "Dismiss notification" }: ToasterProps) {
+export function Toaster({
+  align = "center",
+  position = "top",
+  expand = false,
+  visibleToasts = 3,
+  label = "Notifications",
+  dismissLabel = "Dismiss notification",
+}: ToasterProps) {
   const { toasts, dismiss } = useToast();
   const listRef = useRef<HTMLOListElement>(null);
   const [heights, setHeights] = useState<Record<number, number>>({});
@@ -280,7 +355,9 @@ export function Toaster({ align = "center", position = "top", expand = false, vi
   const bottom = position === "bottom";
 
   const setHeight = useCallback((id: number, height: number) => {
-    setHeights((prev) => (prev[id] === height ? prev : { ...prev, [id]: height }));
+    setHeights((prev) =>
+      prev[id] === height ? prev : { ...prev, [id]: height },
+    );
   }, []);
 
   useEffect(() => {
@@ -314,7 +391,8 @@ export function Toaster({ align = "center", position = "top", expand = false, vi
     lastPlacement.current.forEach((_, id) => {
       if (!ids.has(id)) lastPlacement.current.delete(id);
     });
-    if (!listRef.current?.contains(document.activeElement)) setFocusInside(false);
+    if (!listRef.current?.contains(document.activeElement))
+      setFocusInside(false);
     if (toasts.length === 0) {
       setPointerInside(false);
       setTouchOpen(false);
@@ -329,7 +407,9 @@ export function Toaster({ align = "center", position = "top", expand = false, vi
     placements.set(item.id, { index, offset });
     offset += (heights[item.id] ?? 0) + GAP;
   });
-  placements.forEach((placement, id) => lastPlacement.current.set(id, placement));
+  placements.forEach((placement, id) =>
+    lastPlacement.current.set(id, placement),
+  );
 
   const front = live[0];
   const frontHeight = front ? (heights[front.id] ?? 0) : 0;
@@ -338,7 +418,8 @@ export function Toaster({ align = "center", position = "top", expand = false, vi
     shown.length === 0
       ? 0
       : expanded
-        ? shown.reduce((sum, item) => sum + (heights[item.id] ?? 0), 0) + GAP * (shown.length - 1)
+        ? shown.reduce((sum, item) => sum + (heights[item.id] ?? 0), 0) +
+          GAP * (shown.length - 1)
         : frontHeight + PEEK * (shown.length - 1);
 
   return (
@@ -358,11 +439,14 @@ export function Toaster({ align = "center", position = "top", expand = false, vi
       }}
       onFocus={() => setFocusInside(true)}
       onBlur={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocusInside(false);
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+          setFocusInside(false);
       }}
       onKeyDown={(event) => {
         if (event.key !== "Escape") return;
-        const item = (event.target as HTMLElement).closest<HTMLElement>("[data-toast-id]");
+        const item = (event.target as HTMLElement).closest<HTMLElement>(
+          "[data-toast-id]",
+        );
         if (item) dismiss(Number(item.dataset.toastId));
       }}
     >
@@ -370,7 +454,10 @@ export function Toaster({ align = "center", position = "top", expand = false, vi
         <ToastRow
           key={toast.id}
           toast={toast}
-          placement={placements.get(toast.id) ?? lastPlacement.current.get(toast.id) ?? { index: 0, offset: 0 }}
+          placement={
+            placements.get(toast.id) ??
+            lastPlacement.current.get(toast.id) ?? { index: 0, offset: 0 }
+          }
           frontHeight={frontHeight}
           height={heights[toast.id]}
           expanded={expanded}
@@ -398,13 +485,38 @@ interface ToastRowProps {
   onHeight: (id: number, height: number) => void;
 }
 
-function ToastRow({ toast, placement, frontHeight, height, expanded, paused, visibleToasts, bottom, dismissLabel, onHeight }: ToastRowProps) {
+function ToastRow({
+  toast,
+  placement,
+  frontHeight,
+  height,
+  expanded,
+  paused,
+  visibleToasts,
+  bottom,
+  dismissLabel,
+  onHeight,
+}: ToastRowProps) {
   const { dismiss: dismissById } = useToast();
-  const { id, title, color, autoHide, description, action, dismissible, exiting } = toast;
+  const {
+    id,
+    title,
+    color,
+    autoHide,
+    description,
+    action,
+    dismissible,
+    exiting,
+  } = toast;
   const contentRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [swipe, setSwipe] = useState({ x: 0, y: 0, dragging: false });
-  const drag = useRef<{ x: number; y: number; time: number; axis: "x" | "y" | null } | null>(null);
+  const drag = useRef<{
+    x: number;
+    y: number;
+    time: number;
+    axis: "x" | "y" | null;
+  } | null>(null);
   const remaining = useRef(autoHide);
   const remainingFor = useRef(autoHide);
 
@@ -455,7 +567,12 @@ function ToastRow({ toast, placement, frontHeight, height, expanded, paused, vis
   const onPointerDown = (event: ReactPointerEvent<HTMLLIElement>) => {
     if (!dismissible || exiting || event.button !== 0) return;
     if ((event.target as HTMLElement).closest("button, a, input")) return;
-    drag.current = { x: event.clientX, y: event.clientY, time: Date.now(), axis: null };
+    drag.current = {
+      x: event.clientX,
+      y: event.clientY,
+      time: Date.now(),
+      axis: null,
+    };
     event.currentTarget.setPointerCapture?.(event.pointerId);
   };
 
@@ -482,9 +599,17 @@ function ToastRow({ toast, placement, frontHeight, height, expanded, paused, vis
     const start = drag.current;
     drag.current = null;
     if (!start) return;
-    const distance = start.axis === "x" ? Math.abs(swipe.x) : bottom ? Math.max(swipe.y, 0) : Math.max(-swipe.y, 0);
+    const distance =
+      start.axis === "x"
+        ? Math.abs(swipe.x)
+        : bottom
+          ? Math.max(swipe.y, 0)
+          : Math.max(-swipe.y, 0);
     const velocity = distance / Math.max(Date.now() - start.time, 1);
-    if (start.axis && (distance > SWIPE_DISTANCE || velocity > SWIPE_VELOCITY)) {
+    if (
+      start.axis &&
+      (distance > SWIPE_DISTANCE || velocity > SWIPE_VELOCITY)
+    ) {
       // Carry on in the swipe direction while it fades out.
       setSwipe((prev) => ({ x: prev.x * 2, y: prev.y * 2, dragging: false }));
       dismiss();
@@ -543,7 +668,9 @@ function ToastRow({ toast, placement, frontHeight, height, expanded, paused, vis
           {color !== "default" && <ToastTile color={color} />}
           <div className="cherry-toast__text">
             <p className="cherry-toast__title">{title}</p>
-            {description ? <p className="cherry-toast__description">{description}</p> : null}
+            {description ? (
+              <p className="cherry-toast__description">{description}</p>
+            ) : null}
           </div>
           {action ? (
             <Button
@@ -561,7 +688,13 @@ function ToastRow({ toast, placement, frontHeight, height, expanded, paused, vis
         </div>
       </div>
       {dismissible ? (
-        <button type="button" className="cherry-toast__close" aria-label={dismissLabel} tabIndex={concealed || hiddenInDeck ? -1 : undefined} onClick={dismiss}>
+        <button
+          type="button"
+          className="cherry-toast__close"
+          aria-label={dismissLabel}
+          tabIndex={concealed || hiddenInDeck ? -1 : undefined}
+          onClick={dismiss}
+        >
           <X aria-hidden="true" />
         </button>
       ) : null}

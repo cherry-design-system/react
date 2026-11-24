@@ -24,7 +24,14 @@ const NAME = /^[a-z][a-z0-9-]{0,39}$/;
 // declarations, comments, quotes or newlines can reach the stylesheet.
 const COLOR =
   /^(#[0-9a-f]{3,8}|(rgb|rgba|hsl|hsla|hwb|lab|lch|oklab|oklch)\(\s*[0-9.%+\-\s,/]+\s*\)|[a-z]{3,20})$/i;
-const FORBIDDEN_KEYWORDS = new Set(["initial", "inherit", "unset", "revert", "currentcolor", "transparent"]);
+const FORBIDDEN_KEYWORDS = new Set([
+  "initial",
+  "inherit",
+  "unset",
+  "revert",
+  "currentcolor",
+  "transparent",
+]);
 
 export class BrandValidationError extends Error {}
 
@@ -32,13 +39,21 @@ export class BrandValidationError extends Error {}
 export function assertBrandColor(value: string, label = "color"): string {
   const raw = String(value);
   const v = raw.trim();
-  if (/[\u0000-\u001f\u007f]/.test(raw) || !COLOR.test(v) || FORBIDDEN_KEYWORDS.has(v.toLowerCase()) || /var\(|[;{}<>"'\\\n\r]/.test(v)) {
-    throw new BrandValidationError(`Invalid brand ${label}: ${JSON.stringify(value)}`);
+  if (
+    /[\u0000-\u001f\u007f]/.test(raw) ||
+    !COLOR.test(v) ||
+    FORBIDDEN_KEYWORDS.has(v.toLowerCase()) ||
+    /var\(|[;{}<>"'\\\n\r]/.test(v)
+  ) {
+    throw new BrandValidationError(
+      `Invalid brand ${label}: ${JSON.stringify(value)}`,
+    );
   }
   return v;
 }
 
-const mix = (color: string, pct: number, other: string) => `color-mix(in oklab, ${color} ${pct}%, ${other})`;
+const mix = (color: string, pct: number, other: string) =>
+  `color-mix(in oklab, ${color} ${pct}%, ${other})`;
 
 /**
  * Builds a brand scope. The accent ramp (hover, subtle, fg, ring) is derived
@@ -48,9 +63,18 @@ const mix = (color: string, pct: number, other: string) => `color-mix(in oklab, 
  *   // add acme.css to your stylesheet, then <div {...acme.attributes}>
  */
 export function createBrand(name: string, colors: BrandColors): Brand {
-  if (!NAME.test(name)) throw new BrandValidationError(`Invalid brand name: ${JSON.stringify(name)}`);
-  const accentL = assertBrandColor(typeof colors.accent === "string" ? colors.accent : colors.accent.light, "accent");
-  const accentD = assertBrandColor(typeof colors.accent === "string" ? colors.accent : colors.accent.dark, "accent (dark)");
+  if (!NAME.test(name))
+    throw new BrandValidationError(
+      `Invalid brand name: ${JSON.stringify(name)}`,
+    );
+  const accentL = assertBrandColor(
+    typeof colors.accent === "string" ? colors.accent : colors.accent.light,
+    "accent",
+  );
+  const accentD = assertBrandColor(
+    typeof colors.accent === "string" ? colors.accent : colors.accent.dark,
+    "accent (dark)",
+  );
 
   const decl: string[] = [
     `--cherry-l-accent-default: ${accentL};`,
@@ -75,8 +99,14 @@ export function createBrand(name: string, colors: BrandColors): Brand {
       `--cherry-l-primary-hover: ${mix(pL, 85, "white")};`,
       `--cherry-d-primary-hover: ${mix(pD, 85, "black")};`,
     );
-    if (colors.primary.fgLight) decl.push(`--cherry-l-primary-fg: ${assertBrandColor(colors.primary.fgLight, "primary fg")};`);
-    if (colors.primary.fgDark) decl.push(`--cherry-d-primary-fg: ${assertBrandColor(colors.primary.fgDark, "primary fg (dark)")};`);
+    if (colors.primary.fgLight)
+      decl.push(
+        `--cherry-l-primary-fg: ${assertBrandColor(colors.primary.fgLight, "primary fg")};`,
+      );
+    if (colors.primary.fgDark)
+      decl.push(
+        `--cherry-d-primary-fg: ${assertBrandColor(colors.primary.fgDark, "primary fg (dark)")};`,
+      );
   }
   const css = `@layer cherry {\n  [data-cherry-brand="${name}"] {\n    ${decl.join("\n    ")}\n  }\n}\n`;
   return { name, css, attributes: { "data-cherry-brand": name } };

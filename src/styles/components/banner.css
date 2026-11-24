@@ -1,0 +1,166 @@
+/* Banner. Enter: a fade (no height change, so a banner in the server HTML
+   causes no layout shift). Exit: fade, then the height collapses through
+   grid-template-rows 1fr -> 0fr (the cherry 1.x accordion technique). */
+@layer cherry {
+  .cherry-banner {
+    --_bg: var(--cherry-bg-inverse);
+    --_fg: var(--cherry-fg-inverse);
+    --_muted: var(--cherry-fg-inverse);
+    --_border: transparent;
+    /* The shared ring is a faint tint of the page's text color: invisible on
+       a solid inverse or accent bar, so those use their own text color. */
+    --_ring: 0 0 0 2px color-mix(in srgb, var(--_fg) 70%, transparent);
+    display: grid;
+    grid-template-rows: 1fr;
+    width: 100%;
+    border-bottom: 1px solid var(--_border);
+    background: var(--_bg);
+    color: var(--_fg);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    opacity: 1;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-out),
+      grid-template-rows var(--cherry-duration-base)
+        var(--cherry-easing-standard),
+      border-bottom-width var(--cherry-duration-base)
+        var(--cherry-easing-standard);
+  }
+  @starting-style {
+    .cherry-banner {
+      opacity: 0;
+    }
+  }
+  .cherry-banner[data-dismissed] {
+    grid-template-rows: 0fr;
+    border-bottom-width: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      grid-template-rows var(--cherry-duration-base)
+        var(--cherry-easing-standard) var(--cherry-duration-instant),
+      border-bottom-width var(--cherry-duration-base)
+        var(--cherry-easing-standard) var(--cherry-duration-instant);
+  }
+
+  .cherry-banner__inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 var(--cherry-space-12);
+  }
+  .cherry-banner__content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: var(--cherry-space-2) var(--cherry-space-3);
+    padding: var(--cherry-space-2) 0;
+    text-align: center;
+  }
+  .cherry-banner__icon {
+    display: inline-flex;
+    color: var(--_muted);
+  }
+  .cherry-banner__icon > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-banner__message {
+    font-weight: var(--cherry-text-body-md-weight);
+  }
+  .cherry-banner__action {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cherry-space-1);
+    font-weight: var(--cherry-text-label-md-weight);
+  }
+  .cherry-banner__action a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cherry-space-1);
+    border-radius: var(--cherry-radius-xs);
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+    transition:
+      text-underline-offset var(--cherry-duration-fast)
+        var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-banner__action a:hover {
+    text-underline-offset: 4px;
+  }
+  .cherry-banner__action a:focus-visible {
+    outline: none;
+    box-shadow: var(--_ring);
+  }
+  .cherry-banner__action svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .cherry-banner__dismiss {
+    appearance: none;
+    position: absolute;
+    top: 50%;
+    right: var(--cherry-space-3);
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--cherry-radius-md);
+    background: transparent;
+    color: var(--_muted);
+    cursor: pointer;
+    transform: translateY(-50%);
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-banner__dismiss > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-banner__dismiss:hover {
+    background: color-mix(in srgb, currentColor 14%, transparent);
+    color: var(--_fg);
+  }
+  .cherry-banner__dismiss:active {
+    transform: translateY(-50%) scale(0.94);
+  }
+  .cherry-banner__dismiss:focus-visible {
+    outline: none;
+    box-shadow: var(--_ring);
+  }
+
+  .cherry-banner[data-variant="inverse"] {
+    --_bg: var(--cherry-bg-inverse);
+    --_fg: var(--cherry-fg-inverse);
+    --_muted: var(--cherry-fg-inverse);
+  }
+  .cherry-banner[data-variant="accent"] {
+    --_bg: var(--cherry-accent-default);
+    --_fg: var(--cherry-fg-on-accent);
+    --_muted: var(--cherry-fg-on-accent);
+  }
+  .cherry-banner[data-variant="subtle"] {
+    --_bg: var(--cherry-bg-subtle);
+    --_fg: var(--cherry-fg-default);
+    --_muted: var(--cherry-fg-muted);
+    --_border: var(--cherry-border-default);
+    --_ring: var(--cherry-ring);
+  }
+}

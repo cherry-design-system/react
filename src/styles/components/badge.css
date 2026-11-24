@@ -31,14 +31,46 @@
     font-size: var(--cherry-text-label-xs-size);
     line-height: var(--cherry-text-label-xs-line-height);
   }
-  .cherry-badge[data-size="md"] { height: 24px; }
+  .cherry-badge[data-size="md"] {
+    height: 24px;
+  }
 
-  .cherry-badge[data-variant="neutral"] { --_bg: var(--cherry-bg-muted); --_fg: var(--cherry-fg-default); }
-  .cherry-badge[data-variant="primary"] { --_bg: var(--cherry-primary-default); --_fg: var(--cherry-primary-fg); }
-  .cherry-badge[data-variant="accent"] { --_bg: var(--cherry-accent-subtle); --_fg: var(--cherry-accent-fg); --_border: var(--cherry-danger-border); }
-  .cherry-badge[data-variant="outline"] { --_bg: var(--cherry-bg-canvas); --_fg: var(--cherry-fg-default); --_border: var(--cherry-border-default); }
-  .cherry-badge[data-variant="success"] { --_bg: var(--cherry-success-bg); --_fg: var(--cherry-success-fg); --_border: var(--cherry-success-border); }
-  .cherry-badge[data-variant="warning"] { --_bg: var(--cherry-warning-bg); --_fg: var(--cherry-warning-fg); --_border: var(--cherry-warning-border); }
-  .cherry-badge[data-variant="danger"] { --_bg: var(--cherry-danger-bg); --_fg: var(--cherry-danger-fg); --_border: var(--cherry-danger-border); }
-  .cherry-badge[data-variant="info"] { --_bg: var(--cherry-info-bg); --_fg: var(--cherry-info-fg); --_border: var(--cherry-info-border); }
+  .cherry-badge[data-variant="neutral"] {
+    --_bg: var(--cherry-bg-muted);
+    --_fg: var(--cherry-fg-default);
+  }
+  .cherry-badge[data-variant="primary"] {
+    --_bg: var(--cherry-primary-default);
+    --_fg: var(--cherry-primary-fg);
+  }
+  .cherry-badge[data-variant="accent"] {
+    --_bg: var(--cherry-accent-subtle);
+    --_fg: var(--cherry-accent-fg);
+    --_border: var(--cherry-danger-border);
+  }
+  .cherry-badge[data-variant="outline"] {
+    --_bg: var(--cherry-bg-canvas);
+    --_fg: var(--cherry-fg-default);
+    --_border: var(--cherry-border-default);
+  }
+  .cherry-badge[data-variant="success"] {
+    --_bg: var(--cherry-success-bg);
+    --_fg: var(--cherry-success-fg);
+    --_border: var(--cherry-success-border);
+  }
+  .cherry-badge[data-variant="warning"] {
+    --_bg: var(--cherry-warning-bg);
+    --_fg: var(--cherry-warning-fg);
+    --_border: var(--cherry-warning-border);
+  }
+  .cherry-badge[data-variant="danger"] {
+    --_bg: var(--cherry-danger-bg);
+    --_fg: var(--cherry-danger-fg);
+    --_border: var(--cherry-danger-border);
+  }
+  .cherry-badge[data-variant="info"] {
+    --_bg: var(--cherry-info-bg);
+    --_fg: var(--cherry-info-fg);
+    --_border: var(--cherry-info-border);
+  }
 }

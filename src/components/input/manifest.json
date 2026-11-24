@@ -3,5 +3,9 @@
   "class": "cherry-input",
   "attributes": { "size": ["sm", "md", "lg"] },
   "states": ["data-invalid", "data-disabled", ":focus-within", ":hover"],
-  "parts": ["cherry-input__control", "cherry-input__icon", "cherry-input__suffix"]
+  "parts": [
+    "cherry-input__control",
+    "cherry-input__icon",
+    "cherry-input__suffix"
+  ]
 }

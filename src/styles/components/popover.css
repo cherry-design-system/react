@@ -1,0 +1,136 @@
+/* Popover: native `popover` + CSS anchor positioning. Placement and
+   alignment compose through private variables into one position-area; the
+   panel scales from 0.96 and fades, growing out of the trigger's side
+   (transform-origin points at the anchor). The exit runs in CSS through
+   display/overlay allow-discrete. */
+@layer cherry {
+  .cherry-popover {
+    --_offset: var(--cherry-space-2);
+    --_ax: center;
+    --_ay: center;
+    --_ox: center;
+    --_oy: center;
+    --_out: var(--cherry-duration-fast) var(--cherry-easing-standard);
+    --_in: var(--cherry-duration-fast) var(--cherry-easing-out);
+
+    box-sizing: border-box;
+    width: max-content;
+    max-width: min(320px, 100vw - var(--cherry-space-4));
+    padding: var(--cherry-space-4);
+    overflow: visible;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-xl);
+    background: var(--cherry-bg-elevated);
+    color: var(--cherry-fg-default);
+    box-shadow: var(--cherry-elevation-lg);
+    font-family: var(--cherry-font-sans);
+
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+      opacity var(--_out),
+      transform var(--_out),
+      display var(--_out) allow-discrete,
+      overlay var(--_out) allow-discrete;
+  }
+  .cherry-popover:popover-open {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--_in),
+      transform var(--_in),
+      display var(--_in) allow-discrete,
+      overlay var(--_in) allow-discrete;
+  }
+  @starting-style {
+    .cherry-popover:popover-open {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+
+  .cherry-popover[data-align="start"] {
+    --_ax: span-right;
+    --_ay: span-bottom;
+    --_ox: left;
+    --_oy: top;
+  }
+  .cherry-popover[data-align="center"] {
+    --_ax: center;
+    --_ay: center;
+    --_ox: center;
+    --_oy: center;
+  }
+  .cherry-popover[data-align="end"] {
+    --_ax: span-left;
+    --_ay: span-top;
+    --_ox: right;
+    --_oy: bottom;
+  }
+
+  .cherry-popover[data-placement="bottom"] {
+    transform-origin: var(--_ox) top;
+  }
+  .cherry-popover[data-placement="top"] {
+    transform-origin: var(--_ox) bottom;
+  }
+  .cherry-popover[data-placement="left"] {
+    transform-origin: right var(--_oy);
+  }
+  .cherry-popover[data-placement="right"] {
+    transform-origin: left var(--_oy);
+  }
+
+  /* Without anchor positioning the browser centres it in the viewport. */
+  @supports (position-area: bottom) {
+    .cherry-popover {
+      inset: auto;
+      margin: 0;
+    }
+    .cherry-popover[data-placement="bottom"] {
+      position-area: bottom var(--_ax);
+      margin-top: var(--_offset);
+      position-try-fallbacks: flip-block;
+    }
+    .cherry-popover[data-placement="top"] {
+      position-area: top var(--_ax);
+      margin-bottom: var(--_offset);
+      position-try-fallbacks: flip-block;
+    }
+    .cherry-popover[data-placement="left"] {
+      position-area: var(--_ay) left;
+      margin-right: var(--_offset);
+      position-try-fallbacks: flip-inline;
+    }
+    .cherry-popover[data-placement="right"] {
+      position-area: var(--_ay) right;
+      margin-left: var(--_offset);
+      position-try-fallbacks: flip-inline;
+    }
+  }
+
+  .cherry-popover__title {
+    margin: 0;
+    color: var(--cherry-fg-default);
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: var(--cherry-text-label-md-weight);
+  }
+  .cherry-popover__body {
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+  }
+  .cherry-popover__title + .cherry-popover__body {
+    margin-top: var(--cherry-space-1);
+  }
+  .cherry-popover__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--cherry-space-2);
+    margin-top: var(--cherry-space-3);
+  }
+}

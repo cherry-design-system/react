@@ -11,7 +11,8 @@
 // downlevels it in Vite 8 / Next 16 and breaks dark sections in light pages.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
-const read = (f) => JSON.parse(readFileSync(new URL(`../tokens/${f}`, import.meta.url)));
+const read = (f) =>
+  JSON.parse(readFileSync(new URL(`../tokens/${f}`, import.meta.url)));
 const primitives = read("primitives.tokens.json");
 const light = read("color.light.tokens.json");
 const dark = read("color.dark.tokens.json");
@@ -23,8 +24,10 @@ function flatten(tree, prefix = []) {
   const out = [];
   for (const [key, value] of Object.entries(tree)) {
     if (key.startsWith("$")) continue;
-    if (value && typeof value === "object" && "$value" in value) out.push([[...prefix, key].join("/"), value]);
-    else if (value && typeof value === "object") out.push(...flatten(value, [...prefix, key]));
+    if (value && typeof value === "object" && "$value" in value)
+      out.push([[...prefix, key].join("/"), value]);
+    else if (value && typeof value === "object")
+      out.push(...flatten(value, [...prefix, key]));
   }
   return out;
 }
@@ -37,10 +40,20 @@ const refToVar = (value) => {
 const dim = (v) => (typeof v === "object" ? `${v.value}${v.unit}` : String(v));
 
 const lines = { root: [], resolved: [] };
-const names = { color: [], space: [], radius: [], duration: [], easing: [], text: [], elevation: [], layout: [] };
+const names = {
+  color: [],
+  space: [],
+  radius: [],
+  duration: [],
+  easing: [],
+  text: [],
+  elevation: [],
+  layout: [],
+};
 
 // Primitives: plain values, no modes.
-for (const [path, token] of flatten(primitives)) lines.root.push(`${cssName(path)}: ${token.$value};`);
+for (const [path, token] of flatten(primitives))
+  lines.root.push(`${cssName(path)}: ${token.$value};`);
 
 // Semantic colors: paired slots + resolved token.
 const lightMap = new Map(flatten(light));
@@ -49,17 +62,24 @@ for (const [path, token] of lightMap) {
   const d = darkMap.get(path);
   if (!d) throw new Error(`color.dark is missing ${path}`);
   const slug = path.replace(/\//g, "-");
-  lines.root.push(`--cherry-l-${slug}: ${refToVar(token.$value)};`, `--cherry-d-${slug}: ${refToVar(d.$value)};`);
-  lines.resolved.push(`--cherry-${slug}: var(--cherry-light, var(--cherry-l-${slug})) var(--cherry-dark, var(--cherry-d-${slug}));`);
+  lines.root.push(
+    `--cherry-l-${slug}: ${refToVar(token.$value)};`,
+    `--cherry-d-${slug}: ${refToVar(d.$value)};`,
+  );
+  lines.resolved.push(
+    `--cherry-${slug}: var(--cherry-light, var(--cherry-l-${slug})) var(--cherry-dark, var(--cherry-d-${slug}));`,
+  );
   names.color.push(path);
 }
-for (const path of darkMap.keys()) if (!lightMap.has(path)) throw new Error(`color.light is missing ${path}`);
+for (const path of darkMap.keys())
+  if (!lightMap.has(path)) throw new Error(`color.light is missing ${path}`);
 
 // Base: space, radius, duration, easing, layout.
 for (const [path, token] of flatten(base)) {
   const [group] = path.split("/");
   let value;
-  if (token.$type === "cubicBezier") value = `cubic-bezier(${token.$value.join(", ")})`;
+  if (token.$type === "cubicBezier")
+    value = `cubic-bezier(${token.$value.join(", ")})`;
   else value = dim(token.$value);
   lines.root.push(`${cssName(path)}: ${value};`);
   if (group in names) names[group].push(path.slice(group.length + 1));
@@ -69,7 +89,9 @@ for (const [path, token] of flatten(base)) {
 // Typography: families + one shorthand set per text style.
 for (const [path, token] of flatten(typography)) {
   if (token.$type === "fontFamily") {
-    lines.root.push(`${cssName(path)}: ${token.$value.map((f) => (/\s/.test(f) ? `"${f}"` : f)).join(", ")};`);
+    lines.root.push(
+      `${cssName(path)}: ${token.$value.map((f) => (/\s/.test(f) ? `"${f}"` : f)).join(", ")};`,
+    );
     continue;
   }
   const v = token.$value;
@@ -90,10 +112,26 @@ for (const [path, token] of flatten(typography)) {
 // is transparent in light mode and a hairline of light in dark mode.
 const elevation = {
   xs: ["0 1px 2px var(--cherry-shadow-xs)"],
-  sm: ["0 1px 2px var(--cherry-shadow-ambient)", "0 2px 4px var(--cherry-shadow-sm)", "inset 0 1px 0 var(--cherry-shadow-highlight)"],
-  md: ["0 1px 3px var(--cherry-shadow-ambient)", "0 6px 12px var(--cherry-shadow-md)", "inset 0 1px 0 var(--cherry-shadow-highlight)"],
-  lg: ["0 2px 4px var(--cherry-shadow-ambient)", "0 12px 24px var(--cherry-shadow-lg)", "inset 0 1px 0 var(--cherry-shadow-highlight)"],
-  xl: ["0 4px 8px var(--cherry-shadow-ambient)", "0 24px 48px var(--cherry-shadow-xl)", "inset 0 1px 0 var(--cherry-shadow-highlight)"],
+  sm: [
+    "0 1px 2px var(--cherry-shadow-ambient)",
+    "0 2px 4px var(--cherry-shadow-sm)",
+    "inset 0 1px 0 var(--cherry-shadow-highlight)",
+  ],
+  md: [
+    "0 1px 3px var(--cherry-shadow-ambient)",
+    "0 6px 12px var(--cherry-shadow-md)",
+    "inset 0 1px 0 var(--cherry-shadow-highlight)",
+  ],
+  lg: [
+    "0 2px 4px var(--cherry-shadow-ambient)",
+    "0 12px 24px var(--cherry-shadow-lg)",
+    "inset 0 1px 0 var(--cherry-shadow-highlight)",
+  ],
+  xl: [
+    "0 4px 8px var(--cherry-shadow-ambient)",
+    "0 24px 48px var(--cherry-shadow-xl)",
+    "inset 0 1px 0 var(--cherry-shadow-highlight)",
+  ],
 };
 for (const [k, parts] of Object.entries(elevation)) {
   lines.resolved.push(`--cherry-elevation-${k}: ${parts.join(", ")};`);
@@ -104,7 +142,7 @@ lines.resolved.push(
   "--cherry-ring-danger: 0 0 0 3px var(--cherry-accent-ring);",
 );
 
-const scopes = ':root, .dark, [data-cherry-mode], [data-cherry-brand]';
+const scopes = ":root, .dark, [data-cherry-mode], [data-cherry-brand]";
 const indent = (arr) => arr.map((l) => `    ${l}`).join("\n");
 const css = `/* Generated by scripts/build-tokens.mjs from tokens/*.tokens.json. Do not edit. */
 @layer cherry {
@@ -135,7 +173,8 @@ ${indent(lines.resolved)}
 mkdirSync(new URL("../src/styles", import.meta.url), { recursive: true });
 writeFileSync(new URL("../src/styles/tokens.css", import.meta.url), css);
 
-const union = (arr) => (arr.length ? arr.map((n) => JSON.stringify(n)).join(" | ") : "never");
+const union = (arr) =>
+  arr.length ? arr.map((n) => JSON.stringify(n)).join(" | ") : "never";
 const ts = `// Generated by scripts/build-tokens.mjs. Do not edit.
 export const colorTokens = ${JSON.stringify(names.color)} as const;
 export const textStyles = ${JSON.stringify(names.text)} as const;
@@ -152,4 +191,6 @@ export type ElevationToken = ${union(names.elevation)};
 mkdirSync(new URL("../src/tokens", import.meta.url), { recursive: true });
 writeFileSync(new URL("../src/tokens/tokens.gen.ts", import.meta.url), ts);
 
-console.log(`tokens: ${names.color.length} colors, ${names.text.length} text styles, ${names.space.length} space, ${names.radius.length} radius, ${names.elevation.length} elevation`);
+console.log(
+  `tokens: ${names.color.length} colors, ${names.text.length} text styles, ${names.space.length} space, ${names.radius.length} radius, ${names.elevation.length} elevation`,
+);

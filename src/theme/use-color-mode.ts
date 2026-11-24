@@ -21,6 +21,14 @@ export interface UseColorMode extends ColorModeState {
  * <html>, so nothing visual depends on this value at first paint.
  */
 export function useColorMode(): UseColorMode {
-  const state = useSyncExternalStore(subscribeColorMode, getColorModeState, getServerColorModeState);
-  return { ...state, setPreference: setColorModePreference, toggle: toggleColorMode };
+  const state = useSyncExternalStore(
+    subscribeColorMode,
+    getColorModeState,
+    getServerColorModeState,
+  );
+  return {
+    ...state,
+    setPreference: setColorModePreference,
+    toggle: toggleColorMode,
+  };
 }

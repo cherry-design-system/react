@@ -1,0 +1,16 @@
+{
+  "name": "progress",
+  "class": "cherry-progress",
+  "attributes": {
+    "variant": ["default", "success", "danger"],
+    "size": ["sm", "md"]
+  },
+  "states": ["data-indeterminate"],
+  "parts": [
+    "cherry-progress__header",
+    "cherry-progress__label",
+    "cherry-progress__value",
+    "cherry-progress__track",
+    "cherry-progress__fill"
+  ]
+}

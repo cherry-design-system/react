@@ -15,7 +15,13 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(function Badge(
   ref,
 ) {
   return (
-    <span ref={ref} className={cx("cherry-badge", className)} data-variant={variant} data-size={size} {...rest}>
+    <span
+      ref={ref}
+      className={cx("cherry-badge", className)}
+      data-variant={variant}
+      data-size={size}
+      {...rest}
+    >
       {dot ? <span className="cherry-badge__dot" aria-hidden="true" /> : null}
       {children}
     </span>

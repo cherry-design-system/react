@@ -1,0 +1,178 @@
+@layer cherry {
+  .cherry-otp-input {
+    --_w: 44px;
+    --_h: 48px;
+    --_gap: var(--cherry-space-2);
+    /* Rings stay inside half the gap, so neighbours never overlap. */
+    --_ring-w: calc(var(--_gap) / 2 - 1px);
+
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_gap);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-h5-size);
+    line-height: var(--cherry-text-h5-line-height);
+    font-weight: var(--cherry-text-label-md-weight);
+  }
+
+  .cherry-otp-input__slot {
+    --_border: var(--cherry-border-default);
+    --_ring: 0 0 0 0 transparent;
+
+    position: relative;
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: var(--_w);
+    height: var(--_h);
+  }
+  .cherry-otp-input__char {
+    grid-area: 1 / 1;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--_border);
+    border-radius: var(--cherry-radius-md);
+    outline: none;
+    background: var(--cherry-bg-canvas);
+    box-shadow: var(--cherry-elevation-xs), var(--_ring);
+    color: inherit;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    caret-color: transparent;
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-otp-input__char::selection {
+    background: transparent;
+  }
+  .cherry-otp-input__slot:hover .cherry-otp-input__char:not(:disabled) {
+    --_border: var(--cherry-border-strong);
+  }
+  .cherry-otp-input__char:focus {
+    position: relative;
+    z-index: 1;
+    --_border: var(--cherry-border-focus);
+    --_ring: 0 0 0 var(--_ring-w) var(--cherry-focus-ring);
+  }
+
+  /* A filled slot pops once as its character lands. */
+  .cherry-otp-input__slot[data-filled] {
+    animation: cherry-otp-input-fill var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop);
+  }
+
+  /* Fake caret: centred, blinking, only in the focused empty slot. */
+  .cherry-otp-input__caret {
+    grid-area: 1 / 1;
+    z-index: 2;
+    width: 1.5px;
+    height: 1lh;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-fg-default);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-otp-input__slot:not([data-filled])
+    .cherry-otp-input__char:focus
+    + .cherry-otp-input__caret {
+    opacity: 1;
+    animation: cherry-otp-input-caret-blink 1s step-end infinite;
+  }
+
+  .cherry-otp-input__separator {
+    flex-shrink: 0;
+    width: calc(var(--_gap) * 2 - var(--cherry-space-1));
+    height: 2px;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-border-strong);
+  }
+
+  .cherry-otp-input[data-invalid] .cherry-otp-input__slot {
+    --_border: var(--cherry-danger-fg);
+  }
+  .cherry-otp-input[data-invalid]
+    .cherry-otp-input__slot:hover
+    .cherry-otp-input__char:not(:disabled) {
+    --_border: var(--cherry-danger-fg);
+  }
+  .cherry-otp-input[data-invalid] .cherry-otp-input__char:focus {
+    --_border: var(--cherry-danger-fg);
+    --_ring: 0 0 0 var(--_ring-w) var(--cherry-accent-ring);
+  }
+
+  .cherry-otp-input[data-disabled] {
+    color: var(--cherry-fg-subtle);
+  }
+  .cherry-otp-input[data-disabled] .cherry-otp-input__char {
+    --_border: var(--cherry-border-subtle);
+    background: var(--cherry-bg-subtle);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  .cherry-otp-input[data-disabled] .cherry-otp-input__separator {
+    background: var(--cherry-border-default);
+  }
+
+  .cherry-otp-input[data-size="sm"] {
+    --_w: 36px;
+    --_h: 40px;
+    --_gap: 6px;
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+  }
+  .cherry-otp-input[data-size="md"] {
+    --_w: 44px;
+    --_h: 48px;
+    --_gap: var(--cherry-space-2);
+  }
+  .cherry-otp-input[data-size="lg"] {
+    --_w: 52px;
+    --_h: 56px;
+    --_gap: var(--cherry-space-2);
+    font-size: var(--cherry-text-h4-size);
+    line-height: var(--cherry-text-h4-line-height);
+  }
+  .cherry-otp-input[data-size="lg"] .cherry-otp-input__char {
+    border-radius: var(--cherry-radius-lg);
+  }
+
+  /* Reduced motion: a steady caret instead of a blinking one (the blink's
+     fixed 1s cadence is not token-driven). */
+  @media (prefers-reduced-motion: reduce) {
+    .cherry-otp-input__slot:not([data-filled])
+      .cherry-otp-input__char:focus
+      + .cherry-otp-input__caret {
+      animation: none;
+    }
+  }
+
+  @keyframes cherry-otp-input-fill {
+    0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1.06);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes cherry-otp-input-caret-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+}

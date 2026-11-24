@@ -1,0 +1,22 @@
+{
+  "name": "pagination",
+  "class": "cherry-pagination",
+  "attributes": {
+    "variant": ["full", "compact"]
+  },
+  "states": [
+    "[aria-current=\"page\"]",
+    "[aria-disabled=\"true\"]",
+    ":hover",
+    ":active",
+    ":focus-visible"
+  ],
+  "parts": [
+    "cherry-pagination__list",
+    "cherry-pagination__item",
+    "cherry-pagination__link",
+    "cherry-pagination__step",
+    "cherry-pagination__ellipsis",
+    "cherry-pagination__status"
+  ]
+}

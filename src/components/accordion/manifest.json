@@ -1,0 +1,15 @@
+{
+  "name": "accordion",
+  "class": "cherry-accordion",
+  "attributes": {
+    "variant": ["card", "inline"]
+  },
+  "states": ["[open]", ":focus-visible", ":hover"],
+  "parts": [
+    "cherry-accordion__item",
+    "cherry-accordion__trigger",
+    "cherry-accordion__title",
+    "cherry-accordion__chevron",
+    "cherry-accordion__body"
+  ]
+}

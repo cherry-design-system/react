@@ -31,7 +31,8 @@
     align-items: center;
     gap: 6px;
     color: var(--cherry-danger-fg);
-    animation: cherry-field-message-in var(--cherry-duration-fast) var(--cherry-easing-out);
+    animation: cherry-field-message-in var(--cherry-duration-fast)
+      var(--cherry-easing-out);
   }
   .cherry-field__error > svg {
     width: 14px;

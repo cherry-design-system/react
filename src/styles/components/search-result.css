@@ -1,0 +1,79 @@
+@layer cherry {
+  .cherry-search-result {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-3);
+    min-height: 40px;
+    padding: var(--cherry-space-2) var(--cherry-space-3);
+    border-radius: var(--cherry-radius-lg);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-search-result:hover {
+    background: var(--cherry-bg-subtle);
+  }
+  .cherry-search-result[data-active] {
+    background: var(--cherry-bg-muted);
+  }
+  .cherry-search-result[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .cherry-search-result__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: var(--cherry-fg-muted);
+  }
+  .cherry-search-result__icon > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-search-result__text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .cherry-search-result__label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cherry-search-result__description {
+    overflow: hidden;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-xs-size);
+    line-height: var(--cherry-text-body-xs-line-height);
+    letter-spacing: var(--cherry-text-body-xs-tracking);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* The arrow slides in with the highlight. */
+  .cherry-search-result__arrow {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    color: var(--cherry-accent-default);
+    opacity: 0;
+    transform: translate(-3px, 3px);
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-fast) var(--cherry-easing-out);
+  }
+  .cherry-search-result[data-active] .cherry-search-result__arrow {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "kbd",
+  "class": "cherry-kbd",
+  "attributes": { "size": ["sm", "md"] }
+}

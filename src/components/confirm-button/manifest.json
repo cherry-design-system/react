@@ -1,0 +1,24 @@
+{
+  "name": "confirm-button",
+  "class": "cherry-confirm-button",
+  "attributes": {
+    "size": ["md", "lg"],
+    "state": ["idle", "confirm"],
+    "action": ["confirm", "cancel"]
+  },
+  "requireDefaultSelector": true,
+  "states": [
+    "aria-expanded",
+    ":disabled",
+    ":focus-visible",
+    ":hover",
+    ":active"
+  ],
+  "parts": [
+    "cherry-confirm-button__trigger",
+    "cherry-confirm-button__glyph",
+    "cherry-confirm-button__clip",
+    "cherry-confirm-button__panel",
+    "cherry-confirm-button__action"
+  ]
+}

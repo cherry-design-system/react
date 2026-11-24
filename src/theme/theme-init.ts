@@ -11,7 +11,8 @@ export interface ThemeInitScriptOptions {
 }
 
 // JSON keeps it a string literal; escaping "<" keeps "</script>" from closing the tag.
-const literal = (value: string) => JSON.stringify(value).replace(/</g, "\\u003c");
+const literal = (value: string) =>
+  JSON.stringify(value).replace(/</g, "\\u003c");
 
 /**
  * A blocking script for <head> that puts the page in the visitor's mode
@@ -20,8 +21,13 @@ const literal = (value: string) => JSON.stringify(value).replace(/</g, "\\u003c"
  * else a cherry 1.x `theme` entry, else the OS; the `theme` cookie where
  * storage is blocked. Render it with dangerouslySetInnerHTML.
  */
-export function createThemeInitScript(options: ThemeInitScriptOptions = {}): string {
-  const themeColor = options.themeColor === undefined ? { light: "#ffffff", dark: "#09090b" } : options.themeColor;
+export function createThemeInitScript(
+  options: ThemeInitScriptOptions = {},
+): string {
+  const themeColor =
+    options.themeColor === undefined
+      ? { light: "#ffffff", dark: "#09090b" }
+      : options.themeColor;
   const meta = themeColor
     ? `var g=document.querySelector('meta[name="theme-color"]:not([media])');if(!g){g=document.createElement("meta");g.name="theme-color";document.head.appendChild(g)}g.content=m==="dark"?${literal(themeColor.dark)}:${literal(themeColor.light)};`
     : "";
@@ -32,6 +38,8 @@ export function createThemeInitScript(options: ThemeInitScriptOptions = {}): str
 export const themeInitScript = createThemeInitScript();
 
 /** The mode a `theme` cookie names, for server code (light when unknown). */
-export function modeFromCookie(cookieValue: string | undefined): "light" | "dark" {
+export function modeFromCookie(
+  cookieValue: string | undefined,
+): "light" | "dark" {
   return cookieValue === "dark" ? "dark" : "light";
 }

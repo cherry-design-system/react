@@ -26,10 +26,13 @@ export interface ColorModeState {
 const PREFERENCE_KEY = "themePreference";
 export const DARK_MODE_QUERY = "(prefers-color-scheme: dark)";
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
-const isBrowser = () => typeof window !== "undefined" && typeof document !== "undefined";
+const isBrowser = () =>
+  typeof window !== "undefined" && typeof document !== "undefined";
 
 function systemMode(): ColorMode {
-  return isBrowser() && window.matchMedia?.(DARK_MODE_QUERY).matches ? "dark" : "light";
+  return isBrowser() && window.matchMedia?.(DARK_MODE_QUERY).matches
+    ? "dark"
+    : "light";
 }
 
 function resolveMode(preference: ColorModePreference): ColorMode {
@@ -48,7 +51,8 @@ function readCookieMode(): ColorMode | undefined {
 function readPreference(): ColorModePreference {
   try {
     const stored = window.localStorage.getItem(PREFERENCE_KEY);
-    if (stored === "light" || stored === "dark" || stored === "system") return stored;
+    if (stored === "light" || stored === "dark" || stored === "system")
+      return stored;
     const legacy = window.localStorage.getItem("theme");
     return legacy === "light" || legacy === "dark" ? legacy : "system";
   } catch {
@@ -89,7 +93,8 @@ function installSystemListener() {
   mediaInstalled = true;
   window.matchMedia(DARK_MODE_QUERY).addEventListener("change", () => {
     const current = getColorModeState();
-    if (current.preference === "system") update({ mode: systemMode(), preference: "system" });
+    if (current.preference === "system")
+      update({ mode: systemMode(), preference: "system" });
   });
 }
 
@@ -103,7 +108,8 @@ export function subscribeColorMode(listener: () => void) {
 
 function update(next: ColorModeState) {
   const current = getColorModeState();
-  if (current.mode === next.mode && current.preference === next.preference) return;
+  if (current.mode === next.mode && current.preference === next.preference)
+    return;
   state = next;
   applyColorMode(next.mode);
   listeners.forEach((listener) => listener());
@@ -120,7 +126,9 @@ export function setColorModePreference(preference: ColorModePreference) {
 
 /** Switches to the other mode and remembers it. */
 export function toggleColorMode() {
-  setColorModePreference(getColorModeState().mode === "dark" ? "light" : "dark");
+  setColorModePreference(
+    getColorModeState().mode === "dark" ? "light" : "dark",
+  );
 }
 
 let switchId = 0;
@@ -131,7 +139,10 @@ let switchId = 0;
  * and the theme-color meta from the resolved --cherry-bg-canvas token.
  * Writes only what differs.
  */
-export function applyColorMode(mode: ColorMode, { persist = true }: { persist?: boolean } = {}) {
+export function applyColorMode(
+  mode: ColorMode,
+  { persist = true }: { persist?: boolean } = {},
+) {
   if (!isBrowser()) return;
   const root = document.documentElement;
   const dark = mode === "dark";
@@ -148,9 +159,13 @@ export function applyColorMode(mode: ColorMode, { persist = true }: { persist?: 
   if (persist && readCookieMode() !== mode) {
     document.cookie = `theme=${mode};path=/;max-age=${COOKIE_MAX_AGE};SameSite=Lax`;
   }
-  const color = getComputedStyle(root).getPropertyValue("--cherry-bg-canvas").trim();
+  const color = getComputedStyle(root)
+    .getPropertyValue("--cherry-bg-canvas")
+    .trim();
   if (!color) return;
-  let meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]:not([media])');
+  let meta = document.querySelector<HTMLMetaElement>(
+    'meta[name="theme-color"]:not([media])',
+  );
   if (!meta) {
     meta = document.createElement("meta");
     meta.name = "theme-color";

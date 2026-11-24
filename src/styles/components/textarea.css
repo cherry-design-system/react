@@ -1,0 +1,101 @@
+@layer cherry {
+  .cherry-textarea {
+    --_px: var(--cherry-space-3);
+    --_py: var(--cherry-space-2);
+    --_border: var(--cherry-border-default);
+    --_ring: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-1);
+    padding: var(--_py) var(--_px);
+    border: 1px solid var(--_border);
+    border-radius: var(--cherry-radius-md);
+    background: var(--cherry-bg-canvas);
+    box-shadow: var(--cherry-elevation-xs), var(--_ring);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    cursor: text;
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-textarea:hover:not([data-disabled]) {
+    --_border: var(--cherry-border-strong);
+  }
+  .cherry-textarea:focus-within {
+    --_border: var(--cherry-border-focus);
+    --_ring: var(--cherry-ring);
+  }
+  .cherry-textarea[data-invalid] {
+    --_border: var(--cherry-danger-fg);
+    --_ring: var(--cherry-ring-danger);
+  }
+  .cherry-textarea[data-disabled] {
+    background: var(--cherry-bg-muted);
+    box-shadow: none;
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .cherry-textarea__control {
+    display: block;
+    width: 100%;
+    min-height: calc(var(--_rows, 4) * 1lh);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    resize: vertical;
+    scrollbar-width: thin;
+  }
+  .cherry-textarea__control::placeholder {
+    color: var(--cherry-fg-subtle);
+  }
+  .cherry-textarea__control:disabled {
+    cursor: not-allowed;
+  }
+
+  /* Auto-resize: the platform sizes the box to its content where it can;
+     elsewhere the component sets the height from scrollHeight. */
+  .cherry-textarea[data-auto-resize] .cherry-textarea__control {
+    field-sizing: content;
+    max-height: calc(var(--_max-rows, 9999) * 1lh);
+    overflow-y: auto;
+    resize: none;
+  }
+
+  .cherry-textarea__count {
+    align-self: flex-end;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-xs-size);
+    line-height: var(--cherry-text-body-xs-line-height);
+    font-variant-numeric: tabular-nums;
+    transition: color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-textarea__count[data-limit] {
+    color: var(--cherry-danger-fg);
+  }
+
+  .cherry-textarea[data-size="sm"] {
+    --_px: var(--cherry-space-2);
+    --_py: 6px;
+    border-radius: var(--cherry-radius-sm);
+  }
+  .cherry-textarea[data-size="md"] {
+    --_px: var(--cherry-space-3);
+    --_py: var(--cherry-space-2);
+  }
+  .cherry-textarea[data-size="lg"] {
+    --_px: var(--cherry-space-4);
+    --_py: var(--cherry-space-3);
+    font-size: var(--cherry-text-body-md-size);
+    line-height: var(--cherry-text-body-md-line-height);
+  }
+}

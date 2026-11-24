@@ -1,4 +1,96 @@
 {
+  "accordion": {
+    "class": "cherry-accordion",
+    "attributes": {
+      "data-variant": [
+        "card",
+        "inline"
+      ]
+    },
+    "states": [
+      "[open]",
+      ":focus-visible",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-accordion__item",
+      "cherry-accordion__trigger",
+      "cherry-accordion__title",
+      "cherry-accordion__chevron",
+      "cherry-accordion__body"
+    ]
+  },
+  "avatar": {
+    "class": "cherry-avatar",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg",
+        "xl"
+      ],
+      "data-color": [
+        "neutral",
+        "accent",
+        "ai"
+      ],
+      "data-status": [
+        "online",
+        "away",
+        "busy",
+        "offline"
+      ]
+    },
+    "states": [
+      "data-loaded"
+    ],
+    "parts": [
+      "cherry-avatar__fallback",
+      "cherry-avatar__image",
+      "cherry-avatar__status"
+    ]
+  },
+  "avatar-dropzone": {
+    "class": "cherry-avatar-dropzone",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-filled",
+      "data-drag-over",
+      "data-disabled",
+      "data-invalid",
+      ":focus-within",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-avatar-dropzone__target",
+      "cherry-avatar-dropzone__input",
+      "cherry-avatar-dropzone__icon",
+      "cherry-avatar-dropzone__image",
+      "cherry-avatar-dropzone__remove"
+    ]
+  },
+  "avatar-group": {
+    "class": "cherry-avatar-group",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      ":hover"
+    ],
+    "parts": [
+      "cherry-avatar-group__overflow"
+    ]
+  },
   "badge": {
     "class": "cherry-badge",
     "attributes": {
@@ -20,6 +112,50 @@
     "states": [],
     "parts": [
       "cherry-badge__dot"
+    ]
+  },
+  "banner": {
+    "class": "cherry-banner",
+    "attributes": {
+      "data-variant": [
+        "inverse",
+        "accent",
+        "subtle"
+      ]
+    },
+    "states": [
+      "data-dismissed",
+      ":hover",
+      ":focus-visible"
+    ],
+    "parts": [
+      "cherry-banner__inner",
+      "cherry-banner__content",
+      "cherry-banner__icon",
+      "cherry-banner__message",
+      "cherry-banner__action",
+      "cherry-banner__dismiss"
+    ]
+  },
+  "breadcrumb": {
+    "class": "cherry-breadcrumb",
+    "attributes": {
+      "data-separator": [
+        "chevron",
+        "slash"
+      ]
+    },
+    "states": [
+      "[aria-current=\"page\"]",
+      ":hover",
+      ":focus-visible"
+    ],
+    "parts": [
+      "cherry-breadcrumb__list",
+      "cherry-breadcrumb__item",
+      "cherry-breadcrumb__link",
+      "cherry-breadcrumb__current",
+      "cherry-breadcrumb__separator"
     ]
   },
   "button": {
@@ -51,6 +187,398 @@
       "cherry-button__icon"
     ]
   },
+  "calendar": {
+    "class": "cherry-calendar",
+    "attributes": {
+      "data-mode": [
+        "single",
+        "range"
+      ],
+      "data-direction": [
+        "next",
+        "prev"
+      ],
+      "data-range": [
+        "start",
+        "middle",
+        "end"
+      ]
+    },
+    "states": [
+      "data-outside",
+      "data-today",
+      "data-selected",
+      "data-preview",
+      "data-leaving",
+      "aria-selected",
+      "aria-current",
+      "aria-disabled",
+      ":focus-visible",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-calendar__header",
+      "cherry-calendar__nav",
+      "cherry-calendar__title",
+      "cherry-calendar__title-text",
+      "cherry-calendar__grid",
+      "cherry-calendar__weekdays",
+      "cherry-calendar__weekday",
+      "cherry-calendar__viewport",
+      "cherry-calendar__weeks",
+      "cherry-calendar__week",
+      "cherry-calendar__cell",
+      "cherry-calendar__day"
+    ]
+  },
+  "callout": {
+    "class": "cherry-callout",
+    "attributes": {
+      "data-variant": [
+        "neutral",
+        "info",
+        "success",
+        "warning",
+        "danger"
+      ]
+    },
+    "states": [],
+    "parts": [
+      "cherry-callout__icon",
+      "cherry-callout__content",
+      "cherry-callout__title",
+      "cherry-callout__body"
+    ]
+  },
+  "card": {
+    "class": "cherry-card",
+    "attributes": {
+      "data-variant": [
+        "outline",
+        "elevated",
+        "filled"
+      ],
+      "data-padding": [
+        "none",
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-interactive",
+      ":hover",
+      ":focus-within"
+    ],
+    "parts": [
+      "cherry-card__icon",
+      "cherry-card__title",
+      "cherry-card__description"
+    ]
+  },
+  "chat-input": {
+    "class": "cherry-chat-input",
+    "attributes": {},
+    "states": [
+      "data-glow",
+      "data-disabled",
+      "data-ready",
+      ":hover",
+      ":focus-within"
+    ],
+    "parts": [
+      "cherry-chat-input__frame",
+      "cherry-chat-input__surface",
+      "cherry-chat-input__textarea",
+      "cherry-chat-input__footer",
+      "cherry-chat-input__actions",
+      "cherry-chat-input__send",
+      "cherry-chat-input__arrow",
+      "cherry-chat-input__footnote"
+    ]
+  },
+  "chat-message": {
+    "class": "cherry-chat-message",
+    "attributes": {
+      "data-role": [
+        "user",
+        "assistant"
+      ]
+    },
+    "states": [
+      "data-streaming",
+      "data-still"
+    ],
+    "parts": [
+      "cherry-chat-message__avatar",
+      "cherry-chat-message__main",
+      "cherry-chat-message__content",
+      "cherry-chat-message__actions"
+    ]
+  },
+  "chat-panel": {
+    "class": "cherry-chat-panel",
+    "attributes": {
+      "data-variant": [
+        "drawer",
+        "inline",
+        "fullscreen"
+      ],
+      "data-side": [
+        "left",
+        "right"
+      ]
+    },
+    "states": [
+      "open",
+      ":modal",
+      "data-glow"
+    ],
+    "parts": [
+      "cherry-chat-panel__header",
+      "cherry-chat-panel__title",
+      "cherry-chat-panel__icon",
+      "cherry-chat-panel__actions",
+      "cherry-chat-panel__body",
+      "cherry-chat-launcher",
+      "cherry-chat-launcher__icon"
+    ]
+  },
+  "chat-sources": {
+    "class": "cherry-chat-sources",
+    "attributes": {},
+    "states": [
+      ":hover",
+      ":focus-visible"
+    ],
+    "parts": [
+      "cherry-chat-sources__item",
+      "cherry-chat-source",
+      "cherry-chat-source__label"
+    ]
+  },
+  "chat-suggestion": {
+    "class": "cherry-chat-suggestion",
+    "attributes": {},
+    "states": [
+      "disabled",
+      ":hover",
+      ":active",
+      ":focus-visible"
+    ],
+    "parts": [
+      "cherry-chat-suggestions",
+      "cherry-chat-suggestion__icon",
+      "cherry-chat-suggestion__label"
+    ]
+  },
+  "chat-typing": {
+    "class": "cherry-chat-typing",
+    "attributes": {},
+    "states": [
+      "data-active"
+    ],
+    "parts": [
+      "cherry-chat-typing__inner",
+      "cherry-chat-typing__dots",
+      "cherry-chat-typing__dot",
+      "cherry-chat-typing__label"
+    ]
+  },
+  "checkbox": {
+    "class": "cherry-checkbox",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      ":checked",
+      ":indeterminate",
+      ":disabled",
+      ":focus-visible",
+      ":hover",
+      ":active",
+      "data-invalid",
+      "data-disabled"
+    ],
+    "parts": [
+      "cherry-checkbox__control",
+      "cherry-checkbox__input",
+      "cherry-checkbox__icon",
+      "cherry-checkbox__check",
+      "cherry-checkbox__dash",
+      "cherry-checkbox__label"
+    ]
+  },
+  "code-block": {
+    "class": "cherry-code-block",
+    "attributes": {},
+    "states": [
+      "data-line-numbers",
+      "data-highlighted",
+      "data-copied"
+    ],
+    "parts": [
+      "cherry-code-block__header",
+      "cherry-code-block__icon",
+      "cherry-code-block__filename",
+      "cherry-code-block__language",
+      "cherry-code-block__copy",
+      "cherry-code-block__glyph",
+      "cherry-code-block__pre",
+      "cherry-code-block__code",
+      "cherry-code-block__line"
+    ]
+  },
+  "combobox": {
+    "class": "cherry-combobox",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-open",
+      "data-invalid",
+      "data-disabled",
+      "data-active",
+      "aria-selected",
+      "aria-disabled",
+      ":popover-open",
+      ":focus-within",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-combobox__input",
+      "cherry-combobox__trigger",
+      "cherry-combobox__popover",
+      "cherry-combobox__listbox",
+      "cherry-combobox__option",
+      "cherry-combobox__option-label",
+      "cherry-combobox__check",
+      "cherry-combobox__empty",
+      "cherry-combobox__empty-title",
+      "cherry-combobox__empty-hint"
+    ]
+  },
+  "confirm-button": {
+    "class": "cherry-confirm-button",
+    "attributes": {
+      "data-size": [
+        "md",
+        "lg"
+      ],
+      "data-state": [
+        "idle",
+        "confirm"
+      ],
+      "data-action": [
+        "confirm",
+        "cancel"
+      ]
+    },
+    "states": [
+      "aria-expanded",
+      ":disabled",
+      ":focus-visible",
+      ":hover",
+      ":active"
+    ],
+    "parts": [
+      "cherry-confirm-button__trigger",
+      "cherry-confirm-button__glyph",
+      "cherry-confirm-button__clip",
+      "cherry-confirm-button__panel",
+      "cherry-confirm-button__action"
+    ]
+  },
+  "container": {
+    "class": "cherry-container",
+    "attributes": {},
+    "states": [
+      "data-fluid"
+    ],
+    "parts": []
+  },
+  "date-picker": {
+    "class": "cherry-date-picker",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-open",
+      "data-invalid",
+      "data-disabled",
+      "data-full-width",
+      ":popover-open",
+      ":focus-visible",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-date-picker__trigger",
+      "cherry-date-picker__icon",
+      "cherry-date-picker__value",
+      "cherry-date-picker__placeholder",
+      "cherry-date-picker__popover"
+    ]
+  },
+  "date-time-picker": {
+    "class": "cherry-date-time-picker",
+    "attributes": {},
+    "states": [
+      "data-open",
+      "data-invalid",
+      "data-disabled",
+      ":popover-open"
+    ],
+    "parts": [
+      "cherry-date-time-picker__popover",
+      "cherry-date-time-picker__body",
+      "cherry-date-time-picker__time",
+      "cherry-date-time-picker__time-label",
+      "cherry-date-time-picker__footer"
+    ]
+  },
+  "dropzone": {
+    "class": "cherry-dropzone",
+    "attributes": {},
+    "states": [
+      "data-inline",
+      "data-drag-over",
+      "data-disabled",
+      "data-invalid",
+      "data-dropped",
+      ":focus-within",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-dropzone__input",
+      "cherry-dropzone__tile",
+      "cherry-dropzone__text",
+      "cherry-dropzone__prompt",
+      "cherry-dropzone__hint"
+    ]
+  },
+  "empty-state": {
+    "class": "cherry-empty-state",
+    "attributes": {},
+    "states": [],
+    "parts": [
+      "cherry-empty-state__icon",
+      "cherry-empty-state__title",
+      "cherry-empty-state__description",
+      "cherry-empty-state__actions"
+    ]
+  },
   "field": {
     "class": "cherry-field",
     "attributes": {},
@@ -63,6 +591,47 @@
       "cherry-field__required",
       "cherry-field__hint",
       "cherry-field__error"
+    ]
+  },
+  "file-item": {
+    "class": "cherry-file-item",
+    "attributes": {
+      "data-status": [
+        "uploading",
+        "complete",
+        "error"
+      ]
+    },
+    "states": [
+      "data-removing"
+    ],
+    "parts": [
+      "cherry-file-item__tile",
+      "cherry-file-item__glyph",
+      "cherry-file-item__body",
+      "cherry-file-item__name",
+      "cherry-file-item__meta",
+      "cherry-file-item__check",
+      "cherry-file-item__progress",
+      "cherry-file-item__bar",
+      "cherry-file-item__remove"
+    ]
+  },
+  "flex": {
+    "class": "cherry-flex",
+    "attributes": {},
+    "states": [
+      "data-inline",
+      "data-full-width"
+    ],
+    "parts": []
+  },
+  "grid": {
+    "class": "cherry-grid",
+    "attributes": {},
+    "states": [],
+    "parts": [
+      "cherry-col"
     ]
   },
   "icon-button": {
@@ -88,6 +657,12 @@
     ],
     "parts": []
   },
+  "inline-code": {
+    "class": "cherry-inline-code",
+    "attributes": {},
+    "states": [],
+    "parts": []
+  },
   "input": {
     "class": "cherry-input",
     "attributes": {
@@ -109,6 +684,483 @@
       "cherry-input__suffix"
     ]
   },
+  "kbd": {
+    "class": "cherry-kbd",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md"
+      ]
+    },
+    "states": [],
+    "parts": []
+  },
+  "link": {
+    "class": "cherry-link",
+    "attributes": {
+      "data-variant": [
+        "default",
+        "muted"
+      ]
+    },
+    "states": [
+      "data-external",
+      ":hover",
+      ":focus-visible"
+    ],
+    "parts": [
+      "cherry-link__icon"
+    ]
+  },
+  "menu": {
+    "class": "cherry-menu",
+    "attributes": {
+      "data-placement": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "data-align": [
+        "start",
+        "center",
+        "end"
+      ]
+    },
+    "states": [
+      ":popover-open"
+    ],
+    "parts": [
+      "cherry-menu__trigger",
+      "cherry-menu__group",
+      "cherry-menu__label",
+      "cherry-menu__separator"
+    ]
+  },
+  "menu-item": {
+    "class": "cherry-menu-item",
+    "attributes": {
+      "data-variant": [
+        "default",
+        "danger"
+      ]
+    },
+    "states": [
+      "aria-disabled",
+      ":hover",
+      ":focus"
+    ],
+    "parts": [
+      "cherry-menu-item__icon",
+      "cherry-menu-item__label",
+      "cherry-menu-item__shortcut"
+    ]
+  },
+  "modal": {
+    "class": "cherry-modal",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "[open]",
+      "::backdrop"
+    ],
+    "parts": [
+      "cherry-modal__header",
+      "cherry-modal__title",
+      "cherry-modal__description",
+      "cherry-modal__close",
+      "cherry-modal__body",
+      "cherry-modal__footer"
+    ]
+  },
+  "nav-pill": {
+    "class": "cherry-nav-pill",
+    "attributes": {},
+    "states": [
+      "data-indicator",
+      "[aria-current=\"page\"]",
+      ":hover",
+      ":focus-visible"
+    ],
+    "parts": [
+      "cherry-nav-pill__list",
+      "cherry-nav-pill__indicator",
+      "cherry-nav-item",
+      "cherry-nav-item__link",
+      "cherry-nav-item__icon"
+    ]
+  },
+  "number-field": {
+    "class": "cherry-number-field",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-invalid",
+      "data-disabled",
+      ":focus-within",
+      ":hover",
+      ":disabled"
+    ],
+    "parts": [
+      "cherry-number-field__input",
+      "cherry-number-field__button",
+      "cherry-number-field__decrement",
+      "cherry-number-field__increment"
+    ]
+  },
+  "otp-input": {
+    "class": "cherry-otp-input",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-invalid",
+      "data-disabled",
+      "data-separator",
+      "data-filled",
+      ":focus-within"
+    ],
+    "parts": [
+      "cherry-otp-input__slot",
+      "cherry-otp-input__char",
+      "cherry-otp-input__caret",
+      "cherry-otp-input__separator"
+    ]
+  },
+  "pagination": {
+    "class": "cherry-pagination",
+    "attributes": {
+      "data-variant": [
+        "full",
+        "compact"
+      ]
+    },
+    "states": [
+      "[aria-current=\"page\"]",
+      "[aria-disabled=\"true\"]",
+      ":hover",
+      ":active",
+      ":focus-visible"
+    ],
+    "parts": [
+      "cherry-pagination__list",
+      "cherry-pagination__item",
+      "cherry-pagination__link",
+      "cherry-pagination__step",
+      "cherry-pagination__ellipsis",
+      "cherry-pagination__status"
+    ]
+  },
+  "password": {
+    "class": "cherry-password",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "aria-pressed",
+      "data-invalid",
+      "data-disabled"
+    ],
+    "parts": [
+      "cherry-password__toggle",
+      "cherry-password__icon",
+      "cherry-password__icon-show",
+      "cherry-password__icon-hide"
+    ]
+  },
+  "popover": {
+    "class": "cherry-popover",
+    "attributes": {
+      "data-placement": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "data-align": [
+        "start",
+        "center",
+        "end"
+      ]
+    },
+    "states": [
+      ":popover-open"
+    ],
+    "parts": [
+      "cherry-popover__title",
+      "cherry-popover__body",
+      "cherry-popover__actions"
+    ]
+  },
+  "progress": {
+    "class": "cherry-progress",
+    "attributes": {
+      "data-variant": [
+        "default",
+        "success",
+        "danger"
+      ],
+      "data-size": [
+        "sm",
+        "md"
+      ]
+    },
+    "states": [
+      "data-indeterminate"
+    ],
+    "parts": [
+      "cherry-progress__header",
+      "cherry-progress__label",
+      "cherry-progress__value",
+      "cherry-progress__track",
+      "cherry-progress__fill"
+    ]
+  },
+  "prose": {
+    "class": "cherry-prose",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-compact"
+    ],
+    "parts": []
+  },
+  "radio": {
+    "class": "cherry-radio",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "data-orientation": [
+        "vertical",
+        "horizontal"
+      ]
+    },
+    "states": [
+      ":checked",
+      ":disabled",
+      ":focus-visible",
+      ":hover",
+      ":active",
+      "data-invalid",
+      "data-disabled"
+    ],
+    "parts": [
+      "cherry-radio-group",
+      "cherry-radio__control",
+      "cherry-radio__input",
+      "cherry-radio__dot",
+      "cherry-radio__label"
+    ]
+  },
+  "range": {
+    "class": "cherry-range",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-invalid",
+      "data-disabled",
+      "data-full-width",
+      ":hover",
+      ":active",
+      ":focus-visible",
+      ":disabled"
+    ],
+    "parts": [
+      "cherry-range__input"
+    ]
+  },
+  "search-dialog": {
+    "class": "cherry-search-dialog",
+    "attributes": {
+      "data-layout": [
+        "list",
+        "preview"
+      ]
+    },
+    "states": [
+      "[open]",
+      "::backdrop"
+    ],
+    "parts": [
+      "cherry-search-dialog__header",
+      "cherry-search-dialog__icon",
+      "cherry-search-dialog__input",
+      "cherry-search-dialog__content",
+      "cherry-search-dialog__results",
+      "cherry-search-dialog__group",
+      "cherry-search-dialog__group-label",
+      "cherry-search-dialog__empty",
+      "cherry-search-dialog__preview",
+      "cherry-search-dialog__footer",
+      "cherry-search-dialog__hints",
+      "cherry-search-dialog__hint",
+      "cherry-search-dialog__status"
+    ]
+  },
+  "search-result": {
+    "class": "cherry-search-result",
+    "attributes": {},
+    "states": [
+      "data-active",
+      "aria-selected",
+      "aria-disabled",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-search-result__icon",
+      "cherry-search-result__text",
+      "cherry-search-result__label",
+      "cherry-search-result__description",
+      "cherry-search-result__arrow"
+    ]
+  },
+  "select": {
+    "class": "cherry-select",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-invalid",
+      "data-disabled",
+      "data-placeholder",
+      ":open",
+      ":focus-visible",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-select__control",
+      "cherry-select__chevron"
+    ]
+  },
+  "separator": {
+    "class": "cherry-separator",
+    "attributes": {
+      "data-orientation": [
+        "horizontal",
+        "vertical"
+      ]
+    },
+    "states": [
+      "data-labelled"
+    ],
+    "parts": [
+      "cherry-separator__label"
+    ]
+  },
+  "sheet": {
+    "class": "cherry-sheet",
+    "attributes": {
+      "data-side": [
+        "right",
+        "left",
+        "bottom"
+      ]
+    },
+    "states": [
+      "[open]",
+      "::backdrop"
+    ],
+    "parts": [
+      "cherry-sheet__handle",
+      "cherry-sheet__header",
+      "cherry-sheet__title",
+      "cherry-sheet__description",
+      "cherry-sheet__close",
+      "cherry-sheet__body",
+      "cherry-sheet__footer"
+    ]
+  },
+  "sidebar": {
+    "class": "cherry-sidebar",
+    "attributes": {},
+    "states": [
+      "data-collapsed",
+      "[aria-current=\"page\"]",
+      "[open]",
+      ":disabled",
+      ":hover",
+      ":focus-visible"
+    ],
+    "parts": [
+      "cherry-sidebar__header",
+      "cherry-sidebar__nav",
+      "cherry-sidebar__footer",
+      "cherry-sidebar__group",
+      "cherry-sidebar__group-label",
+      "cherry-sidebar__group-chevron",
+      "cherry-sidebar__list",
+      "cherry-sidebar__item",
+      "cherry-sidebar__link",
+      "cherry-sidebar__icon",
+      "cherry-sidebar__label",
+      "cherry-sidebar__badge"
+    ]
+  },
+  "skeleton": {
+    "class": "cherry-skeleton",
+    "attributes": {
+      "data-shape": [
+        "text",
+        "circle",
+        "rect"
+      ]
+    },
+    "states": [],
+    "parts": [
+      "cherry-skeleton__line"
+    ]
+  },
+  "snippet": {
+    "class": "cherry-snippet",
+    "attributes": {},
+    "states": [
+      "data-copied",
+      ":hover",
+      ":focus-within"
+    ],
+    "parts": [
+      "cherry-snippet__prompt",
+      "cherry-snippet__code",
+      "cherry-snippet__copy",
+      "cherry-snippet__icons",
+      "cherry-snippet__icon"
+    ]
+  },
   "spinner": {
     "class": "cherry-spinner",
     "attributes": {
@@ -121,6 +1173,146 @@
     },
     "states": [],
     "parts": []
+  },
+  "stat-card": {
+    "class": "cherry-stat-card",
+    "attributes": {
+      "data-trend": [
+        "up",
+        "down",
+        "neutral"
+      ]
+    },
+    "states": [
+      "data-inverse"
+    ],
+    "parts": [
+      "cherry-stat-card__label",
+      "cherry-stat-card__row",
+      "cherry-stat-card__value",
+      "cherry-stat-card__spark",
+      "cherry-stat-card__stop",
+      "cherry-stat-card__area",
+      "cherry-stat-card__line",
+      "cherry-stat-card__dot",
+      "cherry-stat-card__footer",
+      "cherry-stat-card__delta",
+      "cherry-stat-card__delta-label"
+    ]
+  },
+  "stepper": {
+    "class": "cherry-stepper",
+    "attributes": {
+      "data-orientation": [
+        "horizontal",
+        "vertical"
+      ],
+      "data-state": [
+        "complete",
+        "current",
+        "upcoming"
+      ]
+    },
+    "states": [
+      "[aria-current=\"step\"]"
+    ],
+    "parts": [
+      "cherry-stepper__step",
+      "cherry-stepper__marker",
+      "cherry-stepper__check",
+      "cherry-stepper__number",
+      "cherry-stepper__connector",
+      "cherry-stepper__text",
+      "cherry-stepper__label",
+      "cherry-stepper__description"
+    ]
+  },
+  "table": {
+    "class": "cherry-table",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md"
+      ]
+    },
+    "states": [
+      "data-striped",
+      "data-hoverable",
+      "data-numeric",
+      ":focus-visible"
+    ],
+    "parts": [
+      "cherry-table__table"
+    ]
+  },
+  "tabs": {
+    "class": "cherry-tabs",
+    "attributes": {
+      "data-variant": [
+        "pill",
+        "underline"
+      ]
+    },
+    "states": [
+      "[aria-selected=\"true\"]",
+      "data-indicator",
+      ":disabled",
+      ":focus-visible",
+      ":hover",
+      "[hidden]"
+    ],
+    "parts": [
+      "cherry-tabs__list",
+      "cherry-tabs__indicator",
+      "cherry-tabs__tab",
+      "cherry-tabs__panel"
+    ]
+  },
+  "tag": {
+    "class": "cherry-tag",
+    "attributes": {
+      "data-variant": [
+        "neutral",
+        "outline",
+        "accent"
+      ],
+      "data-size": [
+        "sm",
+        "md"
+      ]
+    },
+    "states": [
+      "data-exiting",
+      ":focus-visible",
+      ":hover",
+      ":disabled"
+    ],
+    "parts": [
+      "cherry-tag__label",
+      "cherry-tag__remove"
+    ]
+  },
+  "textarea": {
+    "class": "cherry-textarea",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-invalid",
+      "data-disabled",
+      "data-auto-resize",
+      "data-limit",
+      ":focus-within",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-textarea__control",
+      "cherry-textarea__count"
+    ]
   },
   "theme-toggle": {
     "class": "cherry-theme-toggle",
@@ -139,6 +1331,44 @@
     "parts": [
       "cherry-theme-toggle__indicator",
       "cherry-theme-toggle__option"
+    ]
+  },
+  "time-picker": {
+    "class": "cherry-time-picker",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "data-layout": [
+        "list",
+        "columns"
+      ]
+    },
+    "states": [
+      "data-open",
+      "data-invalid",
+      "data-disabled",
+      "data-full-width",
+      ":popover-open",
+      "aria-selected",
+      "aria-disabled",
+      ":focus-visible",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-time-picker__trigger",
+      "cherry-time-picker__icon",
+      "cherry-time-picker__value",
+      "cherry-time-picker__placeholder",
+      "cherry-time-picker__popover",
+      "cherry-time-picker__list",
+      "cherry-time-picker__columns",
+      "cherry-time-picker__column",
+      "cherry-time-picker__option",
+      "cherry-time-picker__option-label",
+      "cherry-time-picker__check"
     ]
   },
   "toast": {
@@ -204,6 +1434,49 @@
       "cherry-toggle__track",
       "cherry-toggle__thumb",
       "cherry-toggle__label"
+    ]
+  },
+  "toggle-group": {
+    "class": "cherry-toggle-group",
+    "attributes": {
+      "data-type": [
+        "single",
+        "multiple"
+      ],
+      "data-size": [
+        "sm",
+        "md"
+      ]
+    },
+    "states": [
+      "data-ready",
+      "aria-checked",
+      "aria-pressed",
+      "aria-disabled",
+      ":disabled",
+      ":focus-visible",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-toggle-group__indicator",
+      "cherry-toggle-group__item"
+    ]
+  },
+  "tooltip": {
+    "class": "cherry-tooltip",
+    "attributes": {
+      "data-placement": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ]
+    },
+    "states": [
+      ":popover-open"
+    ],
+    "parts": [
+      "cherry-tooltip__trigger"
     ]
   }
 }

@@ -1,0 +1,136 @@
+/* Menu: a `popover` menu anchored to its trigger. Same motion as the
+   popover: scale from 0.96 and fade, growing out of the trigger's side, and
+   back out in CSS (display/overlay allow-discrete). */
+@layer cherry {
+  .cherry-menu__trigger {
+    anchor-name: var(--_anchor);
+  }
+
+  .cherry-menu {
+    --_offset: var(--cherry-space-1);
+    --_ax: span-right;
+    --_ay: span-bottom;
+    --_ox: left;
+    --_oy: top;
+    --_out: var(--cherry-duration-fast) var(--cherry-easing-standard);
+    --_in: var(--cherry-duration-fast) var(--cherry-easing-out);
+
+    box-sizing: border-box;
+    min-width: 200px;
+    max-width: min(320px, 100vw - var(--cherry-space-4));
+    max-height: min(400px, 100dvh - var(--cherry-space-8));
+    padding: var(--cherry-space-1);
+    overflow-y: auto;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-xl);
+    background: var(--cherry-bg-elevated);
+    color: var(--cherry-fg-default);
+    box-shadow: var(--cherry-elevation-lg);
+    font-family: var(--cherry-font-sans);
+
+    opacity: 0;
+    transform: scale(0.96);
+    transition:
+      opacity var(--_out),
+      transform var(--_out),
+      display var(--_out) allow-discrete,
+      overlay var(--_out) allow-discrete;
+  }
+  .cherry-menu:popover-open {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--_in),
+      transform var(--_in),
+      display var(--_in) allow-discrete,
+      overlay var(--_in) allow-discrete;
+  }
+  @starting-style {
+    .cherry-menu:popover-open {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+  .cherry-menu:focus-visible {
+    outline: none;
+  }
+
+  .cherry-menu[data-align="start"] {
+    --_ax: span-right;
+    --_ay: span-bottom;
+    --_ox: left;
+    --_oy: top;
+  }
+  .cherry-menu[data-align="center"] {
+    --_ax: center;
+    --_ay: center;
+    --_ox: center;
+    --_oy: center;
+  }
+  .cherry-menu[data-align="end"] {
+    --_ax: span-left;
+    --_ay: span-top;
+    --_ox: right;
+    --_oy: bottom;
+  }
+  .cherry-menu[data-placement="bottom"] {
+    transform-origin: var(--_ox) top;
+  }
+  .cherry-menu[data-placement="top"] {
+    transform-origin: var(--_ox) bottom;
+  }
+  .cherry-menu[data-placement="left"] {
+    transform-origin: right var(--_oy);
+  }
+  .cherry-menu[data-placement="right"] {
+    transform-origin: left var(--_oy);
+  }
+
+  @supports (position-area: bottom) {
+    .cherry-menu {
+      position-anchor: var(--_anchor);
+      inset: auto;
+      margin: 0;
+    }
+    .cherry-menu[data-placement="bottom"] {
+      position-area: bottom var(--_ax);
+      margin-top: var(--_offset);
+      position-try-fallbacks: flip-block;
+    }
+    .cherry-menu[data-placement="top"] {
+      position-area: top var(--_ax);
+      margin-bottom: var(--_offset);
+      position-try-fallbacks: flip-block;
+    }
+    .cherry-menu[data-placement="left"] {
+      position-area: var(--_ay) left;
+      margin-right: var(--_offset);
+      position-try-fallbacks: flip-inline;
+    }
+    .cherry-menu[data-placement="right"] {
+      position-area: var(--_ay) right;
+      margin-left: var(--_offset);
+      position-try-fallbacks: flip-inline;
+    }
+  }
+
+  .cherry-menu__group {
+    display: flex;
+    flex-direction: column;
+  }
+  .cherry-menu__label {
+    padding: var(--cherry-space-2) var(--cherry-space-2) var(--cherry-space-1);
+    color: var(--cherry-fg-subtle);
+    font-family: var(--cherry-text-eyebrow-family);
+    font-size: var(--cherry-text-eyebrow-size);
+    line-height: var(--cherry-text-eyebrow-line-height);
+    letter-spacing: var(--cherry-text-eyebrow-tracking);
+    font-weight: var(--cherry-text-eyebrow-weight);
+    text-transform: uppercase;
+  }
+  .cherry-menu__separator {
+    height: 1px;
+    margin: var(--cherry-space-1) calc(var(--cherry-space-1) * -1);
+    background: var(--cherry-border-default);
+  }
+}

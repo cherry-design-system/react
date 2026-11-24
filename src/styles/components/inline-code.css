@@ -1,0 +1,18 @@
+/* InlineCode: a mono chip that sits on the text baseline (Figma
+   "InlineCode"). Shared look with code inside <Prose>. */
+@layer cherry {
+  .cherry-inline-code {
+    display: inline;
+    padding: 0.125em 0.375em;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-xs);
+    background: var(--cherry-bg-subtle);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-mono);
+    font-size: 0.875em;
+    line-height: inherit;
+    overflow-wrap: anywhere;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+}

@@ -1,0 +1,73 @@
+/* Container: centered page column (1.x): container-max wide, widening at
+   xxxl, with the mobile padding growing to the desktop padding at lg. */
+@layer cherry {
+  /* Responsive props arrive as inline custom properties per breakpoint
+     (--_<prop>-xs ... --_<prop>-xxxl). Each is reset to initial here so a
+     nested layout never inherits its parent's values, then folded into an
+     "at" chain so a value set at md holds through every larger breakpoint.
+     Media queries cannot read custom properties, so the breakpoint widths
+     are hardcoded below and mirror --cherry-breakpoint-sm ... -xxxl
+     (576 / 768 / 992 / 1200 / 1440 / 1920). */
+  .cherry-container {
+    --_padding-xs: initial;
+    --_padding-sm: initial;
+    --_padding-md: initial;
+    --_padding-lg: initial;
+    --_padding-xl: initial;
+    --_padding-xxl: initial;
+    --_padding-xxxl: initial;
+    --_padding-at-xs: var(--_padding-xs);
+    --_padding-at-sm: var(--_padding-sm, var(--_padding-at-xs));
+    --_padding-at-md: var(--_padding-md, var(--_padding-at-sm));
+    --_padding-at-lg: var(--_padding-lg, var(--_padding-at-md));
+    --_padding-at-xl: var(--_padding-xl, var(--_padding-at-lg));
+    --_padding-at-xxl: var(--_padding-xxl, var(--_padding-at-xl));
+    --_padding-at-xxxl: var(--_padding-xxxl, var(--_padding-at-xxl));
+    padding: var(--_padding-at-xs, var(--cherry-padding-mobile));
+  }
+  @media (min-width: 576px) {
+    .cherry-container {
+      padding: var(--_padding-at-sm, var(--cherry-padding-mobile));
+    }
+  }
+  @media (min-width: 768px) {
+    .cherry-container {
+      padding: var(--_padding-at-md, var(--cherry-padding-mobile));
+    }
+  }
+  @media (min-width: 992px) {
+    .cherry-container {
+      padding: var(--_padding-at-lg, var(--cherry-padding-desktop));
+    }
+  }
+  @media (min-width: 1200px) {
+    .cherry-container {
+      padding: var(--_padding-at-xl, var(--cherry-padding-desktop));
+    }
+  }
+  @media (min-width: 1440px) {
+    .cherry-container {
+      padding: var(--_padding-at-xxl, var(--cherry-padding-desktop));
+    }
+  }
+  @media (min-width: 1920px) {
+    .cherry-container {
+      padding: var(--_padding-at-xxxl, var(--cherry-padding-desktop));
+    }
+  }
+
+  .cherry-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: var(--cherry-container-max);
+    margin-inline: auto;
+  }
+  @media (min-width: 1920px) {
+    .cherry-container {
+      max-width: var(--cherry-container-max-xxxl);
+    }
+  }
+  .cherry-container[data-fluid] {
+    max-width: 100%;
+  }
+}

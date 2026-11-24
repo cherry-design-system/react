@@ -1,0 +1,7 @@
+{
+  "name": "grid",
+  "class": "cherry-grid",
+  "attributes": {},
+  "states": [],
+  "parts": ["cherry-col"]
+}

@@ -1,0 +1,161 @@
+/* ChatMessage (Figma "ChatMessage", 1.x chat-message). The user question
+   is a muted bubble on the right; the reply reads as a document beside its
+   avatar. Entrances follow the toast choreography: the container lands,
+   then the avatar pops, then the action row fades in. */
+@layer cherry {
+  .cherry-chat-message {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--cherry-space-3);
+    width: 100%;
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+  }
+  .cherry-chat-message__avatar {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+  .cherry-chat-message__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-2);
+    min-width: 0;
+  }
+  .cherry-chat-message__content {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .cherry-chat-message__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-1);
+    color: var(--cherry-fg-muted);
+  }
+
+  /* User: right-aligned bubble growing from its bottom-end corner. */
+  .cherry-chat-message[data-role="user"] {
+    flex-direction: row-reverse;
+    animation: cherry-chat-message-bubble-in var(--cherry-duration-base)
+      var(--cherry-easing-out) backwards;
+    transform-origin: right bottom;
+  }
+  .cherry-chat-message[data-role="user"] .cherry-chat-message__main {
+    align-items: flex-end;
+    max-width: min(560px, 85%);
+    margin-inline-start: auto;
+  }
+  .cherry-chat-message[data-role="user"] .cherry-chat-message__content {
+    padding: var(--cherry-space-2) var(--cherry-space-4);
+    border-radius: var(--cherry-radius-xl);
+    border-end-end-radius: var(--cherry-radius-xs);
+    background: var(--cherry-bg-muted);
+    white-space: pre-wrap;
+  }
+
+  /* Assistant: full width, rises in; the avatar pops once it has landed. */
+  .cherry-chat-message[data-role="assistant"] {
+    animation: cherry-chat-message-rise var(--cherry-duration-base)
+      var(--cherry-easing-out) backwards;
+  }
+  .cherry-chat-message[data-role="assistant"] .cherry-chat-message__main {
+    flex: 1;
+  }
+  .cherry-chat-message[data-role="assistant"] .cherry-chat-message__avatar {
+    animation: cherry-chat-message-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop) calc(var(--cherry-duration-base) * 0.4) backwards;
+  }
+  /* Keep the avatar on the first line of text. */
+  .cherry-chat-message[data-role="assistant"]
+    .cherry-chat-message__avatar
+    > .cherry-avatar {
+    margin-top: calc(
+      (
+          var(--cherry-text-body-sm-size) *
+            var(--cherry-text-body-sm-line-height) - var(--_size, 24px)
+        ) /
+        2
+    );
+  }
+  .cherry-chat-message__actions {
+    animation: cherry-chat-message-fade var(--cherry-duration-base)
+      var(--cherry-easing-standard) calc(var(--cherry-duration-base) * 0.8)
+      backwards;
+  }
+
+  .cherry-chat-message[data-still],
+  .cherry-chat-message[data-still] .cherry-chat-message__avatar,
+  .cherry-chat-message[data-still] .cherry-chat-message__actions {
+    animation: none;
+  }
+
+  /* Streaming caret after the last text. */
+  .cherry-chat-message[data-streaming] .cherry-chat-message__content::after {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-inline-start: 2px;
+    vertical-align: -0.15em;
+    border-radius: 1px;
+    background: currentColor;
+    animation: cherry-chat-message-caret 1s steps(1) infinite;
+  }
+  .cherry-chat-message[data-streaming] .cherry-chat-message__actions {
+    visibility: hidden;
+  }
+
+  /* Reduced motion: the token durations already collapse the entrances;
+     the streaming caret stops blinking. */
+  @media (prefers-reduced-motion: reduce) {
+    .cherry-chat-message[data-streaming] .cherry-chat-message__content::after {
+      animation: none;
+    }
+  }
+
+  @keyframes cherry-chat-message-bubble-in {
+    from {
+      opacity: 0;
+      transform: translate(8px, 6px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes cherry-chat-message-rise {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes cherry-chat-message-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes cherry-chat-message-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes cherry-chat-message-caret {
+    50% {
+      opacity: 0;
+    }
+  }
+}

@@ -37,6 +37,19 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    /* Every cherry transition reads its duration from these tokens, so
+       shrinking them reaches all components regardless of selector
+       specificity. Movement-heavy components add their own gentler variant. */
+    :root,
+    .dark,
+    [data-cherry-mode],
+    [data-cherry-brand] {
+      --cherry-duration-instant: 1ms;
+      --cherry-duration-fast: 1ms;
+      --cherry-duration-base: 1ms;
+      --cherry-duration-slow: 1ms;
+      --cherry-duration-emphasis: 1ms;
+    }
     :where([class^="cherry-"], [class*=" cherry-"]),
     :where([class^="cherry-"], [class*=" cherry-"])::before,
     :where([class^="cherry-"], [class*=" cherry-"])::after {

@@ -1,0 +1,194 @@
+/* Stepper. A step's marker eases between states, the check pops in when a
+   step completes, and the connector after it fills from its start edge. */
+@layer cherry {
+  .cherry-stepper {
+    --_marker: 24px;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--cherry-font-sans);
+  }
+
+  .cherry-stepper__step {
+    display: grid;
+    grid-template-columns: var(--_marker) minmax(0, 1fr);
+    min-width: 0;
+  }
+
+  .cherry-stepper__marker {
+    grid-column: 1;
+    grid-row: 1;
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    width: var(--_marker);
+    height: var(--_marker);
+    border: 1.5px solid transparent;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-muted);
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-label-xs-size);
+    line-height: 1;
+    font-weight: var(--cherry-text-label-md-weight);
+    font-variant-numeric: tabular-nums;
+    transition:
+      background-color var(--cherry-duration-base) var(--cherry-easing-standard),
+      border-color var(--cherry-duration-base) var(--cherry-easing-standard),
+      color var(--cherry-duration-base) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-base) var(--cherry-easing-standard);
+  }
+  .cherry-stepper__check {
+    width: 14px;
+    height: 14px;
+    stroke-width: 2.5;
+    animation: cherry-stepper-check-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop) both;
+  }
+  .cherry-stepper__number {
+    animation: cherry-stepper-number-in var(--cherry-duration-fast)
+      var(--cherry-easing-out) both;
+  }
+
+  .cherry-stepper__step[data-state="complete"] .cherry-stepper__marker {
+    background: var(--cherry-primary-default);
+    color: var(--cherry-primary-fg);
+  }
+  .cherry-stepper__step[data-state="current"] .cherry-stepper__marker {
+    border-color: var(--cherry-primary-default);
+    background: var(--cherry-bg-canvas);
+    color: var(--cherry-fg-default);
+    box-shadow: 0 0 0 3px var(--cherry-bg-muted);
+  }
+  .cherry-stepper__step[data-state="upcoming"] .cherry-stepper__marker {
+    background: var(--cherry-bg-muted);
+    color: var(--cherry-fg-muted);
+  }
+
+  /* Connector: a track with a fill that scales in from the start edge. */
+  .cherry-stepper__connector {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-border-default);
+  }
+  .cherry-stepper__connector::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--cherry-primary-default);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--cherry-duration-slow)
+      var(--cherry-easing-spring);
+  }
+  .cherry-stepper__step[data-state="complete"]
+    .cherry-stepper__connector::after {
+    transform: none;
+  }
+
+  .cherry-stepper__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .cherry-stepper__label {
+    color: var(--cherry-fg-default);
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: var(--cherry-text-label-md-weight);
+    transition: color var(--cherry-duration-base) var(--cherry-easing-standard);
+  }
+  .cherry-stepper__step[data-state="upcoming"] .cherry-stepper__label {
+    color: var(--cherry-fg-muted);
+  }
+  .cherry-stepper__description {
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-xs-size);
+    line-height: var(--cherry-text-body-xs-line-height);
+  }
+
+  /* Horizontal: marker and connector on one row, text underneath. */
+  .cherry-stepper[data-orientation="horizontal"] {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .cherry-stepper[data-orientation="horizontal"] .cherry-stepper__step {
+    flex: 1 1 0;
+    grid-template-rows: var(--_marker) auto;
+  }
+  .cherry-stepper[data-orientation="horizontal"]
+    .cherry-stepper__step:last-child {
+    flex: 0 1 auto;
+  }
+  .cherry-stepper[data-orientation="horizontal"] .cherry-stepper__connector {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: center;
+    height: 2px;
+    margin: 0 var(--cherry-space-2);
+  }
+  .cherry-stepper[data-orientation="horizontal"] .cherry-stepper__text {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: var(--cherry-space-2);
+    padding-right: var(--cherry-space-4);
+  }
+
+  /* Vertical: connector runs down from the marker, text to the right. */
+  .cherry-stepper[data-orientation="vertical"] {
+    flex-direction: column;
+  }
+  .cherry-stepper[data-orientation="vertical"] .cherry-stepper__step {
+    grid-template-rows: auto 1fr;
+    column-gap: var(--cherry-space-3);
+  }
+  .cherry-stepper[data-orientation="vertical"] .cherry-stepper__connector {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center;
+    width: 2px;
+    min-height: var(--cherry-space-4);
+    margin: var(--cherry-space-1) 0;
+  }
+  .cherry-stepper[data-orientation="vertical"]
+    .cherry-stepper__connector::after {
+    transform: scaleY(0);
+    transform-origin: center top;
+  }
+  .cherry-stepper[data-orientation="vertical"]
+    .cherry-stepper__step[data-state="complete"]
+    .cherry-stepper__connector::after {
+    transform: none;
+  }
+  .cherry-stepper[data-orientation="vertical"] .cherry-stepper__text {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    padding: 2px 0 var(--cherry-space-4);
+  }
+  .cherry-stepper[data-orientation="vertical"]
+    .cherry-stepper__step:last-child
+    .cherry-stepper__text {
+    padding-bottom: 0;
+  }
+
+  @keyframes cherry-stepper-check-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.4) rotate(-20deg);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes cherry-stepper-number-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

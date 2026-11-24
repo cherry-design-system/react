@@ -1,0 +1,11 @@
+{
+  "name": "menu-item",
+  "class": "cherry-menu-item",
+  "attributes": { "variant": ["default", "danger"] },
+  "states": ["aria-disabled", ":hover", ":focus"],
+  "parts": [
+    "cherry-menu-item__icon",
+    "cherry-menu-item__label",
+    "cherry-menu-item__shortcut"
+  ]
+}

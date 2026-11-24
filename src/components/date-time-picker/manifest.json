@@ -1,0 +1,13 @@
+{
+  "name": "date-time-picker",
+  "class": "cherry-date-time-picker",
+  "attributes": {},
+  "states": ["data-open", "data-invalid", "data-disabled", ":popover-open"],
+  "parts": [
+    "cherry-date-time-picker__popover",
+    "cherry-date-time-picker__body",
+    "cherry-date-time-picker__time",
+    "cherry-date-time-picker__time-label",
+    "cherry-date-time-picker__footer"
+  ]
+}

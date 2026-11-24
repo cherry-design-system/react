@@ -1,0 +1,39 @@
+@layer cherry {
+  .cherry-kbd {
+    --_h: 24px;
+    --_icon: 12px;
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-width: var(--_h);
+    height: var(--_h);
+    padding: 0 var(--cherry-space-1);
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-sm);
+    background: var(--cherry-bg-subtle);
+    color: var(--cherry-fg-muted);
+    box-shadow: var(--cherry-elevation-xs);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-label-xs-size);
+    line-height: 1;
+    letter-spacing: var(--cherry-text-label-xs-tracking);
+    font-weight: var(--cherry-text-label-xs-weight);
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+  .cherry-kbd > svg {
+    width: var(--_icon);
+    height: var(--_icon);
+    flex-shrink: 0;
+  }
+  .cherry-kbd[data-size="sm"] {
+    --_h: 20px;
+    --_icon: 11px;
+    border-radius: var(--cherry-radius-xs);
+  }
+  .cherry-kbd[data-size="md"] {
+    --_h: 24px;
+  }
+}

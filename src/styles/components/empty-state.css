@@ -1,0 +1,78 @@
+/* EmptyState: the parts rise in one after another when it appears (a list
+   emptied, a search with no results). */
+@layer cherry {
+  .cherry-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    max-width: 420px;
+    margin: 0 auto;
+    padding: var(--cherry-space-8) var(--cherry-space-4);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    text-align: center;
+  }
+  .cherry-empty-state > * {
+    animation: cherry-empty-state-rise var(--cherry-duration-slow)
+      var(--cherry-easing-out) both;
+  }
+  .cherry-empty-state > :nth-child(2) {
+    animation-delay: 50ms;
+  }
+  .cherry-empty-state > :nth-child(3) {
+    animation-delay: 100ms;
+  }
+  .cherry-empty-state > :nth-child(n + 4) {
+    animation-delay: 150ms;
+  }
+
+  .cherry-empty-state__icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin-bottom: var(--cherry-space-2);
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--cherry-bg-muted);
+    color: var(--cherry-fg-muted);
+    box-shadow: var(--cherry-elevation-xs);
+  }
+  .cherry-empty-state__icon > svg {
+    width: 20px;
+    height: 20px;
+  }
+  .cherry-empty-state__title {
+    margin: 0;
+    font-size: var(--cherry-text-h5-size);
+    line-height: var(--cherry-text-h5-line-height);
+    letter-spacing: var(--cherry-text-h5-tracking);
+    font-weight: var(--cherry-text-label-md-weight);
+  }
+  .cherry-empty-state__description {
+    margin: 0;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+  }
+  .cherry-empty-state__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--cherry-space-2);
+    margin-top: var(--cherry-space-3);
+  }
+
+  @keyframes cherry-empty-state-rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}

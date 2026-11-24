@@ -4,7 +4,10 @@ import { cx } from "../../utils/cx";
 import { useFieldControl } from "../field/field-context";
 import type { InputSize } from "./variants.gen";
 
-export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+export interface InputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "size"
+> {
   size?: InputSize;
   /** Icon before the text (e.g. <Search />). */
   leadingIcon?: ReactNode;
@@ -18,11 +21,23 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
 
 /** Text input. The ref and every native prop go to the <input>. */
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { size = "md", leadingIcon, suffix, invalid, wrapperClassName, className, ...props },
+  {
+    size = "md",
+    leadingIcon,
+    suffix,
+    invalid,
+    wrapperClassName,
+    className,
+    ...props
+  },
   ref,
 ) {
-  const control = useFieldControl({ ...props, "aria-invalid": invalid ? true : props["aria-invalid"] });
-  const isInvalid = control["aria-invalid"] === true || control["aria-invalid"] === "true";
+  const control = useFieldControl({
+    ...props,
+    "aria-invalid": invalid ? true : props["aria-invalid"],
+  });
+  const isInvalid =
+    control["aria-invalid"] === true || control["aria-invalid"] === "true";
   return (
     <div
       className={cx("cherry-input", wrapperClassName)}
@@ -35,7 +50,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           {leadingIcon}
         </span>
       ) : null}
-      <input ref={ref} className={cx("cherry-input__control", className)} {...control} />
+      <input
+        ref={ref}
+        className={cx("cherry-input__control", className)}
+        {...control}
+      />
       {suffix ? <span className="cherry-input__suffix">{suffix}</span> : null}
     </div>
   );

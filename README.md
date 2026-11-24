@@ -17,7 +17,11 @@ pnpm add @cherry-design-system/react lucide-react
 import "@cherry-design-system/react/styles.css";
 import { themeInitScript } from "@cherry-design-system/react/theme-init";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>

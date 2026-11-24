@@ -1,0 +1,7 @@
+{
+  "name": "separator",
+  "class": "cherry-separator",
+  "attributes": { "orientation": ["horizontal", "vertical"] },
+  "states": ["data-labelled"],
+  "parts": ["cherry-separator__label"]
+}

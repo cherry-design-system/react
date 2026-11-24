@@ -1,0 +1,20 @@
+{
+  "name": "avatar-dropzone",
+  "class": "cherry-avatar-dropzone",
+  "attributes": { "size": ["sm", "md", "lg"] },
+  "states": [
+    "data-filled",
+    "data-drag-over",
+    "data-disabled",
+    "data-invalid",
+    ":focus-within",
+    ":hover"
+  ],
+  "parts": [
+    "cherry-avatar-dropzone__target",
+    "cherry-avatar-dropzone__input",
+    "cherry-avatar-dropzone__icon",
+    "cherry-avatar-dropzone__image",
+    "cherry-avatar-dropzone__remove"
+  ]
+}

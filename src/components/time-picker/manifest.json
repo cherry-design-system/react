@@ -1,0 +1,32 @@
+{
+  "name": "time-picker",
+  "class": "cherry-time-picker",
+  "attributes": {
+    "size": ["sm", "md", "lg"],
+    "layout": ["list", "columns"]
+  },
+  "states": [
+    "data-open",
+    "data-invalid",
+    "data-disabled",
+    "data-full-width",
+    ":popover-open",
+    "aria-selected",
+    "aria-disabled",
+    ":focus-visible",
+    ":hover"
+  ],
+  "parts": [
+    "cherry-time-picker__trigger",
+    "cherry-time-picker__icon",
+    "cherry-time-picker__value",
+    "cherry-time-picker__placeholder",
+    "cherry-time-picker__popover",
+    "cherry-time-picker__list",
+    "cherry-time-picker__columns",
+    "cherry-time-picker__column",
+    "cherry-time-picker__option",
+    "cherry-time-picker__option-label",
+    "cherry-time-picker__check"
+  ]
+}

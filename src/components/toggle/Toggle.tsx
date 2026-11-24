@@ -2,7 +2,10 @@ import { forwardRef, type InputHTMLAttributes, type ReactNode } from "react";
 import { cx } from "../../utils/cx";
 import type { ToggleSize } from "./variants.gen";
 
-export interface ToggleProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
+export interface ToggleProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "size" | "type"
+> {
   /** Visible label. Omit only when an aria-label is given. */
   label?: ReactNode;
   size?: ToggleSize;
@@ -19,8 +22,20 @@ export const Toggle = forwardRef<HTMLInputElement, ToggleProps>(function Toggle(
   ref,
 ) {
   return (
-    <label className={cx("cherry-toggle", className)} data-size={size} data-invalid={invalid || undefined} style={style}>
-      <input ref={ref} type="checkbox" role="switch" className="cherry-toggle__input" aria-invalid={invalid || undefined} {...rest} />
+    <label
+      className={cx("cherry-toggle", className)}
+      data-size={size}
+      data-invalid={invalid || undefined}
+      style={style}
+    >
+      <input
+        ref={ref}
+        type="checkbox"
+        role="switch"
+        className="cherry-toggle__input"
+        aria-invalid={invalid || undefined}
+        {...rest}
+      />
       <span className="cherry-toggle__track" aria-hidden="true">
         <span className="cherry-toggle__thumb" />
       </span>

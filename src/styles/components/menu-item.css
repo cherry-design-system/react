@@ -1,0 +1,78 @@
+@layer cherry {
+  .cherry-menu-item {
+    --_fg: var(--cherry-fg-default);
+    --_icon-fg: var(--cherry-fg-muted);
+    --_bg-hover: var(--cherry-bg-muted);
+
+    appearance: none;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    width: 100%;
+    min-height: 32px;
+    padding: 0 var(--cherry-space-2);
+    border: 0;
+    border-radius: var(--cherry-radius-md);
+    background: transparent;
+    color: var(--_fg);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+    text-align: start;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-menu-item:focus {
+    outline: none;
+  }
+  .cherry-menu-item:hover:not([aria-disabled="true"]),
+  .cherry-menu-item:focus:not([aria-disabled="true"]) {
+    background: var(--_bg-hover);
+  }
+  .cherry-menu-item[aria-disabled="true"] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  .cherry-menu-item[data-variant="default"] {
+    --_fg: var(--cherry-fg-default);
+  }
+  .cherry-menu-item[data-variant="danger"] {
+    --_fg: var(--cherry-danger-fg);
+    --_icon-fg: var(--cherry-danger-fg);
+    --_bg-hover: var(--cherry-danger-bg);
+  }
+
+  .cherry-menu-item__icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    color: var(--_icon-fg);
+    transition: color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-menu-item__icon > svg {
+    width: 16px;
+    height: 16px;
+  }
+  .cherry-menu-item__label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .cherry-menu-item__shortcut {
+    flex-shrink: 0;
+    margin-left: var(--cherry-space-4);
+    color: var(--cherry-fg-subtle);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-body-xs-size);
+    line-height: var(--cherry-text-body-xs-line-height);
+    letter-spacing: var(--cherry-text-body-xs-tracking);
+  }
+}

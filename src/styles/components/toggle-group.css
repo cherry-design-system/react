@@ -1,0 +1,134 @@
+/* ToggleGroup: segmented control. The border belongs to the group; items sit
+   inside its padding box, so neither the 1px dividers (an inset shadow on
+   each item after the first) nor the selected fill can cross it. In single
+   mode the fill is one pill under the items that slides (translate + scaleX
+   of a 1px bar, measured in JS) with the spring easing. */
+@layer cherry {
+  .cherry-toggle-group {
+    --_h: 32px;
+    --_px: var(--cherry-space-3);
+    --_icon: 16px;
+    position: relative;
+    display: inline-flex;
+    box-sizing: border-box;
+    height: var(--_h);
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-md);
+    background: var(--cherry-bg-canvas);
+    box-shadow: var(--cherry-elevation-xs);
+    overflow: clip;
+    isolation: isolate;
+    font-family: var(--cherry-font-sans);
+    transition: box-shadow var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-toggle-group:has(:focus-visible) {
+    box-shadow: var(--cherry-elevation-xs), var(--cherry-ring);
+  }
+  .cherry-toggle-group[aria-disabled="true"] {
+    opacity: 0.5;
+  }
+
+  .cherry-toggle-group__indicator {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    width: 1px;
+    background: var(--cherry-bg-muted);
+    transform-origin: left center;
+    transform: translateX(var(--_x, 0px)) scaleX(var(--_w, 0));
+  }
+  .cherry-toggle-group[data-ready] .cherry-toggle-group__indicator {
+    transition: transform var(--cherry-duration-base)
+      var(--cherry-easing-spring);
+  }
+
+  .cherry-toggle-group__item {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--cherry-space-2);
+    height: 100%;
+    min-width: 0;
+    padding: 0 var(--_px);
+    border: 0;
+    background: transparent;
+    color: var(--cherry-fg-muted);
+    font: inherit;
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: var(--cherry-text-label-md-weight);
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-toggle-group__item + .cherry-toggle-group__item {
+    box-shadow: inset 1px 0 0 var(--cherry-border-default);
+  }
+  .cherry-toggle-group__item > svg {
+    width: var(--_icon);
+    height: var(--_icon);
+    flex-shrink: 0;
+  }
+  /* Icon-only items are square. */
+  .cherry-toggle-group__item:has(> svg:only-child) {
+    width: calc(var(--_h) - 2px);
+    padding: 0;
+  }
+  .cherry-toggle-group__item:hover:not(:disabled) {
+    color: var(--cherry-fg-default);
+  }
+  .cherry-toggle-group[data-type="multiple"]
+    .cherry-toggle-group__item:hover:not(:disabled, [aria-pressed="true"]) {
+    background: var(--cherry-bg-subtle);
+  }
+  /* Multiple mode: the item outline shows which button has focus. In single
+     mode focus sits on the selected pill, so the group ring alone is enough. */
+  .cherry-toggle-group__item:focus-visible {
+    outline: 2px solid var(--cherry-border-focus);
+    outline-offset: -2px;
+  }
+  .cherry-toggle-group[role="radiogroup"]
+    .cherry-toggle-group__item:focus-visible {
+    outline: none;
+  }
+  .cherry-toggle-group__item:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .cherry-toggle-group__item[aria-checked="true"],
+  .cherry-toggle-group__item[aria-pressed="true"] {
+    color: var(--cherry-fg-default);
+  }
+  /* Multiple: each pressed item fills itself. */
+  .cherry-toggle-group[data-type="multiple"]
+    .cherry-toggle-group__item[aria-pressed="true"] {
+    background: var(--cherry-bg-muted);
+  }
+  /* Single, before the pill is measured (no JS yet): fill the item. */
+  .cherry-toggle-group[data-type="single"]:not([data-ready])
+    .cherry-toggle-group__item[aria-checked="true"] {
+    background: var(--cherry-bg-muted);
+  }
+
+  .cherry-toggle-group[data-size="sm"] {
+    --_h: 28px;
+    --_px: 10px;
+    --_icon: 14px;
+  }
+  .cherry-toggle-group[data-size="sm"] .cherry-toggle-group__item {
+    font-size: var(--cherry-text-label-sm-size);
+    line-height: var(--cherry-text-label-sm-line-height);
+    letter-spacing: var(--cherry-text-label-sm-tracking);
+  }
+  .cherry-toggle-group[data-size="md"] {
+    --_h: 32px;
+  }
+}

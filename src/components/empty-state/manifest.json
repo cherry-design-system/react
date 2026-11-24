@@ -1,0 +1,11 @@
+{
+  "name": "empty-state",
+  "class": "cherry-empty-state",
+  "attributes": {},
+  "parts": [
+    "cherry-empty-state__icon",
+    "cherry-empty-state__title",
+    "cherry-empty-state__description",
+    "cherry-empty-state__actions"
+  ]
+}

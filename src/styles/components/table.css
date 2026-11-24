@@ -1,0 +1,92 @@
+/* Table: native table in a rounded, scrollable frame (Figma "Table").
+   Rows are separated by top borders on every row but the first, so there is
+   never a bottom border doubling the frame on the last row. */
+@layer cherry {
+  .cherry-table {
+    --_cell-y: var(--cherry-space-3);
+    --_cell-x: var(--cherry-space-4);
+    --_row-hover: var(--cherry-bg-subtle);
+
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--cherry-bg-elevated);
+    font-family: var(--cherry-font-sans);
+    scrollbar-width: thin;
+    transition: box-shadow var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-table:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+
+  .cherry-table__table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    color: var(--cherry-fg-default);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    text-align: start;
+  }
+  .cherry-table__table caption {
+    padding: var(--_cell-y) var(--_cell-x);
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-xs-size);
+    text-align: start;
+    caption-side: bottom;
+  }
+  .cherry-table__table th,
+  .cherry-table__table td {
+    padding: var(--_cell-y) var(--_cell-x);
+    vertical-align: middle;
+    text-align: start;
+  }
+  .cherry-table__table thead th {
+    background: var(--cherry-bg-subtle);
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-label-xs-size);
+    line-height: var(--cherry-text-label-xs-line-height);
+    font-weight: var(--cherry-text-label-xs-weight);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--cherry-border-default);
+  }
+  .cherry-table__table tbody th {
+    font-weight: 500;
+  }
+  .cherry-table__table tbody tr + tr > *,
+  .cherry-table__table tfoot tr > * {
+    border-top: 1px solid var(--cherry-border-subtle);
+  }
+  .cherry-table__table tbody tr > * {
+    transition: background-color var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  .cherry-table[data-striped]
+    .cherry-table__table
+    tbody
+    tr:nth-child(even)
+    > * {
+    background: var(--cherry-bg-subtle);
+  }
+  .cherry-table[data-hoverable] .cherry-table__table tbody tr:hover > * {
+    background: var(--cherry-ghost-hover);
+  }
+  .cherry-table__table [data-numeric] {
+    text-align: end;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cherry-table[data-size="sm"] {
+    --_cell-y: var(--cherry-space-2);
+    --_cell-x: var(--cherry-space-3);
+  }
+  .cherry-table[data-size="md"] {
+    --_cell-y: var(--cherry-space-3);
+    --_cell-x: var(--cherry-space-4);
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "name": "chat-panel",
+  "class": "cherry-chat-panel",
+  "attributes": {
+    "variant": ["drawer", "inline", "fullscreen"],
+    "side": ["left", "right"]
+  },
+  "states": ["open", ":modal", "data-glow"],
+  "parts": [
+    "cherry-chat-panel__header",
+    "cherry-chat-panel__title",
+    "cherry-chat-panel__icon",
+    "cherry-chat-panel__actions",
+    "cherry-chat-panel__body",
+    "cherry-chat-launcher",
+    "cherry-chat-launcher__icon"
+  ]
+}

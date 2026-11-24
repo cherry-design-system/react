@@ -1,0 +1,15 @@
+{
+  "name": "sheet",
+  "class": "cherry-sheet",
+  "attributes": { "side": ["right", "left", "bottom"] },
+  "states": ["[open]", "::backdrop"],
+  "parts": [
+    "cherry-sheet__handle",
+    "cherry-sheet__header",
+    "cherry-sheet__title",
+    "cherry-sheet__description",
+    "cherry-sheet__close",
+    "cherry-sheet__body",
+    "cherry-sheet__footer"
+  ]
+}

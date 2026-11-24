@@ -1,0 +1,237 @@
+/* SearchDialog: command palette on a native <dialog>. Same entrance as the
+   modal (fade + scale 0.96 with a small rise over a fading backdrop), exit
+   in CSS through display/overlay allow-discrete. The empty state fades in
+   when the results run out. */
+@layer cherry {
+  .cherry-search-dialog {
+    --_width: 520px;
+    --_rise: 12px;
+    --_out: var(--cherry-duration-fast) var(--cherry-easing-standard);
+    --_in: var(--cherry-duration-base) var(--cherry-easing-out);
+
+    box-sizing: border-box;
+    flex-direction: column;
+    width: min(var(--_width), 100% - var(--cherry-space-4) * 2);
+    max-width: none;
+    max-height: calc(100dvh - 24dvh);
+    margin: 12dvh auto auto;
+    padding: var(--cherry-space-2);
+    overflow: hidden;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-2xl);
+    background: var(--cherry-bg-elevated);
+    color: var(--cherry-fg-default);
+    box-shadow: var(--cherry-elevation-xl);
+    font-family: var(--cherry-font-sans);
+
+    opacity: 0;
+    transform: translateY(var(--_rise)) scale(0.96);
+    transition:
+      opacity var(--_out),
+      transform var(--_out),
+      display var(--_out) allow-discrete,
+      overlay var(--_out) allow-discrete;
+  }
+  .cherry-search-dialog[open] {
+    display: flex;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity var(--_in),
+      transform var(--_in),
+      display var(--_in) allow-discrete,
+      overlay var(--_in) allow-discrete;
+  }
+  @starting-style {
+    .cherry-search-dialog[open] {
+      opacity: 0;
+      transform: translateY(var(--_rise)) scale(0.96);
+    }
+  }
+
+  .cherry-search-dialog::backdrop {
+    background-color: transparent;
+    transition:
+      background-color var(--_out),
+      display var(--_out) allow-discrete,
+      overlay var(--_out) allow-discrete;
+  }
+  .cherry-search-dialog[open]::backdrop {
+    background-color: var(--cherry-bg-overlay);
+    transition:
+      background-color var(--_in),
+      display var(--_in) allow-discrete,
+      overlay var(--_in) allow-discrete;
+  }
+  @starting-style {
+    .cherry-search-dialog[open]::backdrop {
+      background-color: transparent;
+    }
+  }
+
+  :root:has(.cherry-search-dialog[open]) {
+    overflow: hidden;
+  }
+  .cherry-search-dialog:focus-visible {
+    outline: none;
+  }
+
+  .cherry-search-dialog[data-layout="list"] {
+    --_width: 520px;
+  }
+  .cherry-search-dialog[data-layout="preview"] {
+    --_width: 760px;
+  }
+
+  .cherry-search-dialog__header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--cherry-space-3);
+    height: 48px;
+    padding: 0 var(--cherry-space-3) 0 var(--cherry-space-4);
+    border-radius: var(--cherry-radius-xl);
+    background: var(--cherry-bg-subtle);
+  }
+  .cherry-search-dialog__icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: var(--cherry-fg-muted);
+  }
+  .cherry-search-dialog__input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: var(--cherry-fg-default);
+    caret-color: var(--cherry-accent-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-body-md-size);
+    line-height: var(--cherry-text-body-md-line-height);
+    letter-spacing: var(--cherry-text-body-md-tracking);
+  }
+  .cherry-search-dialog__input::placeholder {
+    color: var(--cherry-fg-subtle);
+  }
+  .cherry-search-dialog__input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .cherry-search-dialog__content {
+    display: grid;
+    flex: 1 1 auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--cherry-space-3);
+    min-height: 0;
+    margin-top: var(--cherry-space-2);
+  }
+  .cherry-search-dialog[data-layout="preview"] .cherry-search-dialog__content {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 260px);
+  }
+  .cherry-search-dialog__results {
+    max-height: 360px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scroll-padding-block: var(--cherry-space-2);
+  }
+  .cherry-search-dialog__group + .cherry-search-dialog__group {
+    margin-top: var(--cherry-space-2);
+  }
+  .cherry-search-dialog__group-label {
+    padding: var(--cherry-space-2) var(--cherry-space-3) var(--cherry-space-1);
+    color: var(--cherry-fg-subtle);
+    font-family: var(--cherry-text-eyebrow-family);
+    font-size: var(--cherry-text-eyebrow-size);
+    line-height: var(--cherry-text-eyebrow-line-height);
+    letter-spacing: var(--cherry-text-eyebrow-tracking);
+    font-weight: var(--cherry-text-eyebrow-weight);
+    text-transform: uppercase;
+  }
+
+  .cherry-search-dialog__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--cherry-space-2);
+    min-height: 160px;
+    padding: var(--cherry-space-6) var(--cherry-space-4);
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+    text-align: center;
+    animation: cherry-search-dialog-fade-in var(--cherry-duration-base)
+      var(--cherry-easing-out) both;
+  }
+  /* A leading icon in the empty state sits on a small tile. */
+  .cherry-search-dialog__empty > svg:first-child {
+    box-sizing: content-box;
+    width: 16px;
+    height: 16px;
+    margin-bottom: var(--cherry-space-1);
+    padding: var(--cherry-space-2);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--cherry-bg-muted);
+    color: var(--cherry-fg-muted);
+  }
+  .cherry-search-dialog__preview {
+    min-width: 0;
+    overflow-y: auto;
+    padding: var(--cherry-space-1) var(--cherry-space-1) var(--cherry-space-1) 0;
+  }
+
+  .cherry-search-dialog__footer {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--cherry-space-4);
+    margin-top: var(--cherry-space-2);
+    padding: var(--cherry-space-2) var(--cherry-space-2) 0;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-label-xs-size);
+    line-height: var(--cherry-text-label-xs-line-height);
+    letter-spacing: var(--cherry-text-label-xs-tracking);
+  }
+  .cherry-search-dialog__hints {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-4);
+  }
+  .cherry-search-dialog__hint {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cherry-space-1);
+  }
+  .cherry-search-dialog__hint > .cherry-kbd:last-of-type {
+    margin-right: var(--cherry-space-1);
+  }
+  .cherry-search-dialog__status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    margin-left: auto;
+  }
+
+  @media (max-width: 640px) {
+    .cherry-search-dialog[data-layout="preview"]
+      .cherry-search-dialog__content {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .cherry-search-dialog__preview {
+      display: none;
+    }
+  }
+  @keyframes cherry-search-dialog-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

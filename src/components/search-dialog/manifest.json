@@ -1,0 +1,21 @@
+{
+  "name": "search-dialog",
+  "class": "cherry-search-dialog",
+  "attributes": { "layout": ["list", "preview"] },
+  "states": ["[open]", "::backdrop"],
+  "parts": [
+    "cherry-search-dialog__header",
+    "cherry-search-dialog__icon",
+    "cherry-search-dialog__input",
+    "cherry-search-dialog__content",
+    "cherry-search-dialog__results",
+    "cherry-search-dialog__group",
+    "cherry-search-dialog__group-label",
+    "cherry-search-dialog__empty",
+    "cherry-search-dialog__preview",
+    "cherry-search-dialog__footer",
+    "cherry-search-dialog__hints",
+    "cherry-search-dialog__hint",
+    "cherry-search-dialog__status"
+  ]
+}

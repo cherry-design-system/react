@@ -1,0 +1,155 @@
+/* Accordion: native <details>. Motion ported from cherry 1.x: the content
+   height eases open (interpolate-size + ::details-content, no JS), the body
+   fades and drops 6px into place, the chevron flips. Closing plays the same
+   in reverse. */
+@layer cherry {
+  .cherry-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-3);
+    width: 100%;
+  }
+  .cherry-accordion[data-variant="inline"] {
+    gap: 0;
+  }
+
+  .cherry-accordion__item {
+    --_px: var(--cherry-space-4);
+    --_py: 14px;
+    interpolate-size: allow-keywords;
+    width: 100%;
+    margin: 0;
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    text-align: left;
+  }
+  .cherry-accordion__item[data-variant="card"] {
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--cherry-bg-canvas);
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  /* A card rings as a whole, not just its summary inside the border. */
+  .cherry-accordion__item[data-variant="card"]:has(
+      > .cherry-accordion__trigger:focus-visible
+    ) {
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-accordion__item[data-variant="card"]
+    > .cherry-accordion__trigger:focus-visible {
+    box-shadow: none;
+  }
+  .cherry-accordion__item[data-variant="card"]:hover {
+    border-color: var(--cherry-border-strong);
+  }
+  .cherry-accordion__item[data-variant="inline"] {
+    --_px: 0px;
+    border-bottom: 1px solid var(--cherry-border-default);
+  }
+
+  .cherry-accordion__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--cherry-space-3);
+    padding: var(--_py) var(--_px);
+    border-radius: inherit;
+    list-style: none;
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: var(--cherry-text-label-md-weight);
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-accordion__trigger::-webkit-details-marker {
+    display: none;
+  }
+  .cherry-accordion__trigger::marker {
+    content: "";
+  }
+  .cherry-accordion__trigger:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-accordion__item[data-variant="inline"]
+    .cherry-accordion__trigger:focus-visible {
+    border-radius: var(--cherry-radius-sm);
+  }
+  .cherry-accordion__item[open] > .cherry-accordion__trigger {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .cherry-accordion__title {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .cherry-accordion__chevron {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: var(--cherry-fg-muted);
+    transition:
+      transform var(--cherry-duration-base) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-accordion__trigger:hover .cherry-accordion__chevron {
+    color: var(--cherry-fg-default);
+  }
+  .cherry-accordion__item[open] .cherry-accordion__chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Height: 0 <-> auto through interpolate-size; content-visibility flips
+     discretely at the end of the close so the content stays painted while
+     it collapses. */
+  .cherry-accordion__item::details-content {
+    height: 0;
+    overflow: clip;
+    transition:
+      height var(--cherry-duration-base) var(--cherry-easing-standard),
+      content-visibility var(--cherry-duration-base) allow-discrete;
+  }
+  .cherry-accordion__item[open]::details-content {
+    height: auto;
+  }
+
+  .cherry-accordion__body {
+    padding: 0 var(--_px) var(--cherry-space-4);
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    letter-spacing: var(--cherry-text-body-sm-tracking);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--cherry-duration-base) var(--cherry-easing-standard),
+      transform var(--cherry-duration-base) var(--cherry-easing-standard);
+  }
+  .cherry-accordion__item[open] .cherry-accordion__body {
+    opacity: 1;
+    transform: none;
+  }
+  /* The body may have no computed style while the content is skipped, so
+     the opening fade also gets an explicit starting point. */
+  @starting-style {
+    .cherry-accordion__item[open] .cherry-accordion__body {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+  }
+  .cherry-accordion__body > :first-child {
+    margin-top: 0;
+  }
+  .cherry-accordion__body > :last-child {
+    margin-bottom: 0;
+  }
+}

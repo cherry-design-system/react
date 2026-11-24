@@ -1,0 +1,243 @@
+/* Prose: rich-text typography, ported from 1.x proseStyles onto the 2.0
+   text tokens. Only bare elements are styled (anchors and code without a
+   class), so cherry components placed inside keep their own look. */
+@layer cherry {
+  .cherry-prose {
+    --_block: var(--cherry-space-5);
+    --_size: var(--cherry-text-body-md-size);
+    --_leading: var(--cherry-text-body-md-line-height);
+    --_tracking: var(--cherry-text-body-md-tracking);
+
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--_size);
+    line-height: var(--_leading);
+    letter-spacing: var(--_tracking);
+    overflow-wrap: break-word;
+  }
+  .cherry-prose[data-size="sm"] {
+    --_size: var(--cherry-text-body-sm-size);
+    --_leading: var(--cherry-text-body-sm-line-height);
+    --_tracking: var(--cherry-text-body-sm-tracking);
+  }
+  .cherry-prose[data-size="md"] {
+    --_size: var(--cherry-text-body-md-size);
+    --_leading: var(--cherry-text-body-md-line-height);
+    --_tracking: var(--cherry-text-body-md-tracking);
+  }
+  .cherry-prose[data-size="lg"] {
+    --_size: var(--cherry-text-body-lg-size);
+    --_leading: var(--cherry-text-body-lg-line-height);
+    --_tracking: var(--cherry-text-body-lg-tracking);
+  }
+  .cherry-prose[data-compact] {
+    --_block: var(--cherry-space-3);
+  }
+
+  /* Edge margins belong to whatever holds the prose, not to the prose. */
+  .cherry-prose > :first-child {
+    margin-top: 0;
+  }
+  .cherry-prose > :last-child {
+    margin-bottom: 0;
+  }
+
+  .cherry-prose :where(p, ul, ol, blockquote, pre, figure, table, hr) {
+    margin: 0 0 var(--_block);
+  }
+
+  /* Headings: the token scale; compact shifts each level down two steps. */
+  .cherry-prose :where(h1, h2, h3, h4, h5, h6) {
+    margin: calc(var(--_block) * 1.5) 0 calc(var(--_block) * 0.5);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+  }
+  .cherry-prose h1 {
+    font-size: var(--cherry-text-h1-size);
+    line-height: var(--cherry-text-h1-line-height);
+    letter-spacing: var(--cherry-text-h1-tracking);
+    font-weight: var(--cherry-text-h1-weight);
+  }
+  .cherry-prose h2 {
+    font-size: var(--cherry-text-h2-size);
+    line-height: var(--cherry-text-h2-line-height);
+    letter-spacing: var(--cherry-text-h2-tracking);
+    font-weight: var(--cherry-text-h2-weight);
+  }
+  .cherry-prose h3,
+  .cherry-prose[data-compact] h1 {
+    font-size: var(--cherry-text-h3-size);
+    line-height: var(--cherry-text-h3-line-height);
+    letter-spacing: var(--cherry-text-h3-tracking);
+    font-weight: var(--cherry-text-h3-weight);
+  }
+  .cherry-prose h4,
+  .cherry-prose[data-compact] h2 {
+    font-size: var(--cherry-text-h4-size);
+    line-height: var(--cherry-text-h4-line-height);
+    letter-spacing: var(--cherry-text-h4-tracking);
+    font-weight: var(--cherry-text-h4-weight);
+  }
+  .cherry-prose :where(h5, h6),
+  .cherry-prose[data-compact] :where(h3, h4, h5, h6) {
+    font-size: var(--cherry-text-h5-size);
+    line-height: var(--cherry-text-h5-line-height);
+    letter-spacing: var(--cherry-text-h5-tracking);
+    font-weight: var(--cherry-text-h5-weight);
+  }
+
+  .cherry-prose :where(strong, b) {
+    font-weight: 600;
+  }
+
+  /* Links: the same animated double underline as <Link>. */
+  .cherry-prose a:not([class]) {
+    color: var(--cherry-fg-default);
+    text-decoration: none;
+    background-image:
+      linear-gradient(var(--cherry-accent-fg), var(--cherry-accent-fg)),
+      linear-gradient(var(--cherry-fg-default), var(--cherry-fg-default));
+    background-repeat: no-repeat;
+    background-position:
+      0 100%,
+      0 100%;
+    background-size:
+      0% 1px,
+      100% 1px;
+    border-radius: var(--cherry-radius-xs);
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    transition:
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      background-size var(--cherry-duration-base) var(--cherry-easing-spring),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-prose a:not([class]):hover {
+    color: var(--cherry-accent-fg);
+    background-size:
+      100% 1px,
+      100% 1px;
+  }
+  .cherry-prose a:not([class]):focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--cherry-bg-canvas),
+      0 0 0 4px var(--cherry-border-focus);
+  }
+
+  /* Lists: soft dots and muted numbers, hanging in a 24px gutter. */
+  .cherry-prose :where(ul, ol) {
+    padding: 0;
+    list-style: none;
+  }
+  .cherry-prose li {
+    position: relative;
+    margin: 0;
+    padding-inline-start: 24px;
+  }
+  .cherry-prose li + li {
+    margin-top: calc(var(--_block) * 0.25);
+  }
+  .cherry-prose :where(li > ul, li > ol) {
+    margin: calc(var(--_block) * 0.25) 0 0;
+  }
+  .cherry-prose ul > li::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 9px;
+    top: calc(var(--_leading) * 0.5em - 2.5px);
+    width: 5px;
+    height: 5px;
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-fg-subtle);
+  }
+  .cherry-prose ol {
+    counter-reset: cherry-prose-item;
+  }
+  .cherry-prose ol > li {
+    counter-increment: cherry-prose-item;
+  }
+  .cherry-prose ol > li::before {
+    content: counter(cherry-prose-item) ".";
+    position: absolute;
+    inset-inline-start: 0;
+    width: 18px;
+    color: var(--cherry-fg-muted);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    text-align: end;
+  }
+
+  .cherry-prose blockquote {
+    padding-inline-start: var(--cherry-space-4);
+    border-inline-start: 2px solid var(--cherry-border-strong);
+    color: var(--cherry-fg-muted);
+  }
+
+  .cherry-prose hr {
+    height: 1px;
+    margin-block: calc(var(--_block) * 1.5);
+    border: 0;
+    background: var(--cherry-border-default);
+  }
+
+  /* Inline code (not inside a pre, not a component). */
+  .cherry-prose :not(pre) > code:not([class]) {
+    padding: 0.125em 0.375em;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-xs);
+    background: var(--cherry-bg-subtle);
+    font-family: var(--cherry-font-mono);
+    font-size: 0.875em;
+    overflow-wrap: anywhere;
+  }
+  .cherry-prose pre:not([class]) {
+    overflow-x: auto;
+    padding: var(--cherry-space-3) var(--cherry-space-4);
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-lg);
+    background: var(--cherry-bg-subtle);
+    font-family: var(--cherry-font-mono);
+    font-size: var(--cherry-text-mono-sm-size);
+    line-height: var(--cherry-text-mono-sm-line-height);
+    scrollbar-width: thin;
+  }
+  .cherry-prose > :where(.cherry-code-block, .cherry-table) {
+    margin-bottom: var(--_block);
+  }
+
+  .cherry-prose table:not([class]) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+  }
+  .cherry-prose table:not([class]) :where(th, td) {
+    padding: var(--cherry-space-2) var(--cherry-space-3) var(--cherry-space-2) 0;
+    border-bottom: 1px solid var(--cherry-border-default);
+    text-align: start;
+  }
+  .cherry-prose table:not([class]) th {
+    color: var(--cherry-fg-default);
+    font-weight: 600;
+  }
+  .cherry-prose table:not([class]) td {
+    color: var(--cherry-fg-muted);
+  }
+  .cherry-prose table:not([class]) tbody tr:last-child > * {
+    border-bottom: 0;
+  }
+
+  .cherry-prose :where(img, video, iframe) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--cherry-radius-lg);
+  }
+  .cherry-prose figcaption {
+    margin-top: var(--cherry-space-2);
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-xs-size);
+    line-height: var(--cherry-text-body-xs-line-height);
+  }
+}

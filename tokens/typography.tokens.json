@@ -3,12 +3,7 @@
   "font": {
     "sans": {
       "$type": "fontFamily",
-      "$value": [
-        "Geist",
-        "ui-sans-serif",
-        "system-ui",
-        "sans-serif"
-      ]
+      "$value": ["Geist", "ui-sans-serif", "system-ui", "sans-serif"]
     },
     "mono": {
       "$type": "fontFamily",

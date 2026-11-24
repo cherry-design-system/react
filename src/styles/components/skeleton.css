@@ -1,0 +1,87 @@
+/* Skeleton: a highlight band sweeps across every block in sync (the
+   gradient is fixed to the viewport, so neighbouring blocks shimmer as one
+   surface). Reduced motion: a slow fade instead of the sweep. */
+@layer cherry {
+  .cherry-skeleton {
+    --_base: var(--cherry-bg-muted);
+    --_shine: color-mix(
+      in oklab,
+      var(--cherry-bg-muted),
+      var(--cherry-bg-canvas) 70%
+    );
+    --_shimmer: linear-gradient(
+        100deg,
+        transparent 38%,
+        var(--_shine) 50%,
+        transparent 62%
+      )
+      var(--_base);
+    display: block;
+    box-sizing: border-box;
+    width: var(--_w, 100%);
+    height: var(--_h, auto);
+  }
+
+  .cherry-skeleton[data-shape="rect"],
+  .cherry-skeleton[data-shape="circle"],
+  .cherry-skeleton__line {
+    background: var(--_shimmer);
+    background-size: 200vw 100%;
+    background-attachment: fixed;
+    animation: cherry-skeleton-shimmer 1600ms linear infinite;
+  }
+
+  .cherry-skeleton[data-shape="text"] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--cherry-space-2);
+    height: auto;
+  }
+  .cherry-skeleton__line {
+    display: block;
+    height: var(--_h, 12px);
+    border-radius: var(--cherry-radius-full);
+  }
+  .cherry-skeleton__line:last-child:not(:first-child) {
+    width: 66%;
+  }
+
+  .cherry-skeleton[data-shape="circle"] {
+    width: var(--_w, 40px);
+    height: var(--_h, var(--_w, 40px));
+    border-radius: var(--cherry-radius-full);
+    flex-shrink: 0;
+  }
+  .cherry-skeleton[data-shape="rect"] {
+    height: var(--_h, 120px);
+    border-radius: var(--cherry-radius-lg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cherry-skeleton[data-shape="rect"],
+    .cherry-skeleton[data-shape="circle"],
+    .cherry-skeleton__line {
+      background: var(--_base);
+      animation: cherry-skeleton-pulse 2400ms var(--cherry-easing-standard)
+        infinite;
+    }
+  }
+
+  @keyframes cherry-skeleton-shimmer {
+    from {
+      background-position: 100vw 0;
+    }
+    to {
+      background-position: -100vw 0;
+    }
+  }
+  @keyframes cherry-skeleton-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+}

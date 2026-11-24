@@ -1,0 +1,60 @@
+/* DateTimePicker: the DatePicker trigger and popover (date-picker.css) with
+   a Calendar (calendar.css) beside a column of time slots (time-picker.css)
+   and a Cancel / Apply footer (button.css). Motion comes from the DatePicker
+   popover: scale from 0.96 + fade, in and out. */
+@layer cherry {
+  .cherry-date-time-picker .cherry-date-picker__trigger {
+    min-width: 260px;
+  }
+  .cherry-date-time-picker__body {
+    display: flex;
+  }
+  /* The popover is the card: the calendar drops its own chrome. */
+  .cherry-date-time-picker__body > .cherry-calendar {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .cherry-date-time-picker__time {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    border-inline-start: 1px solid var(--cherry-border-default);
+    /* Sized by the calendar beside it, not by its 48 slots. */
+    contain: size;
+  }
+  .cherry-date-time-picker__time-label {
+    padding: var(--cherry-space-3) var(--cherry-space-4) var(--cherry-space-1);
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-eyebrow-size);
+    line-height: var(--cherry-text-eyebrow-line-height);
+    letter-spacing: var(--cherry-text-eyebrow-tracking);
+    font-weight: var(--cherry-text-eyebrow-weight);
+    text-transform: uppercase;
+  }
+  .cherry-date-time-picker__time .cherry-time-picker__list {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 0;
+    max-height: none;
+    scrollbar-width: none;
+  }
+  .cherry-date-time-picker__time .cherry-time-picker__option {
+    height: 34px;
+    border-radius: var(--cherry-radius-md);
+  }
+  .cherry-date-time-picker__time
+    .cherry-time-picker__option[aria-selected="true"] {
+    background: var(--cherry-primary-default);
+    color: var(--cherry-primary-fg);
+    font-weight: var(--cherry-text-label-md-weight);
+  }
+  .cherry-date-time-picker__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--cherry-space-2);
+    padding: var(--cherry-space-3);
+    border-top: 1px solid var(--cherry-border-default);
+  }
+}

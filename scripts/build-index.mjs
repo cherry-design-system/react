@@ -4,7 +4,9 @@ import { readdirSync, existsSync, writeFileSync } from "node:fs";
 
 const root = new URL("../src/components/", import.meta.url);
 const comps = readdirSync(root, { withFileTypes: true })
-  .filter((d) => d.isDirectory() && existsSync(new URL(`${d.name}/index.ts`, root)))
+  .filter(
+    (d) => d.isDirectory() && existsSync(new URL(`${d.name}/index.ts`, root)),
+  )
   .map((d) => d.name)
   .sort();
 

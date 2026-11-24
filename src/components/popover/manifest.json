@@ -1,0 +1,14 @@
+{
+  "name": "popover",
+  "class": "cherry-popover",
+  "attributes": {
+    "placement": ["top", "bottom", "left", "right"],
+    "align": ["start", "center", "end"]
+  },
+  "states": [":popover-open"],
+  "parts": [
+    "cherry-popover__title",
+    "cherry-popover__body",
+    "cherry-popover__actions"
+  ]
+}

@@ -21,10 +21,18 @@
   .cherry-toaster:empty {
     pointer-events: none;
   }
-  .cherry-toaster[data-position="top"] { top: var(--_edge); }
-  .cherry-toaster[data-position="bottom"] { bottom: var(--_edge); }
-  .cherry-toaster[data-align="left"] { left: var(--_edge); }
-  .cherry-toaster[data-align="right"] { right: var(--_edge); }
+  .cherry-toaster[data-position="top"] {
+    top: var(--_edge);
+  }
+  .cherry-toaster[data-position="bottom"] {
+    bottom: var(--_edge);
+  }
+  .cherry-toaster[data-align="left"] {
+    left: var(--_edge);
+  }
+  .cherry-toaster[data-align="right"] {
+    right: var(--_edge);
+  }
   .cherry-toaster[data-align="center"] {
     left: 50%;
     transform: translateX(-50%);
@@ -95,7 +103,8 @@
     align-items: center;
     gap: var(--cherry-space-3);
     padding: 10px;
-    transition: opacity var(--cherry-duration-base) var(--cherry-easing-standard);
+    transition: opacity var(--cherry-duration-base)
+      var(--cherry-easing-standard);
   }
   .cherry-toast[data-concealed] .cherry-toast__content {
     opacity: 0;
@@ -144,18 +153,28 @@
     border-radius: var(--cherry-radius-md);
     background: var(--_tile-bg);
     color: var(--_tile-fg);
-    transition: background-color var(--cherry-duration-fast) var(--cherry-easing-standard);
+    transition: background-color var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
     /* First arrival waits for the card to land... */
     animation: cherry-toast-tile-in 350ms var(--cherry-easing-out) 240ms both;
   }
   /* ...an in-place swap (a settled promise) bumps instead. */
   .cherry-toast__tile[data-settled] {
-    animation: cherry-toast-tile-bump var(--cherry-duration-slow) var(--cherry-easing-out);
+    animation: cherry-toast-tile-bump var(--cherry-duration-slow)
+      var(--cherry-easing-out);
   }
-  .cherry-toast[data-color="info"] .cherry-toast__tile { --_tile-bg: var(--cherry-info-solid); }
-  .cherry-toast[data-color="success"] .cherry-toast__tile { --_tile-bg: var(--cherry-success-solid); }
-  .cherry-toast[data-color="error"] .cherry-toast__tile { --_tile-bg: var(--cherry-danger-solid); }
-  .cherry-toast[data-color="warning"] .cherry-toast__tile { --_tile-bg: var(--cherry-warning-solid); }
+  .cherry-toast[data-color="info"] .cherry-toast__tile {
+    --_tile-bg: var(--cherry-info-solid);
+  }
+  .cherry-toast[data-color="success"] .cherry-toast__tile {
+    --_tile-bg: var(--cherry-success-solid);
+  }
+  .cherry-toast[data-color="error"] .cherry-toast__tile {
+    --_tile-bg: var(--cherry-danger-solid);
+  }
+  .cherry-toast[data-color="warning"] .cherry-toast__tile {
+    --_tile-bg: var(--cherry-warning-solid);
+  }
   .cherry-toast[data-color="loading"] .cherry-toast__tile {
     --_tile-bg: var(--cherry-bg-muted);
     --_tile-fg: var(--cherry-fg-muted);
@@ -164,7 +183,8 @@
   .cherry-toast__glyph {
     display: grid;
     place-items: center;
-    animation: cherry-toast-glyph-pop var(--cherry-duration-emphasis) var(--cherry-easing-pop) 320ms both;
+    animation: cherry-toast-glyph-pop var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop) 320ms both;
   }
   .cherry-toast__tile[data-settled] .cherry-toast__glyph {
     animation-delay: 60ms;
@@ -179,7 +199,8 @@
   }
   .cherry-toast__stroke {
     stroke-dasharray: 1;
-    animation: cherry-toast-stroke-draw var(--cherry-duration-base) var(--cherry-easing-out) 420ms both;
+    animation: cherry-toast-stroke-draw var(--cherry-duration-base)
+      var(--cherry-easing-out) 420ms both;
   }
   .cherry-toast__stroke + .cherry-toast__stroke {
     animation-delay: 500ms;
@@ -187,7 +208,9 @@
   .cherry-toast__tile[data-settled] .cherry-toast__stroke {
     animation-delay: 160ms;
   }
-  .cherry-toast__tile[data-settled] .cherry-toast__stroke + .cherry-toast__stroke {
+  .cherry-toast__tile[data-settled]
+    .cherry-toast__stroke
+    + .cherry-toast__stroke {
     animation-delay: 240ms;
   }
 
@@ -268,9 +291,15 @@
     }
   }
   @keyframes cherry-toast-tile-bump {
-    0% { transform: scale(1); }
-    40% { transform: scale(1.08); }
-    100% { transform: scale(1); }
+    0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1.08);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
   @keyframes cherry-toast-glyph-pop {
     from {
@@ -283,7 +312,11 @@
     }
   }
   @keyframes cherry-toast-stroke-draw {
-    from { stroke-dashoffset: 1; }
-    to { stroke-dashoffset: 0; }
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 }

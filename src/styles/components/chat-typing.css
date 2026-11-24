@@ -1,0 +1,98 @@
+/* ChatTyping: three dots bounce in a staggered wave before the label.
+   Toggling data-active folds the row (grid 1fr -> 0fr) and fades it, so it
+   leaves and returns with motion instead of popping. */
+@layer cherry {
+  .cherry-chat-typing {
+    --_cycle: calc(var(--cherry-duration-slow) * 3);
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    color: var(--cherry-fg-muted);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-body-sm-size);
+    line-height: var(--cherry-text-body-sm-line-height);
+    transition:
+      grid-template-rows var(--cherry-duration-fast)
+        var(--cherry-easing-standard),
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-chat-typing[data-active] {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transition:
+      grid-template-rows var(--cherry-duration-base) var(--cherry-easing-out),
+      opacity var(--cherry-duration-base) var(--cherry-easing-out);
+  }
+  @starting-style {
+    .cherry-chat-typing[data-active] {
+      grid-template-rows: 0fr;
+      opacity: 0;
+    }
+  }
+  .cherry-chat-typing__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    min-height: 0;
+    overflow: hidden;
+  }
+  .cherry-chat-typing__dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    height: 1lh;
+  }
+  .cherry-chat-typing__dot {
+    width: 5px;
+    height: 5px;
+    border-radius: var(--cherry-radius-full);
+    background: currentColor;
+    opacity: 0.35;
+    animation: cherry-chat-typing-bounce var(--_cycle)
+      var(--cherry-easing-standard) infinite;
+  }
+  .cherry-chat-typing__dot:nth-child(2) {
+    animation-delay: calc(var(--_cycle) / 8);
+  }
+  .cherry-chat-typing__dot:nth-child(3) {
+    animation-delay: calc(var(--_cycle) / 4);
+  }
+
+  /* Reduced motion: no bounce, a slow fade still says "working". */
+
+  /* Reduced motion: no bounce; a slow fade still says "working". The cycle
+     is fixed here because the duration tokens collapse to 1ms. */
+  @media (prefers-reduced-motion: reduce) {
+    .cherry-chat-typing__dot {
+      animation: cherry-chat-typing-fade 2400ms linear infinite;
+    }
+    .cherry-chat-typing__dot:nth-child(2) {
+      animation-delay: 300ms;
+    }
+    .cherry-chat-typing__dot:nth-child(3) {
+      animation-delay: 600ms;
+    }
+  }
+
+  @keyframes cherry-chat-typing-bounce {
+    0%,
+    60%,
+    100% {
+      opacity: 0.35;
+      transform: translateY(0);
+    }
+    30% {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+  }
+  @keyframes cherry-chat-typing-fade {
+    0%,
+    100% {
+      opacity: 0.35;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
