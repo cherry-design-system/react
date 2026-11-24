@@ -95,7 +95,8 @@
   }
   summary.cherry-sidebar__group-label:focus-visible {
     outline: 2px solid transparent;
-    box-shadow: var(--cherry-ring);
+    outline-offset: -2px;
+    box-shadow: var(--cherry-ring-inset);
   }
   .cherry-sidebar__group-chevron {
     width: 14px;
@@ -182,7 +183,8 @@
   }
   .cherry-sidebar__link:focus-visible {
     outline: 2px solid transparent;
-    box-shadow: var(--cherry-ring);
+    outline-offset: -2px;
+    box-shadow: var(--cherry-ring-inset);
   }
   .cherry-sidebar__link:disabled {
     opacity: 0.45;
@@ -223,6 +225,11 @@
   .cherry-sidebar[data-collapsed] .cherry-sidebar__link {
     height: 36px;
     padding: 0 10px;
+  }
+  /* In the rail, header and footer controls sit on the icons' centre line. */
+  .cherry-sidebar[data-collapsed] .cherry-sidebar__header,
+  .cherry-sidebar[data-collapsed] .cherry-sidebar__footer {
+    justify-content: center;
   }
   .cherry-sidebar[data-collapsed] .cherry-sidebar__label {
     opacity: 0;
