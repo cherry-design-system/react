@@ -169,7 +169,7 @@ function Showcase() {
             <Input placeholder="ada" />
           </Field>
           <Toggle label="Email notifications" defaultChecked />
-          <Toggle label="Weekly digest" size="sm" />
+          <Toggle label="Weekly digest" />
         </div>
       </Section>
       <Section title="Toast">

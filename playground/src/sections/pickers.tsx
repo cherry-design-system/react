@@ -14,6 +14,8 @@ import {
   ToggleGroup,
   ToggleGroupItem,
   type DateRange,
+  type TagSize,
+  type TagVariant,
 } from "../../../src";
 import { Section } from "../Section";
 
@@ -169,12 +171,29 @@ function ConfirmButtonDemo() {
   );
 }
 
+// Rows reserve the small Button's height (32px, tags are 26px) so Reset can
+// appear without the row growing.
+const TAG_ROW = { minHeight: 32 } as const;
+
+const VARIANT_TAGS = [
+  { key: "outline", label: "Outline", variant: "outline", size: "md" },
+  { key: "accent", label: "Accent", variant: "accent", size: "md" },
+  { key: "small", label: "Small", variant: "neutral", size: "sm" },
+] as const satisfies ReadonlyArray<{
+  key: string;
+  label: string;
+  variant: TagVariant;
+  size: TagSize;
+}>;
+
 function TagDemo() {
   const initial = ["React", "TypeScript", "CSS", "Accessibility"];
   const [tags, setTags] = useState(initial);
+  const [variants, setVariants] =
+    useState<ReadonlyArray<(typeof VARIANT_TAGS)[number]>>(VARIANT_TAGS);
   return (
     <div className="pg-stack" style={{ maxWidth: "none" }}>
-      <div className="pg-row" id="pg-tags">
+      <div className="pg-row" id="pg-tags" style={TAG_ROW}>
         {tags.map((tag) => (
           <Tag
             key={tag}
@@ -184,28 +203,36 @@ function TagDemo() {
           </Tag>
         ))}
         {tags.length < initial.length ? (
-          <Tag
-            variant="outline"
-            onClick={() => setTags(initial)}
-            style={{ cursor: "pointer" }}
-          >
+          <Button size="sm" variant="ghost" onClick={() => setTags(initial)}>
             Reset
-          </Tag>
+          </Button>
         ) : null}
       </div>
-      <div className="pg-row">
+      <div className="pg-row" style={TAG_ROW}>
         <Tag>Neutral</Tag>
         <Tag variant="outline">Outline</Tag>
         <Tag variant="accent">Accent</Tag>
-        <Tag variant="outline" onRemove={() => {}}>
-          Outline
-        </Tag>
-        <Tag variant="accent" onRemove={() => {}}>
-          Accent
-        </Tag>
-        <Tag size="sm" onRemove={() => {}}>
-          Small
-        </Tag>
+        {variants.map(({ key, label, variant, size }) => (
+          <Tag
+            key={key}
+            variant={variant}
+            size={size}
+            onRemove={() =>
+              setVariants((list) => list.filter((v) => v.key !== key))
+            }
+          >
+            {label}
+          </Tag>
+        ))}
+        {variants.length < VARIANT_TAGS.length ? (
+          <Button
+            size="sm"
+            variant="ghost"
+            onClick={() => setVariants(VARIANT_TAGS)}
+          >
+            Reset
+          </Button>
+        ) : null}
       </div>
     </div>
   );

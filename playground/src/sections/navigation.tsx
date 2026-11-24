@@ -13,6 +13,7 @@ import {
   Users,
 } from "lucide-react";
 import { useEffect, useState, type ReactElement } from "react";
+import { CherryLogo } from "../CherryLogo";
 import {
   Accordion,
   AccordionItem,
@@ -102,11 +103,9 @@ function SidebarDemo() {
         collapsed={collapsed}
         header={
           <>
-            <strong
-              style={{ flex: 1, whiteSpace: "nowrap", overflow: "hidden" }}
-            >
-              {collapsed ? "c" : "cherry"}
-            </strong>
+            <span style={{ flex: 1, display: "flex", minWidth: 0 }}>
+              <CherryLogo compact={collapsed} title="cherry" size={22} />
+            </span>
             {collapsed ? null : (
               <IconButton
                 aria-label="Collapse sidebar"
@@ -132,7 +131,11 @@ function SidebarDemo() {
       >
         {groups}
       </Sidebar>
-      <Sidebar collapsed header={<strong>c</strong>} navLabel="Rail">
+      <Sidebar
+        collapsed
+        header={<CherryLogo compact title="cherry" size={22} />}
+        navLabel="Rail"
+      >
         {groups}
       </Sidebar>
     </div>
