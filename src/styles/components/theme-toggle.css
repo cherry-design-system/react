@@ -1,0 +1,64 @@
+@layer cherry {
+  .cherry-theme-toggle {
+    --_item: 28px;
+    --_icon: 16px;
+    --_index: 0;
+    position: relative;
+    display: inline-flex;
+    padding: 2px;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-subtle);
+    isolation: isolate;
+  }
+  .cherry-theme-toggle__indicator {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: -1;
+    width: var(--_item);
+    height: var(--_item);
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-bg-canvas);
+    box-shadow: var(--cherry-elevation-sm);
+    transform: translateX(calc(var(--_index) * var(--_item)));
+    transition: transform var(--cherry-duration-base) var(--cherry-easing-spring);
+  }
+  .cherry-theme-toggle[data-value="system"] { --_index: 0; }
+  .cherry-theme-toggle[data-value="light"] { --_index: 1; }
+  .cherry-theme-toggle[data-value="dark"] { --_index: 2; }
+
+  .cherry-theme-toggle__option {
+    appearance: none;
+    display: grid;
+    place-items: center;
+    width: var(--_item);
+    height: var(--_item);
+    padding: 0;
+    border: 0;
+    border-radius: var(--cherry-radius-full);
+    background: transparent;
+    color: var(--cherry-fg-muted);
+    cursor: pointer;
+    transition: color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-theme-toggle__option > svg {
+    width: var(--_icon);
+    height: var(--_icon);
+    transition: transform var(--cherry-duration-base) var(--cherry-easing-pop);
+  }
+  .cherry-theme-toggle__option:hover,
+  .cherry-theme-toggle__option[aria-checked="true"] {
+    color: var(--cherry-fg-default);
+  }
+  .cherry-theme-toggle__option[aria-checked="true"] > svg {
+    transform: rotate(-12deg) scale(1.05);
+  }
+  .cherry-theme-toggle__option:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+
+  .cherry-theme-toggle[data-size="sm"] { --_item: 24px; --_icon: 14px; }
+  .cherry-theme-toggle[data-size="md"] { --_item: 28px; --_icon: 16px; }
+}

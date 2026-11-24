@@ -1,0 +1,243 @@
+{
+  "$description": "Generated from the Cherry 2.0 Figma variables (C2 collections). Source of truth per issue #13: edit here, then sync Figma.",
+  "bg": {
+    "canvas": {
+      "$type": "color",
+      "$value": "{zinc.950}"
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{zinc.925}"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "{zinc.800}"
+    },
+    "elevated": {
+      "$type": "color",
+      "$value": "{zinc.900}"
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{zinc.50}"
+    },
+    "overlay": {
+      "$type": "color",
+      "$value": "{alpha.black-70}"
+    }
+  },
+  "fg": {
+    "default": {
+      "$type": "color",
+      "$value": "{zinc.50}"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "{zinc.400}"
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{zinc.600}"
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{zinc.950}"
+    },
+    "on-accent": {
+      "$type": "color",
+      "$value": "{zinc.0}"
+    }
+  },
+  "border": {
+    "default": {
+      "$type": "color",
+      "$value": "{zinc.800}"
+    },
+    "strong": {
+      "$type": "color",
+      "$value": "{zinc.700}"
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{zinc.900}"
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "{zinc.500}"
+    }
+  },
+  "primary": {
+    "default": {
+      "$type": "color",
+      "$value": "{zinc.50}"
+    },
+    "hover": {
+      "$type": "color",
+      "$value": "{zinc.200}"
+    },
+    "fg": {
+      "$type": "color",
+      "$value": "{zinc.950}"
+    }
+  },
+  "secondary": {
+    "default": {
+      "$type": "color",
+      "$value": "{zinc.800}"
+    },
+    "hover": {
+      "$type": "color",
+      "$value": "{zinc.700}"
+    },
+    "fg": {
+      "$type": "color",
+      "$value": "{zinc.50}"
+    }
+  },
+  "ghost": {
+    "hover": {
+      "$type": "color",
+      "$value": "{zinc.800}"
+    }
+  },
+  "accent": {
+    "default": {
+      "$type": "color",
+      "$value": "{cherry.500}"
+    },
+    "hover": {
+      "$type": "color",
+      "$value": "{cherry.400}"
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{cherry.950}"
+    },
+    "fg": {
+      "$type": "color",
+      "$value": "{cherry.300}"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "{alpha.cherry-ring}"
+    }
+  },
+  "ai": {
+    "from": {
+      "$type": "color",
+      "$value": "{cherry.400}"
+    },
+    "to": {
+      "$type": "color",
+      "$value": "{violet.400}"
+    }
+  },
+  "success": {
+    "fg": {
+      "$type": "color",
+      "$value": "{green.400}"
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{green.950}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{green.900}"
+    },
+    "solid": {
+      "$type": "color",
+      "$value": "{green.500}"
+    }
+  },
+  "warning": {
+    "fg": {
+      "$type": "color",
+      "$value": "{amber.400}"
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{amber.950}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{amber.900}"
+    },
+    "solid": {
+      "$type": "color",
+      "$value": "{amber.400}"
+    }
+  },
+  "danger": {
+    "fg": {
+      "$type": "color",
+      "$value": "{cherry.400}"
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{cherry.950}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{cherry.900}"
+    },
+    "solid": {
+      "$type": "color",
+      "$value": "{cherry.500}"
+    }
+  },
+  "info": {
+    "fg": {
+      "$type": "color",
+      "$value": "{blue.400}"
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{blue.950}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{blue.900}"
+    },
+    "solid": {
+      "$type": "color",
+      "$value": "{blue.500}"
+    }
+  },
+  "focus": {
+    "ring": {
+      "$type": "color",
+      "$value": "{alpha.white-20}"
+    }
+  },
+  "shadow": {
+    "ambient": {
+      "$type": "color",
+      "$value": "{alpha.shadow.ambient-dark}"
+    },
+    "xs": {
+      "$type": "color",
+      "$value": "{alpha.shadow.xs-dark}"
+    },
+    "sm": {
+      "$type": "color",
+      "$value": "{alpha.shadow.sm-dark}"
+    },
+    "md": {
+      "$type": "color",
+      "$value": "{alpha.shadow.md-dark}"
+    },
+    "lg": {
+      "$type": "color",
+      "$value": "{alpha.shadow.lg-dark}"
+    },
+    "xl": {
+      "$type": "color",
+      "$value": "{alpha.shadow.xl-dark}"
+    },
+    "highlight": {
+      "$type": "color",
+      "$value": "{alpha.shadow.highlight-dark}"
+    }
+  }
+}

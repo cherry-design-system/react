@@ -1,0 +1,209 @@
+{
+  "badge": {
+    "class": "cherry-badge",
+    "attributes": {
+      "data-variant": [
+        "neutral",
+        "primary",
+        "accent",
+        "outline",
+        "success",
+        "warning",
+        "danger",
+        "info"
+      ],
+      "data-size": [
+        "sm",
+        "md"
+      ]
+    },
+    "states": [],
+    "parts": [
+      "cherry-badge__dot"
+    ]
+  },
+  "button": {
+    "class": "cherry-button",
+    "attributes": {
+      "data-variant": [
+        "primary",
+        "secondary",
+        "outline",
+        "ghost",
+        "accent"
+      ],
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "disabled",
+      "data-loading",
+      "data-full-width",
+      ":focus-visible",
+      ":hover",
+      ":active"
+    ],
+    "parts": [
+      "cherry-button__label",
+      "cherry-button__icon"
+    ]
+  },
+  "field": {
+    "class": "cherry-field",
+    "attributes": {},
+    "states": [
+      "data-invalid",
+      "data-disabled"
+    ],
+    "parts": [
+      "cherry-field__label",
+      "cherry-field__required",
+      "cherry-field__hint",
+      "cherry-field__error"
+    ]
+  },
+  "icon-button": {
+    "class": "cherry-icon-button",
+    "attributes": {
+      "data-variant": [
+        "ghost",
+        "outline",
+        "solid"
+      ],
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "disabled",
+      "aria-pressed",
+      ":focus-visible",
+      ":hover",
+      ":active"
+    ],
+    "parts": []
+  },
+  "input": {
+    "class": "cherry-input",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      "data-invalid",
+      "data-disabled",
+      ":focus-within",
+      ":hover"
+    ],
+    "parts": [
+      "cherry-input__control",
+      "cherry-input__icon",
+      "cherry-input__suffix"
+    ]
+  },
+  "spinner": {
+    "class": "cherry-spinner",
+    "attributes": {
+      "data-size": [
+        "xs",
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [],
+    "parts": []
+  },
+  "theme-toggle": {
+    "class": "cherry-theme-toggle",
+    "attributes": {
+      "data-value": [
+        "system",
+        "light",
+        "dark"
+      ],
+      "data-size": [
+        "sm",
+        "md"
+      ]
+    },
+    "states": [],
+    "parts": [
+      "cherry-theme-toggle__indicator",
+      "cherry-theme-toggle__option"
+    ]
+  },
+  "toast": {
+    "class": "cherry-toaster",
+    "attributes": {
+      "data-color": [
+        "default",
+        "info",
+        "success",
+        "error",
+        "warning",
+        "loading"
+      ],
+      "data-align": [
+        "center",
+        "left",
+        "right"
+      ],
+      "data-position": [
+        "top",
+        "bottom"
+      ]
+    },
+    "states": [
+      "data-mounted",
+      "data-exiting",
+      "data-dragging",
+      "data-concealed",
+      "data-settled",
+      "data-expanded"
+    ],
+    "parts": [
+      "cherry-toast",
+      "cherry-toast__card",
+      "cherry-toast__content",
+      "cherry-toast__tile",
+      "cherry-toast__glyph",
+      "cherry-toast__stroke",
+      "cherry-toast__text",
+      "cherry-toast__title",
+      "cherry-toast__description",
+      "cherry-toast__action",
+      "cherry-toast__close"
+    ]
+  },
+  "toggle": {
+    "class": "cherry-toggle",
+    "attributes": {
+      "data-size": [
+        "sm",
+        "md",
+        "lg"
+      ]
+    },
+    "states": [
+      ":checked",
+      ":disabled",
+      ":focus-visible",
+      "data-invalid"
+    ],
+    "parts": [
+      "cherry-toggle__input",
+      "cherry-toggle__track",
+      "cherry-toggle__thumb",
+      "cherry-toggle__label"
+    ]
+  }
+}

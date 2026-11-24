@@ -1,0 +1,9 @@
+{
+  "name": "badge",
+  "class": "cherry-badge",
+  "attributes": {
+    "variant": ["neutral", "primary", "accent", "outline", "success", "warning", "danger", "info"],
+    "size": ["sm", "md"]
+  },
+  "parts": ["cherry-badge__dot"]
+}

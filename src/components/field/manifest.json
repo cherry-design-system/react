@@ -1,0 +1,7 @@
+{
+  "name": "field",
+  "class": "cherry-field",
+  "attributes": {},
+  "states": ["data-invalid", "data-disabled"],
+  "parts": ["cherry-field__label", "cherry-field__required", "cherry-field__hint", "cherry-field__error"]
+}

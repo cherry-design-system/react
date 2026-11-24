@@ -1,0 +1,9 @@
+{
+  "name": "icon-button",
+  "class": "cherry-icon-button",
+  "attributes": {
+    "variant": ["ghost", "outline", "solid"],
+    "size": ["sm", "md", "lg"]
+  },
+  "states": ["disabled", "aria-pressed", ":focus-visible", ":hover", ":active"]
+}

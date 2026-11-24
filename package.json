@@ -1,0 +1,79 @@
+{
+  "name": "@cherry-design-system/react",
+  "version": "2.0.0-alpha.0",
+  "description": "cherry: a themeable React design system in plain CSS. Zero runtime, Server Components ready.",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cherry-design-system/react.git"
+  },
+  "homepage": "https://cherry.al",
+  "keywords": [
+    "react",
+    "design-system",
+    "css",
+    "components",
+    "ui",
+    "server-components"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tokens.css": "./dist/css/tokens.css",
+    "./css/*": "./dist/css/*",
+    "./tokens": {
+      "types": "./dist/tokens/index.d.ts",
+      "import": "./dist/tokens/index.js"
+    },
+    "./theme-init": {
+      "types": "./dist/theme/theme-init.d.ts",
+      "import": "./dist/theme/theme-init.js"
+    },
+    "./style-api.json": "./dist/style-api.json"
+  },
+  "scripts": {
+    "dev": "vite --config playground/vite.config.ts",
+    "generate": "node scripts/build-tokens.mjs && node scripts/build-manifests.mjs && node scripts/build-index.mjs",
+    "build": "pnpm generate && vite build && tsc -p tsconfig.build.json && node scripts/build-css.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "contract": "node scripts/check-contract.mjs",
+    "check": "pnpm generate && pnpm typecheck && pnpm test && pnpm contract",
+    "format": "prettier --write ."
+  },
+  "peerDependencies": {
+    "lucide-react": ">=1.0.0",
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "8.0.0",
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.13",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "jsdom": "31.0.1",
+    "lucide-react": "1.78.0",
+    "prettier": "3.10.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "typescript": "7.0.2",
+    "vite": "8.3.8",
+    "vitest": "5.1.1"
+  },
+  "packageManager": "pnpm@12.21.0",
+  "engines": {
+    "node": ">=20"
+  }
+}

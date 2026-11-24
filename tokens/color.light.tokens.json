@@ -1,0 +1,243 @@
+{
+  "$description": "Generated from the Cherry 2.0 Figma variables (C2 collections). Source of truth per issue #13: edit here, then sync Figma.",
+  "bg": {
+    "canvas": {
+      "$type": "color",
+      "$value": "{zinc.0}"
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{zinc.50}"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "{zinc.100}"
+    },
+    "elevated": {
+      "$type": "color",
+      "$value": "{zinc.0}"
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{zinc.900}"
+    },
+    "overlay": {
+      "$type": "color",
+      "$value": "{alpha.black-50}"
+    }
+  },
+  "fg": {
+    "default": {
+      "$type": "color",
+      "$value": "{zinc.950}"
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "{zinc.500}"
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{zinc.400}"
+    },
+    "inverse": {
+      "$type": "color",
+      "$value": "{zinc.0}"
+    },
+    "on-accent": {
+      "$type": "color",
+      "$value": "{zinc.0}"
+    }
+  },
+  "border": {
+    "default": {
+      "$type": "color",
+      "$value": "{zinc.200}"
+    },
+    "strong": {
+      "$type": "color",
+      "$value": "{zinc.300}"
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{zinc.100}"
+    },
+    "focus": {
+      "$type": "color",
+      "$value": "{zinc.400}"
+    }
+  },
+  "primary": {
+    "default": {
+      "$type": "color",
+      "$value": "{zinc.900}"
+    },
+    "hover": {
+      "$type": "color",
+      "$value": "{zinc.700}"
+    },
+    "fg": {
+      "$type": "color",
+      "$value": "{zinc.0}"
+    }
+  },
+  "secondary": {
+    "default": {
+      "$type": "color",
+      "$value": "{zinc.100}"
+    },
+    "hover": {
+      "$type": "color",
+      "$value": "{zinc.200}"
+    },
+    "fg": {
+      "$type": "color",
+      "$value": "{zinc.900}"
+    }
+  },
+  "ghost": {
+    "hover": {
+      "$type": "color",
+      "$value": "{zinc.100}"
+    }
+  },
+  "accent": {
+    "default": {
+      "$type": "color",
+      "$value": "{cherry.600}"
+    },
+    "hover": {
+      "$type": "color",
+      "$value": "{cherry.700}"
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "{cherry.50}"
+    },
+    "fg": {
+      "$type": "color",
+      "$value": "{cherry.700}"
+    },
+    "ring": {
+      "$type": "color",
+      "$value": "{alpha.cherry-ring}"
+    }
+  },
+  "ai": {
+    "from": {
+      "$type": "color",
+      "$value": "{cherry.500}"
+    },
+    "to": {
+      "$type": "color",
+      "$value": "{violet.500}"
+    }
+  },
+  "success": {
+    "fg": {
+      "$type": "color",
+      "$value": "{green.600}"
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{green.50}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{green.200}"
+    },
+    "solid": {
+      "$type": "color",
+      "$value": "{green.600}"
+    }
+  },
+  "warning": {
+    "fg": {
+      "$type": "color",
+      "$value": "{amber.600}"
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{amber.50}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{amber.200}"
+    },
+    "solid": {
+      "$type": "color",
+      "$value": "{amber.500}"
+    }
+  },
+  "danger": {
+    "fg": {
+      "$type": "color",
+      "$value": "{cherry.600}"
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{cherry.50}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{cherry.200}"
+    },
+    "solid": {
+      "$type": "color",
+      "$value": "{cherry.600}"
+    }
+  },
+  "info": {
+    "fg": {
+      "$type": "color",
+      "$value": "{blue.600}"
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{blue.50}"
+    },
+    "border": {
+      "$type": "color",
+      "$value": "{blue.200}"
+    },
+    "solid": {
+      "$type": "color",
+      "$value": "{blue.600}"
+    }
+  },
+  "focus": {
+    "ring": {
+      "$type": "color",
+      "$value": "{alpha.black-15}"
+    }
+  },
+  "shadow": {
+    "ambient": {
+      "$type": "color",
+      "$value": "{alpha.shadow.ambient-light}"
+    },
+    "xs": {
+      "$type": "color",
+      "$value": "{alpha.shadow.xs-light}"
+    },
+    "sm": {
+      "$type": "color",
+      "$value": "{alpha.shadow.sm-light}"
+    },
+    "md": {
+      "$type": "color",
+      "$value": "{alpha.shadow.md-light}"
+    },
+    "lg": {
+      "$type": "color",
+      "$value": "{alpha.shadow.lg-light}"
+    },
+    "xl": {
+      "$type": "color",
+      "$value": "{alpha.shadow.xl-light}"
+    },
+    "highlight": {
+      "$type": "color",
+      "$value": "{alpha.shadow.highlight-light}"
+    }
+  }
+}

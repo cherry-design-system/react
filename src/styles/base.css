@@ -1,0 +1,57 @@
+/* Base layer: shared defaults every cherry component relies on. */
+@layer cherry {
+  /* A mode switch paints in one frame instead of control by control. The one
+     place cherry uses !important: it must beat every transition, including a
+     consumer's. The contract check allows it for this selector only. */
+  .theme-switching,
+  .theme-switching *,
+  .theme-switching *::before,
+  .theme-switching *::after {
+    transition: none !important;
+  }
+
+  :where(.cherry-root, [data-cherry-mode], [data-cherry-brand]) {
+    color: var(--cherry-fg-default);
+    background-color: var(--cherry-bg-canvas);
+    font-family: var(--cherry-font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Honour [hidden] on every cherry element, whatever display it sets. */
+  :where([class^="cherry-"], [class*=" cherry-"])[hidden] {
+    display: none;
+  }
+
+  /* Visually hidden, still announced (labels, live regions). */
+  .cherry-sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :where([class^="cherry-"], [class*=" cherry-"]),
+    :where([class^="cherry-"], [class*=" cherry-"])::before,
+    :where([class^="cherry-"], [class*=" cherry-"])::after {
+      animation-duration: 1ms;
+      animation-iteration-count: 1;
+      transition-duration: 1ms;
+    }
+  }
+
+  /* Dark pages print as light ones: no white text on white paper. */
+  @media print {
+    :where(:root, .dark, [data-cherry-mode="dark"]) {
+      --cherry-light: initial;
+      --cherry-dark: ;
+      color-scheme: light;
+    }
+  }
+}

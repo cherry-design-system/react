@@ -1,0 +1,6 @@
+{
+  "name": "theme-toggle",
+  "class": "cherry-theme-toggle",
+  "attributes": { "value": ["system", "light", "dark"], "size": ["sm", "md"] },
+  "parts": ["cherry-theme-toggle__indicator", "cherry-theme-toggle__option"]
+}

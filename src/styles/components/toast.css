@@ -1,0 +1,289 @@
+/* Toast: a deck of notifications ported from cherry 1.x, motion included.
+   Layout numbers (offset, scale, height) are computed per toast in JS and
+   passed as custom properties (--_x, --_y, --_scale, --_h, --_z); every
+   transition, easing and keyframe lives here and uses the motion tokens. */
+@layer cherry {
+  .cherry-toaster {
+    --_edge: var(--cherry-space-5);
+    --_deck-motion: var(--cherry-duration-slow) var(--cherry-easing-spring);
+    position: fixed;
+    z-index: 2147483000;
+    width: min(380px, calc(100vw - var(--_edge) * 2));
+    height: var(--_stack-h, 0px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: var(--cherry-font-sans);
+    /* The list is the hover target: its height covers the deck, collapsed or
+       fanned out, so crossing a gap between toasts keeps it open. */
+    pointer-events: auto;
+  }
+  .cherry-toaster:empty {
+    pointer-events: none;
+  }
+  .cherry-toaster[data-position="top"] { top: var(--_edge); }
+  .cherry-toaster[data-position="bottom"] { bottom: var(--_edge); }
+  .cherry-toaster[data-align="left"] { left: var(--_edge); }
+  .cherry-toaster[data-align="right"] { right: var(--_edge); }
+  .cherry-toaster[data-align="center"] {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* One toast in the deck. */
+  .cherry-toast {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: var(--_z, 1);
+    height: var(--_h, auto);
+    margin: 0;
+    padding: 0;
+    touch-action: none;
+    opacity: 1;
+    transform: translate(var(--_x, 0px), var(--_y, 0px)) scale(var(--_scale, 1));
+    transition:
+      transform var(--_deck-motion),
+      opacity var(--_deck-motion),
+      height var(--_deck-motion);
+  }
+  .cherry-toaster[data-position="top"] .cherry-toast {
+    top: 0;
+    transform-origin: center top;
+  }
+  .cherry-toaster[data-position="bottom"] .cherry-toast {
+    bottom: 0;
+    transform-origin: center bottom;
+  }
+  /* Enter: mount off-screen past the anchored edge, then slide into place
+     once data-mounted lands (after the first painted frame). */
+  .cherry-toaster[data-position="top"] .cherry-toast:not([data-mounted]) {
+    opacity: 0;
+    transform: translateY(calc(-100% - var(--_edge)));
+  }
+  .cherry-toaster[data-position="bottom"] .cherry-toast:not([data-mounted]) {
+    opacity: 0;
+    transform: translateY(calc(100% + var(--_edge)));
+  }
+  .cherry-toast[data-exiting],
+  .cherry-toast[data-hidden-in-deck] {
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* While dragging the toast follows the pointer 1:1. */
+  .cherry-toast[data-dragging] {
+    transition:
+      opacity var(--_deck-motion),
+      height var(--_deck-motion);
+    user-select: none;
+  }
+
+  .cherry-toast__card {
+    box-sizing: border-box;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: calc(var(--cherry-radius-md) + 10px);
+    background: var(--cherry-bg-elevated);
+    box-shadow: var(--cherry-elevation-lg);
+  }
+
+  /* Natural-height content, measured for the deck. Back toasts in a
+     collapsed deck take the front toast's height and fade their content. */
+  .cherry-toast__content {
+    display: flex;
+    align-items: center;
+    gap: var(--cherry-space-3);
+    padding: 10px;
+    transition: opacity var(--cherry-duration-base) var(--cherry-easing-standard);
+  }
+  .cherry-toast[data-concealed] .cherry-toast__content {
+    opacity: 0;
+  }
+
+  .cherry-toast__text {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    min-height: 36px;
+    overflow-wrap: anywhere;
+  }
+  .cherry-toast[data-color="default"] .cherry-toast__text {
+    padding-left: 6px;
+  }
+  .cherry-toast__title {
+    margin: 0;
+    color: var(--cherry-fg-default);
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    letter-spacing: var(--cherry-text-label-md-tracking);
+    font-weight: 600;
+  }
+  .cherry-toast__description {
+    margin: 0;
+    color: var(--cherry-fg-muted);
+    font-size: var(--cherry-text-body-xs-size);
+    line-height: var(--cherry-text-body-xs-line-height);
+  }
+  .cherry-toast__action {
+    flex-shrink: 0;
+  }
+
+  /* Status tile: the big animated icon. */
+  .cherry-toast__tile {
+    --_tile-bg: var(--cherry-info-solid);
+    --_tile-fg: var(--cherry-fg-on-accent);
+    position: relative;
+    display: grid;
+    flex-shrink: 0;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--cherry-radius-md);
+    background: var(--_tile-bg);
+    color: var(--_tile-fg);
+    transition: background-color var(--cherry-duration-fast) var(--cherry-easing-standard);
+    /* First arrival waits for the card to land... */
+    animation: cherry-toast-tile-in 350ms var(--cherry-easing-out) 240ms both;
+  }
+  /* ...an in-place swap (a settled promise) bumps instead. */
+  .cherry-toast__tile[data-settled] {
+    animation: cherry-toast-tile-bump var(--cherry-duration-slow) var(--cherry-easing-out);
+  }
+  .cherry-toast[data-color="info"] .cherry-toast__tile { --_tile-bg: var(--cherry-info-solid); }
+  .cherry-toast[data-color="success"] .cherry-toast__tile { --_tile-bg: var(--cherry-success-solid); }
+  .cherry-toast[data-color="error"] .cherry-toast__tile { --_tile-bg: var(--cherry-danger-solid); }
+  .cherry-toast[data-color="warning"] .cherry-toast__tile { --_tile-bg: var(--cherry-warning-solid); }
+  .cherry-toast[data-color="loading"] .cherry-toast__tile {
+    --_tile-bg: var(--cherry-bg-muted);
+    --_tile-fg: var(--cherry-fg-muted);
+  }
+
+  .cherry-toast__glyph {
+    display: grid;
+    place-items: center;
+    animation: cherry-toast-glyph-pop var(--cherry-duration-emphasis) var(--cherry-easing-pop) 320ms both;
+  }
+  .cherry-toast__tile[data-settled] .cherry-toast__glyph {
+    animation-delay: 60ms;
+  }
+  .cherry-toast__glyph > svg {
+    width: 18px;
+    height: 18px;
+  }
+  .cherry-toast__glyph .cherry-spinner {
+    --_size: 18px;
+    color: inherit;
+  }
+  .cherry-toast__stroke {
+    stroke-dasharray: 1;
+    animation: cherry-toast-stroke-draw var(--cherry-duration-base) var(--cherry-easing-out) 420ms both;
+  }
+  .cherry-toast__stroke + .cherry-toast__stroke {
+    animation-delay: 500ms;
+  }
+  .cherry-toast__tile[data-settled] .cherry-toast__stroke {
+    animation-delay: 160ms;
+  }
+  .cherry-toast__tile[data-settled] .cherry-toast__stroke + .cherry-toast__stroke {
+    animation-delay: 240ms;
+  }
+
+  /* Close badge on the corner, shown on hover/focus (always on touch). */
+  .cherry-toast__close {
+    appearance: none;
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: 1px solid var(--cherry-border-default);
+    border-radius: 50%;
+    background: var(--cherry-bg-elevated);
+    color: var(--cherry-fg-muted);
+    box-shadow: var(--cherry-elevation-xs);
+    cursor: pointer;
+    opacity: 0;
+    transition:
+      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-toaster[data-align="right"] .cherry-toast__close {
+    left: auto;
+    right: -6px;
+  }
+  .cherry-toast__close > svg {
+    width: 12px;
+    height: 12px;
+    stroke-width: 3;
+  }
+  .cherry-toast__close:hover {
+    color: var(--cherry-fg-default);
+  }
+  .cherry-toast:hover .cherry-toast__close,
+  .cherry-toast__close:focus-visible {
+    opacity: 1;
+  }
+  .cherry-toast__close:focus-visible {
+    outline: none;
+    box-shadow: var(--cherry-ring);
+  }
+  @media (hover: none) {
+    .cherry-toast__close {
+      opacity: 1;
+    }
+  }
+  .cherry-toast[data-concealed] .cherry-toast__close,
+  .cherry-toast[data-hidden-in-deck] .cherry-toast__close {
+    visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cherry-toast,
+    .cherry-toast__content,
+    .cherry-toast__tile,
+    .cherry-toast__glyph,
+    .cherry-toast__stroke,
+    .cherry-toast__close {
+      transition: none;
+      animation: none;
+    }
+  }
+
+  @keyframes cherry-toast-tile-in {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes cherry-toast-tile-bump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+  @keyframes cherry-toast-glyph-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes cherry-toast-stroke-draw {
+    from { stroke-dashoffset: 1; }
+    to { stroke-dashoffset: 0; }
+  }
+}

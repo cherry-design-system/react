@@ -1,0 +1,44 @@
+@layer cherry {
+  .cherry-badge {
+    --_bg: var(--cherry-bg-muted);
+    --_fg: var(--cherry-fg-default);
+    --_border: transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cherry-space-1);
+    height: 24px;
+    padding: 0 10px;
+    border: 1px solid var(--_border);
+    border-radius: var(--cherry-radius-full);
+    background: var(--_bg);
+    color: var(--_fg);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-label-sm-size);
+    line-height: var(--cherry-text-label-sm-line-height);
+    font-weight: var(--cherry-text-label-sm-weight);
+    white-space: nowrap;
+  }
+  .cherry-badge__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .cherry-badge[data-size="sm"] {
+    height: 20px;
+    padding: 0 8px;
+    font-size: var(--cherry-text-label-xs-size);
+    line-height: var(--cherry-text-label-xs-line-height);
+  }
+  .cherry-badge[data-size="md"] { height: 24px; }
+
+  .cherry-badge[data-variant="neutral"] { --_bg: var(--cherry-bg-muted); --_fg: var(--cherry-fg-default); }
+  .cherry-badge[data-variant="primary"] { --_bg: var(--cherry-primary-default); --_fg: var(--cherry-primary-fg); }
+  .cherry-badge[data-variant="accent"] { --_bg: var(--cherry-accent-subtle); --_fg: var(--cherry-accent-fg); --_border: var(--cherry-danger-border); }
+  .cherry-badge[data-variant="outline"] { --_bg: var(--cherry-bg-canvas); --_fg: var(--cherry-fg-default); --_border: var(--cherry-border-default); }
+  .cherry-badge[data-variant="success"] { --_bg: var(--cherry-success-bg); --_fg: var(--cherry-success-fg); --_border: var(--cherry-success-border); }
+  .cherry-badge[data-variant="warning"] { --_bg: var(--cherry-warning-bg); --_fg: var(--cherry-warning-fg); --_border: var(--cherry-warning-border); }
+  .cherry-badge[data-variant="danger"] { --_bg: var(--cherry-danger-bg); --_fg: var(--cherry-danger-fg); --_border: var(--cherry-danger-border); }
+  .cherry-badge[data-variant="info"] { --_bg: var(--cherry-info-bg); --_fg: var(--cherry-info-fg); --_border: var(--cherry-info-border); }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "spinner",
+  "class": "cherry-spinner",
+  "attributes": { "size": ["xs", "sm", "md", "lg"] }
+}
