@@ -9,6 +9,9 @@
     display: inline-flex;
     align-items: center;
     gap: var(--_gap);
+    /* Fits narrow containers: slots shrink from --_w down to 32px. */
+    min-width: 0;
+    max-width: 100%;
     color: var(--cherry-fg-default);
     font-family: var(--cherry-font-sans);
     font-size: var(--cherry-text-h5-size);
@@ -22,9 +25,9 @@
 
     position: relative;
     display: inline-grid;
-    flex-shrink: 0;
+    flex: 0 1 var(--_w);
     place-items: center;
-    width: var(--_w);
+    min-width: 32px;
     height: var(--_h);
   }
   .cherry-otp-input__char {
