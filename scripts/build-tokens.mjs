@@ -140,6 +140,9 @@ for (const [k, parts] of Object.entries(elevation)) {
 lines.resolved.push(
   "--cherry-ring: 0 0 0 3px var(--cherry-focus-ring);",
   "--cherry-ring-danger: 0 0 0 3px var(--cherry-accent-ring);",
+  // Drawn inward, for controls inside a scrolling or clipping container
+  // (tabs, nav pill, sidebar) where an outer ring would be cut off.
+  "--cherry-ring-inset: inset 0 0 0 1px var(--cherry-border-focus), inset 0 0 0 4px var(--cherry-focus-ring);",
 );
 
 const scopes = ":root, .dark, [data-cherry-mode], [data-cherry-brand]";

@@ -399,5 +399,6 @@
     --cherry-elevation-xl: 0 4px 8px var(--cherry-shadow-ambient), 0 24px 48px var(--cherry-shadow-xl), inset 0 1px 0 var(--cherry-shadow-highlight);
     --cherry-ring: 0 0 0 3px var(--cherry-focus-ring);
     --cherry-ring-danger: 0 0 0 3px var(--cherry-accent-ring);
+    --cherry-ring-inset: inset 0 0 0 1px var(--cherry-border-focus), inset 0 0 0 4px var(--cherry-focus-ring);
   }
 }

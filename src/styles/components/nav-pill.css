@@ -104,7 +104,8 @@
   }
   .cherry-nav-item__link:focus-visible {
     outline: 2px solid transparent;
-    box-shadow: var(--cherry-ring);
+    outline-offset: -2px;
+    box-shadow: var(--cherry-ring-inset);
   }
   .cherry-nav-pill__list:not([data-indicator])
     .cherry-nav-item__link[aria-current="page"] {

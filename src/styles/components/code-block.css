@@ -12,6 +12,9 @@
     background: var(--cherry-bg-subtle);
     color: var(--cherry-fg-default);
     font-family: var(--cherry-font-sans);
+    transition:
+      border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
   }
 
   .cherry-code-block__header {
@@ -110,9 +113,16 @@
   .cherry-code-block__pre:first-child {
     border-top: 0;
   }
+  /* Keyboard focus on the scrollable listing rings the whole block, so the
+     ring follows the frame's radius and no highlighted line covers it. The
+     inset outline is for forced colors, where the box-shadow is dropped. */
   .cherry-code-block__pre:focus-visible {
     outline: 2px solid transparent;
-    box-shadow: inset var(--cherry-ring);
+    outline-offset: -2px;
+  }
+  .cherry-code-block:has(> .cherry-code-block__pre:focus-visible) {
+    border-color: var(--cherry-border-focus);
+    box-shadow: var(--cherry-ring);
   }
   .cherry-code-block__code {
     display: inline-block;
