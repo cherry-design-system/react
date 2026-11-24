@@ -4,7 +4,7 @@
     --_icon: 14px;
     --_radius: var(--cherry-radius-md);
     --_border: var(--cherry-border-default);
-    --_ring: none;
+    --_ring: 0 0 #0000;
 
     display: inline-flex;
     align-items: stretch;
@@ -47,7 +47,7 @@
     margin: 0;
     padding: 0 var(--cherry-space-2);
     border: 0;
-    outline: none;
+    outline: 2px solid transparent;
     background: transparent;
     color: inherit;
     font: inherit;

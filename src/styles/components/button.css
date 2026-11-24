@@ -4,7 +4,7 @@
     --_bg-hover: var(--cherry-primary-hover);
     --_fg: var(--cherry-primary-fg);
     --_border: transparent;
-    --_shadow: none;
+    --_shadow: 0 0 #0000; /* not `none`: it is listed before the focus ring */
     --_height: 36px;
     --_px: var(--cherry-space-4);
     --_gap: var(--cherry-space-2);
@@ -48,7 +48,7 @@
     transform: scale(0.98);
   }
   .cherry-button:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--_shadow), var(--cherry-ring);
   }
   .cherry-button:disabled,

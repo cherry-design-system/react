@@ -7,7 +7,7 @@
     --_fg: var(--cherry-fg-muted);
     --_fg-hover: var(--cherry-fg-default);
     --_border: transparent;
-    --_shadow: none;
+    --_shadow: 0 0 #0000; /* not `none`: it is listed before the focus ring */
 
     appearance: none;
     display: inline-flex;
@@ -45,7 +45,7 @@
     transform: scale(0.94);
   }
   .cherry-icon-button:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--_shadow), var(--cherry-ring);
   }
   .cherry-icon-button:disabled {
@@ -85,5 +85,15 @@
   .cherry-icon-button[data-size="lg"] {
     --_size: 36px;
     --_icon: 18px;
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-icon-button[aria-pressed="true"] {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
   }
 }

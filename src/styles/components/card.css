@@ -4,7 +4,7 @@
   .cherry-card {
     --_bg: var(--cherry-bg-elevated);
     --_border: var(--cherry-border-default);
-    --_shadow: none;
+    --_shadow: 0 0 #0000; /* not `none`: it is listed before the focus ring */
     --_shadow-hover: var(--cherry-elevation-md);
     --_pad: var(--cherry-space-5);
 
@@ -30,7 +30,7 @@
   .cherry-card[data-variant="outline"] {
     --_bg: var(--cherry-bg-elevated);
     --_border: var(--cherry-border-default);
-    --_shadow: none;
+    --_shadow: 0 0 #0000; /* not `none`: it is listed before the focus ring */
   }
   .cherry-card[data-variant="elevated"] {
     --_bg: var(--cherry-bg-elevated);
@@ -41,7 +41,7 @@
   .cherry-card[data-variant="filled"] {
     --_bg: var(--cherry-bg-subtle);
     --_border: transparent;
-    --_shadow: none;
+    --_shadow: 0 0 #0000; /* not `none`: it is listed before the focus ring */
   }
 
   .cherry-card[data-padding="none"] {

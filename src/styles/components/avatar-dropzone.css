@@ -7,7 +7,7 @@
     --_icon: 24px;
     --_border: var(--cherry-border-strong);
     --_bg: var(--cherry-bg-canvas);
-    --_ring: none;
+    --_ring: 0 0 #0000;
     position: relative;
     display: inline-flex;
     flex-shrink: 0;
@@ -169,7 +169,7 @@
     transform: scale(0.94);
   }
   .cherry-avatar-dropzone__remove:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-elevation-sm), var(--cherry-ring);
   }
   .cherry-avatar-dropzone__remove:disabled {
