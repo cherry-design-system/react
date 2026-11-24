@@ -65,6 +65,13 @@
     width: 1px;
     height: 16px;
     background: var(--cherry-border-default);
+    transition: opacity var(--cherry-duration-fast)
+      var(--cherry-easing-standard);
+  }
+  /* The active pill hides the dividers on both of its sides. */
+  .cherry-nav-item:has([aria-current="page"])::before,
+  .cherry-nav-item:has([aria-current="page"]) + .cherry-nav-item::before {
+    opacity: 0;
   }
 
   .cherry-nav-item__link {
