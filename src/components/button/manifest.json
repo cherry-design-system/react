@@ -1,0 +1,10 @@
+{
+  "name": "button",
+  "class": "cherry-button",
+  "attributes": {
+    "variant": ["primary", "secondary", "outline", "ghost", "accent"],
+    "size": ["sm", "md", "lg"]
+  },
+  "states": ["disabled", "data-loading", "data-full-width", ":focus-visible", ":hover", ":active"],
+  "parts": ["cherry-button__label", "cherry-button__icon"]
+}

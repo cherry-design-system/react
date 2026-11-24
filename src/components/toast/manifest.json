@@ -1,0 +1,11 @@
+{
+  "name": "toast",
+  "class": "cherry-toaster",
+  "attributes": {
+    "color": ["default", "info", "success", "error", "warning", "loading"],
+    "align": ["center", "left", "right"],
+    "position": ["top", "bottom"]
+  },
+  "states": ["data-mounted", "data-exiting", "data-dragging", "data-concealed", "data-settled", "data-expanded"],
+  "parts": ["cherry-toast", "cherry-toast__card", "cherry-toast__content", "cherry-toast__tile", "cherry-toast__glyph", "cherry-toast__stroke", "cherry-toast__text", "cherry-toast__title", "cherry-toast__description", "cherry-toast__action", "cherry-toast__close"]
+}

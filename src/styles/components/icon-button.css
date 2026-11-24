@@ -1,0 +1,79 @@
+@layer cherry {
+  .cherry-icon-button {
+    --_size: 32px;
+    --_icon: 16px;
+    --_bg: transparent;
+    --_bg-hover: var(--cherry-ghost-hover);
+    --_fg: var(--cherry-fg-muted);
+    --_fg-hover: var(--cherry-fg-default);
+    --_border: transparent;
+    --_shadow: none;
+
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    /* Always a perfect square, even inside stretchy flex rows. */
+    width: var(--_size);
+    min-width: var(--_size);
+    max-width: var(--_size);
+    height: var(--_size);
+    padding: 0;
+    border: 1px solid var(--_border);
+    border-radius: var(--cherry-radius-md);
+    background: var(--_bg);
+    color: var(--_fg);
+    box-shadow: var(--_shadow);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+  }
+  .cherry-icon-button > svg {
+    width: var(--_icon);
+    height: var(--_icon);
+  }
+  .cherry-icon-button:hover:not(:disabled) {
+    background: var(--_bg-hover);
+    color: var(--_fg-hover);
+  }
+  .cherry-icon-button:active:not(:disabled) {
+    transform: scale(0.94);
+  }
+  .cherry-icon-button:focus-visible {
+    outline: none;
+    box-shadow: var(--_shadow), var(--cherry-ring);
+  }
+  .cherry-icon-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .cherry-icon-button[aria-pressed="true"] {
+    --_bg: var(--cherry-bg-muted);
+    --_fg: var(--cherry-fg-default);
+  }
+
+  .cherry-icon-button[data-variant="ghost"] {
+    --_bg: transparent;
+  }
+  .cherry-icon-button[data-variant="outline"] {
+    --_bg: var(--cherry-bg-canvas);
+    --_fg: var(--cherry-fg-default);
+    --_border: var(--cherry-border-default);
+    --_shadow: var(--cherry-elevation-xs);
+  }
+  .cherry-icon-button[data-variant="solid"] {
+    --_bg: var(--cherry-primary-default);
+    --_bg-hover: var(--cherry-primary-hover);
+    --_fg: var(--cherry-primary-fg);
+    --_fg-hover: var(--cherry-primary-fg);
+  }
+
+  .cherry-icon-button[data-size="sm"] { --_size: 28px; --_icon: 14px; border-radius: var(--cherry-radius-sm); }
+  .cherry-icon-button[data-size="md"] { --_size: 32px; --_icon: 16px; }
+  .cherry-icon-button[data-size="lg"] { --_size: 36px; --_icon: 18px; }
+}

@@ -1,0 +1,104 @@
+@layer cherry {
+  .cherry-toggle {
+    --_w: 36px;
+    --_h: 20px;
+    --_pad: 2px;
+    --_thumb: calc(var(--_h) - var(--_pad) * 2);
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--cherry-space-2);
+    color: var(--cherry-fg-default);
+    font-family: var(--cherry-font-sans);
+    font-size: var(--cherry-text-label-md-size);
+    line-height: var(--cherry-text-label-md-line-height);
+    font-weight: var(--cherry-text-label-md-weight);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* The native checkbox (role="switch") covers the track: it keeps form
+     submission, reset, keyboard and assistive tech for free. */
+  .cherry-toggle__input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
+  .cherry-toggle__track {
+    position: relative;
+    flex-shrink: 0;
+    width: var(--_w);
+    height: var(--_h);
+    padding: var(--_pad);
+    border-radius: var(--cherry-radius-full);
+    background: var(--cherry-secondary-hover);
+    transition:
+      background-color var(--cherry-duration-base) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-toggle__thumb {
+    display: block;
+    width: var(--_thumb);
+    height: var(--_thumb);
+    border-radius: 50%;
+    background: var(--cherry-fg-on-accent);
+    box-shadow: var(--cherry-elevation-sm);
+    transition:
+      transform var(--cherry-duration-base) var(--cherry-easing-spring),
+      background-color var(--cherry-duration-base) var(--cherry-easing-standard),
+      width var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+
+  .cherry-toggle:hover .cherry-toggle__input:not(:disabled) + .cherry-toggle__track {
+    background: var(--cherry-border-strong);
+  }
+  .cherry-toggle__input:checked + .cherry-toggle__track {
+    background: var(--cherry-primary-default);
+  }
+  .cherry-toggle:hover .cherry-toggle__input:checked:not(:disabled) + .cherry-toggle__track {
+    background: var(--cherry-primary-hover);
+  }
+  .cherry-toggle__input:checked + .cherry-toggle__track .cherry-toggle__thumb {
+    transform: translateX(calc(var(--_w) - var(--_thumb) - var(--_pad) * 2));
+    background: var(--cherry-primary-fg);
+  }
+  /* Press feedback: the thumb stretches slightly, like a native switch. */
+  .cherry-toggle__input:active:not(:disabled) + .cherry-toggle__track .cherry-toggle__thumb {
+    width: calc(var(--_thumb) + 4px);
+  }
+  .cherry-toggle__input:checked:active:not(:disabled) + .cherry-toggle__track .cherry-toggle__thumb {
+    transform: translateX(calc(var(--_w) - var(--_thumb) - 4px - var(--_pad) * 2));
+  }
+  .cherry-toggle__input:focus-visible + .cherry-toggle__track {
+    box-shadow: var(--cherry-ring);
+  }
+  .cherry-toggle[data-invalid] .cherry-toggle__track {
+    box-shadow: inset 0 0 0 1px var(--cherry-danger-fg), var(--cherry-ring-danger);
+  }
+  .cherry-toggle__input:disabled {
+    cursor: not-allowed;
+  }
+  .cherry-toggle:has(.cherry-toggle__input:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .cherry-toggle[data-size="sm"] {
+    --_w: 28px;
+    --_h: 16px;
+    font-size: var(--cherry-text-label-sm-size);
+    line-height: var(--cherry-text-label-sm-line-height);
+  }
+  .cherry-toggle[data-size="md"] { --_w: 36px; --_h: 20px; }
+  .cherry-toggle[data-size="lg"] {
+    --_w: 44px;
+    --_h: 24px;
+    font-size: var(--cherry-text-label-lg-size);
+    line-height: var(--cherry-text-label-lg-line-height);
+  }
+}

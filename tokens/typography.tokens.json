@@ -1,0 +1,314 @@
+{
+  "$description": "Typography tokens (Geist / Geist Mono), mirrored from the Figma text styles.",
+  "font": {
+    "sans": {
+      "$type": "fontFamily",
+      "$value": [
+        "Geist",
+        "ui-sans-serif",
+        "system-ui",
+        "sans-serif"
+      ]
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": [
+        "Geist Mono",
+        "ui-monospace",
+        "SFMono-Regular",
+        "Menlo",
+        "monospace"
+      ]
+    }
+  },
+  "text": {
+    "display": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 3.5,
+          "unit": "rem"
+        },
+        "lineHeight": 1.0714,
+        "letterSpacing": {
+          "value": -0.03,
+          "unit": "em"
+        },
+        "fontWeight": 600
+      }
+    },
+    "h1": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 2.5,
+          "unit": "rem"
+        },
+        "lineHeight": 1.1,
+        "letterSpacing": {
+          "value": -0.025,
+          "unit": "em"
+        },
+        "fontWeight": 600
+      }
+    },
+    "h2": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 2,
+          "unit": "rem"
+        },
+        "lineHeight": 1.1875,
+        "letterSpacing": {
+          "value": -0.02,
+          "unit": "em"
+        },
+        "fontWeight": 600
+      }
+    },
+    "h3": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 1.5,
+          "unit": "rem"
+        },
+        "lineHeight": 1.25,
+        "letterSpacing": {
+          "value": -0.015,
+          "unit": "em"
+        },
+        "fontWeight": 600
+      }
+    },
+    "h4": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 1.25,
+          "unit": "rem"
+        },
+        "lineHeight": 1.4,
+        "letterSpacing": {
+          "value": -0.01,
+          "unit": "em"
+        },
+        "fontWeight": 600
+      }
+    },
+    "h5": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 1,
+          "unit": "rem"
+        },
+        "lineHeight": 1.5,
+        "letterSpacing": {
+          "value": -0.005,
+          "unit": "em"
+        },
+        "fontWeight": 600
+      }
+    },
+    "body-lg": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 1.125,
+          "unit": "rem"
+        },
+        "lineHeight": 1.5556,
+        "letterSpacing": {
+          "value": -0.005,
+          "unit": "em"
+        },
+        "fontWeight": 400
+      }
+    },
+    "body-md": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 0.9375,
+          "unit": "rem"
+        },
+        "lineHeight": 1.6,
+        "letterSpacing": {
+          "value": -0.003,
+          "unit": "em"
+        },
+        "fontWeight": 400
+      }
+    },
+    "body-sm": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 0.875,
+          "unit": "rem"
+        },
+        "lineHeight": 1.4286,
+        "letterSpacing": {
+          "value": -0.002,
+          "unit": "em"
+        },
+        "fontWeight": 400
+      }
+    },
+    "body-xs": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "lineHeight": 1.3333,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "em"
+        },
+        "fontWeight": 400
+      }
+    },
+    "label-lg": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 0.9375,
+          "unit": "rem"
+        },
+        "lineHeight": 1.3333,
+        "letterSpacing": {
+          "value": -0.003,
+          "unit": "em"
+        },
+        "fontWeight": 500
+      }
+    },
+    "label-md": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 0.875,
+          "unit": "rem"
+        },
+        "lineHeight": 1.4286,
+        "letterSpacing": {
+          "value": -0.002,
+          "unit": "em"
+        },
+        "fontWeight": 500
+      }
+    },
+    "label-sm": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 0.8125,
+          "unit": "rem"
+        },
+        "lineHeight": 1.3846,
+        "letterSpacing": {
+          "value": -0.001,
+          "unit": "em"
+        },
+        "fontWeight": 500
+      }
+    },
+    "label-xs": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "lineHeight": 1.3333,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "em"
+        },
+        "fontWeight": 500
+      }
+    },
+    "eyebrow": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.sans}",
+        "fontSize": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "lineHeight": 1.3333,
+        "letterSpacing": {
+          "value": 0.04,
+          "unit": "em"
+        },
+        "fontWeight": 500
+      }
+    },
+    "mono-md": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.mono}",
+        "fontSize": {
+          "value": 0.875,
+          "unit": "rem"
+        },
+        "lineHeight": 1.4286,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "em"
+        },
+        "fontWeight": 400
+      }
+    },
+    "mono-sm": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.mono}",
+        "fontSize": {
+          "value": 0.8125,
+          "unit": "rem"
+        },
+        "lineHeight": 1.5385,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "em"
+        },
+        "fontWeight": 400
+      }
+    },
+    "mono-xs": {
+      "$type": "typography",
+      "$value": {
+        "fontFamily": "{font.mono}",
+        "fontSize": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "lineHeight": 1.3333,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "em"
+        },
+        "fontWeight": 400
+      }
+    }
+  }
+}
