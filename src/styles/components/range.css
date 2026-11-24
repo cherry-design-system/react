@@ -33,7 +33,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   .cherry-range__input:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     --_ring: var(--cherry-ring);
   }
   .cherry-range__input:hover:not(:disabled) {
@@ -129,5 +129,14 @@
     --_height: 28px;
     --_track: 8px;
     --_thumb: 20px;
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    /* The native slider draws itself in system colors. */
+    .cherry-range .cherry-range__input {
+      appearance: auto;
+    }
   }
 }

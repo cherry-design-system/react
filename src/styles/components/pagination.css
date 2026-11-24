@@ -70,7 +70,7 @@
   }
   .cherry-pagination__link:focus-visible,
   .cherry-pagination__step:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-pagination__link[aria-current="page"] {
@@ -111,5 +111,15 @@
     color: var(--cherry-fg-muted);
     font-weight: var(--cherry-text-body-md-weight);
     font-variant-numeric: tabular-nums;
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-pagination .cherry-pagination__link[aria-current="page"] {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
   }
 }

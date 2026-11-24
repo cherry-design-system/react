@@ -75,7 +75,7 @@
     content: "";
   }
   .cherry-accordion__trigger:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-accordion__item[data-variant="inline"]

@@ -7,7 +7,7 @@
     --_px: var(--cherry-space-3);
     --_icon: 16px;
     --_border: var(--cherry-border-default);
-    --_ring: none;
+    --_ring: 0 0 #0000;
     position: relative;
     display: inline-flex;
     min-width: 0;
@@ -48,7 +48,7 @@
   }
   .cherry-time-picker__trigger:focus-visible,
   .cherry-time-picker[data-open] .cherry-time-picker__trigger {
-    outline: none;
+    outline: 2px solid transparent;
     --_border: var(--cherry-border-focus);
     --_ring: var(--cherry-ring);
   }
@@ -80,7 +80,7 @@
     white-space: nowrap;
   }
   .cherry-time-picker__placeholder {
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
   }
 
   .cherry-time-picker[data-size="sm"] {
@@ -161,7 +161,7 @@
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-width: thin;
-    outline: none;
+    outline: 2px solid transparent;
   }
   .cherry-time-picker__list {
     min-width: 180px;
@@ -254,7 +254,7 @@
     background: var(--cherry-ghost-hover);
   }
   .cherry-time-picker__option:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     background: var(--cherry-ghost-hover);
     box-shadow: inset 0 0 0 1px var(--cherry-border-focus);
   }
@@ -294,5 +294,17 @@
   }
   .cherry-time-picker[data-layout="columns"] .cherry-time-picker__trigger {
     font-variant-numeric: tabular-nums;
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-time-picker
+      .cherry-time-picker__column
+      .cherry-time-picker__option[aria-selected="true"] {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
   }
 }

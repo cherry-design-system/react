@@ -37,7 +37,7 @@
     color: var(--_fg-hover);
   }
   .cherry-link:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow:
       0 0 0 2px var(--cherry-bg-canvas),
       0 0 0 4px var(--cherry-border-focus);

@@ -164,7 +164,7 @@
     transform: scale(0.94);
   }
   .cherry-file-item__remove:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
 

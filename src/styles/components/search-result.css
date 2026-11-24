@@ -76,4 +76,13 @@
     opacity: 1;
     transform: none;
   }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-search-result[data-active] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
+    }
+  }
 }

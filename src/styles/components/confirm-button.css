@@ -81,7 +81,7 @@
     color: var(--cherry-fg-default);
   }
   .cherry-confirm-button__trigger:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-confirm-button__trigger:disabled {
@@ -207,7 +207,7 @@
     transform: scale(0.92);
   }
   .cherry-confirm-button__action:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   /* The destructive choice carries the accent. */

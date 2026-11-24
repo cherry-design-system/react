@@ -4,7 +4,7 @@
     --_px: var(--cherry-space-3);
     --_icon: 16px;
     --_border: var(--cherry-border-default);
-    --_ring: none;
+    --_ring: 0 0 #0000;
 
     position: relative;
     display: flex;
@@ -49,14 +49,14 @@
     margin: 0;
     padding: 0;
     border: 0;
-    outline: none;
+    outline: 2px solid transparent;
     background: transparent;
     color: inherit;
     font: inherit;
     letter-spacing: inherit;
   }
   .cherry-combobox__input::placeholder {
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
   }
   .cherry-combobox__input:disabled {
     cursor: not-allowed;
@@ -229,6 +229,15 @@
     from {
       opacity: 0;
       transform: translateY(-2px);
+    }
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-combobox .cherry-combobox__option[data-active] {
+      outline: 2px solid Highlight;
+      outline-offset: -2px;
     }
   }
 }

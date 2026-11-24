@@ -75,7 +75,7 @@
     color: var(--cherry-fg-default);
   }
   .cherry-tabs__tab:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-tabs__tab:disabled {
@@ -194,7 +194,25 @@
       display var(--cherry-duration-fast) allow-discrete;
   }
   .cherry-tabs__panel:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-tabs[data-variant] .cherry-tabs__indicator {
+      forced-color-adjust: none;
+      background: Highlight;
+    }
+    .cherry-tabs[data-variant="pill"] .cherry-tabs__tab[aria-selected="true"] {
+      forced-color-adjust: none;
+      color: HighlightText;
+    }
+    .cherry-tabs
+      .cherry-tabs__list:not([data-indicator])
+      .cherry-tabs__tab[aria-selected="true"] {
+      text-decoration: underline;
+    }
   }
 }

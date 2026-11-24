@@ -39,7 +39,7 @@
     padding: 0;
     border: 1px solid var(--_border);
     border-radius: var(--cherry-radius-md);
-    outline: none;
+    outline: 2px solid transparent;
     background: var(--cherry-bg-canvas);
     box-shadow: var(--cherry-elevation-xs), var(--_ring);
     color: inherit;

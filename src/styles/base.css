@@ -29,6 +29,11 @@
     box-sizing: border-box;
   }
 
+  /* Focus convention: rings are box-shadows, and focus styles set
+     `outline: 2px solid transparent` instead of `outline: none`. Forced
+     colors (Windows High Contrast) drop box-shadows but repaint that
+     outline in a system color, so focus stays visible there. */
+
   /* Honour [hidden] on every cherry element, whatever display it sets. */
   :where([class^="cherry-"], [class*=" cherry-"])[hidden] {
     display: none;

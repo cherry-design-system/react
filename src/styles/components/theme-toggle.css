@@ -63,7 +63,7 @@
     transition-duration: var(--cherry-duration-instant);
   }
   .cherry-theme-toggle__option:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
 
@@ -74,5 +74,18 @@
   .cherry-theme-toggle[data-size="md"] {
     --_item: 28px;
     --_icon: 16px;
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-theme-toggle .cherry-theme-toggle__indicator {
+      forced-color-adjust: none;
+      background: Highlight;
+    }
+    .cherry-theme-toggle .cherry-theme-toggle__option[aria-checked="true"] {
+      forced-color-adjust: none;
+      color: HighlightText;
+    }
   }
 }

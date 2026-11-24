@@ -19,7 +19,7 @@
     --_border: var(--cherry-border-strong);
     --_bg: var(--cherry-bg-canvas);
     --_dot-color: var(--cherry-primary-fg);
-    --_ring: none;
+    --_ring: 0 0 #0000;
 
     display: inline-flex;
     align-items: flex-start;
@@ -61,7 +61,7 @@
       transform var(--cherry-duration-instant) var(--cherry-easing-standard);
   }
   .cherry-radio__input:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     --_ring: var(--cherry-ring);
   }
   .cherry-radio:hover .cherry-radio__input:not(:disabled) {
@@ -147,5 +147,28 @@
     font-size: var(--cherry-text-label-lg-size);
     line-height: var(--cherry-text-label-lg-line-height);
     letter-spacing: var(--cherry-text-label-lg-tracking);
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-radio .cherry-radio__input {
+      forced-color-adjust: none;
+      border-color: CanvasText;
+      background: Canvas;
+    }
+    .cherry-radio .cherry-radio__input:checked {
+      border-color: Highlight;
+    }
+    .cherry-radio .cherry-radio__dot {
+      forced-color-adjust: none;
+      background: Highlight;
+    }
+    .cherry-radio .cherry-radio__input:disabled {
+      border-color: GrayText;
+    }
+    .cherry-radio .cherry-radio__input:disabled + .cherry-radio__dot {
+      background: GrayText;
+    }
   }
 }

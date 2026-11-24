@@ -97,7 +97,7 @@
   }
   .cherry-toggle-group[role="radiogroup"]
     .cherry-toggle-group__item:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
   }
   .cherry-toggle-group__item:disabled {
     opacity: 0.45;
@@ -130,5 +130,19 @@
   }
   .cherry-toggle-group[data-size="md"] {
     --_h: 32px;
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-toggle-group
+      .cherry-toggle-group__item:is(
+        [aria-pressed="true"],
+        [aria-checked="true"]
+      ) {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
   }
 }

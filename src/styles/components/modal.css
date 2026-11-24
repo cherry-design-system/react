@@ -78,7 +78,7 @@
   }
 
   .cherry-modal:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
   }
 
   .cherry-modal[data-size="sm"] {

@@ -5,7 +5,7 @@
     --_border: var(--cherry-border-strong);
     --_bg: var(--cherry-bg-canvas);
     --_fg: var(--cherry-primary-fg);
-    --_ring: none;
+    --_ring: 0 0 #0000;
 
     display: inline-flex;
     align-items: flex-start;
@@ -49,7 +49,7 @@
       transform var(--cherry-duration-instant) var(--cherry-easing-standard);
   }
   .cherry-checkbox__input:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     --_ring: var(--cherry-ring);
   }
   .cherry-checkbox:hover .cherry-checkbox__input:not(:disabled) {
@@ -155,5 +155,30 @@
     font-size: var(--cherry-text-label-lg-size);
     line-height: var(--cherry-text-label-lg-line-height);
     letter-spacing: var(--cherry-text-label-lg-tracking);
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-checkbox .cherry-checkbox__input {
+      forced-color-adjust: none;
+      border-color: CanvasText;
+      background: Canvas;
+    }
+    .cherry-checkbox .cherry-checkbox__input:is(:checked, :indeterminate) {
+      border-color: Highlight;
+      background: Highlight;
+    }
+    .cherry-checkbox .cherry-checkbox__icon {
+      forced-color-adjust: none;
+      color: HighlightText;
+    }
+    .cherry-checkbox .cherry-checkbox__input:disabled {
+      border-color: GrayText;
+    }
+    .cherry-checkbox
+      .cherry-checkbox__input:disabled:is(:checked, :indeterminate) {
+      background: GrayText;
+    }
   }
 }

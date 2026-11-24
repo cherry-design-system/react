@@ -54,7 +54,7 @@
     transform: scale(0.98);
   }
   .cherry-chat-suggestion:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-elevation-xs), var(--cherry-ring);
   }
   .cherry-chat-suggestion:disabled {

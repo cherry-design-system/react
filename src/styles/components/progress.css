@@ -111,4 +111,18 @@
       opacity: 0.6;
     }
   }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-progress .cherry-progress__track {
+      forced-color-adjust: none;
+      background: Canvas;
+      box-shadow: inset 0 0 0 1px CanvasText;
+    }
+    .cherry-progress .cherry-progress__fill {
+      forced-color-adjust: none;
+      background: Highlight;
+    }
+  }
 }

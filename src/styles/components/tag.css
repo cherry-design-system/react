@@ -76,7 +76,7 @@
     transform: scale(0.94);
   }
   .cherry-tag__remove:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-tag__remove:disabled {
