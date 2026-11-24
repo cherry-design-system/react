@@ -8,9 +8,11 @@
 
   <h1>cherry 2.0</h1>
 
+  <p><strong>One color in. A design system out.</strong></p>
+
   <p>
     A themeable React design system in plain CSS.<br />
-    Zero styling runtime, Server Components ready, light and dark built in.
+    Accessible by default (WCAG 2.2 AA), zero styling runtime, Server Components ready.
   </p>
 
   <p>
