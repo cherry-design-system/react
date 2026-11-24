@@ -48,9 +48,11 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
   ref,
 ) {
   const rootRef = useRef<HTMLSpanElement>(null);
-  const [exitWidth, setExitWidth] = useState<number | null>(null);
+  // Measured when removal starts: the tag's width, and the flex/grid gap
+  // after it, so both collapse together and the next tag slides in smoothly.
+  const [exit, setExit] = useState<{ width: number; gap: number } | null>(null);
   const done = useRef(false);
-  const exiting = exitWidth !== null;
+  const exiting = exit !== null;
 
   const finish = () => {
     if (done.current) return;
@@ -67,7 +69,13 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
 
   const remove = () => {
     if (exiting || disabled) return;
-    setExitWidth(rootRef.current?.getBoundingClientRect().width ?? 0);
+    const node = rootRef.current;
+    const parent = node?.parentElement;
+    const gap = parent ? parseFloat(getComputedStyle(parent).columnGap) : 0;
+    setExit({
+      width: node?.getBoundingClientRect().width ?? 0,
+      gap: Number.isFinite(gap) ? gap : 0,
+    });
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
@@ -85,8 +93,12 @@ export const Tag = forwardRef<HTMLSpanElement, TagProps>(function Tag(
       data-size={size}
       data-exiting={exiting || undefined}
       style={
-        exiting
-          ? ({ ...style, "--_w": `${exitWidth}px` } as CSSProperties)
+        exit
+          ? ({
+              ...style,
+              "--_w": `${exit.width}px`,
+              "--_gap": `${exit.gap}px`,
+            } as CSSProperties)
           : style
       }
       onAnimationEnd={(event: AnimationEvent<HTMLSpanElement>) => {

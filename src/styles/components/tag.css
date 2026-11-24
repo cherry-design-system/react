@@ -1,6 +1,7 @@
 /* Tag: removable value chip. It fades and scales in on mount; on removal it
-   fades, shrinks and collapses its width (from the measured --_w) so the
-   tags after it close the gap, then React drops it on animationend. */
+   fades, shrinks and collapses its width (from the measured --_w) and the
+   container gap after it (--_gap) so the tags after it glide into place,
+   then React drops it on animationend. */
 @layer cherry {
   .cherry-tag {
     --_h: 26px;
@@ -8,6 +9,7 @@
     --_bg: var(--cherry-bg-muted);
     --_fg: var(--cherry-fg-default);
     --_border: transparent;
+    --_bw: 1px;
     --_remove-fg: var(--cherry-fg-muted);
     --_remove-hover: var(--cherry-secondary-hover);
     display: inline-flex;
@@ -17,7 +19,7 @@
     max-width: 100%;
     height: var(--_h);
     padding: 0 var(--_px);
-    border: 1px solid var(--_border);
+    border: var(--_bw) solid var(--_border);
     border-radius: var(--cherry-radius-sm);
     background: var(--_bg);
     color: var(--_fg);
@@ -139,7 +141,10 @@
       width: 0;
       padding-inline: 0;
       border-width: 0;
-      margin-inline: 0;
+      /* Swallow the container gap after it too, or the row jumps when the
+         tag finally leaves the DOM. Browsers never paint an animating border
+         below 1px, so the margin also absorbs both borders. */
+      margin-inline: 0 calc((var(--_gap, 0px) + var(--_bw) * 2) * -1);
     }
   }
 }
