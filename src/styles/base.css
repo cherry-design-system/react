@@ -2,9 +2,11 @@
 @layer cherry {
   /* A mode switch paints in one frame instead of control by control. The one
      place cherry uses !important: it must beat every transition, including a
-     consumer's. The contract check allows it for this selector only. */
+     consumer's. The contract check allows it for this selector only. The
+     ThemeToggle indicator is exempt: it moves (transform only), it does not
+     recolor, so its slide must survive the switch it causes. */
   .theme-switching,
-  .theme-switching *,
+  .theme-switching *:not(.cherry-theme-toggle__indicator),
   .theme-switching *::before,
   .theme-switching *::after {
     transition: none !important;
@@ -16,6 +18,15 @@
     font-family: var(--cherry-font-sans);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Sizes include padding and border on every cherry element, so a declared
+     width/height is the rendered one. Zero specificity: components and
+     consumers override it freely. */
+  :where([class^="cherry-"], [class*=" cherry-"]),
+  :where([class^="cherry-"], [class*=" cherry-"])::before,
+  :where([class^="cherry-"], [class*=" cherry-"])::after {
+    box-sizing: border-box;
   }
 
   /* Honour [hidden] on every cherry element, whatever display it sets. */
