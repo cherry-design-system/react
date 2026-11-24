@@ -17,7 +17,7 @@ import { Section } from "../Section";
 
 const grid: CSSProperties = {
   display: "grid",
-  gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+  gridTemplateColumns: "repeat(auto-fill, minmax(min(240px, 100%), 1fr))",
   gap: 24,
   alignItems: "start",
 };

@@ -302,7 +302,12 @@ function Surfaces() {
 
 function TableDemo({ striped }: { striped?: boolean }) {
   return (
-    <Table striped={striped} scrollLabel="Component releases">
+    <Table
+      striped={striped}
+      scrollLabel={
+        striped ? "Component releases, striped" : "Component releases"
+      }
+    >
       <thead>
         <tr>
           <th>Component</th>

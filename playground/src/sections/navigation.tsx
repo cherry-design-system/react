@@ -97,7 +97,7 @@ function SidebarDemo() {
     </>
   );
   return (
-    <div className="pg-row" style={{ alignItems: "stretch", height: 520 }}>
+    <div className="pg-row" style={{ alignItems: "stretch", minHeight: 520 }}>
       <Sidebar
         id="pg-sidebar"
         collapsed={collapsed}
@@ -150,14 +150,25 @@ function PaginationDemo() {
   const [page, setPage] = useState(3);
   return (
     <div style={stack}>
-      <Pagination page={page} totalPages={10} onPageChange={setPage} />
+      <Pagination
+        page={page}
+        totalPages={10}
+        onPageChange={setPage}
+        labels={{ nav: "Results pages" }}
+      />
       <Pagination
         page={page}
         totalPages={10}
         variant="compact"
         onPageChange={setPage}
+        labels={{ nav: "Results pages, compact" }}
       />
-      <Pagination page={1} totalPages={4} getHref={(p) => `#page-${p}`} />
+      <Pagination
+        page={1}
+        totalPages={4}
+        getHref={(p) => `#page-${p}`}
+        labels={{ nav: "Archive pages" }}
+      />
     </div>
   );
 }
@@ -215,6 +226,7 @@ function BannerDemo() {
         <Banner
           key={variant}
           variant={variant}
+          aria-label={`Announcement (${variant})`}
           icon={<Megaphone />}
           action={action}
           dismissible
@@ -249,7 +261,7 @@ function ProgressDemo() {
       style={{
         display: "grid",
         gap: 24,
-        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fit, minmax(min(240px, 100%), 1fr))",
       }}
     >
       <Progress value={value} label="Uploading assets..." showValue />
@@ -352,6 +364,7 @@ export function NavigationSections() {
             ]}
           />
           <Breadcrumb
+            aria-label="Breadcrumb (slash)"
             separator="slash"
             items={[
               { label: "Docs", href: "#" },
@@ -375,7 +388,8 @@ export function NavigationSections() {
           style={{
             display: "grid",
             gap: 32,
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(300px, 100%), 1fr))",
           }}
         >
           <Accordion type="single" id="pg-accordion-single">
@@ -433,7 +447,8 @@ export function NavigationSections() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(300px, 100%), 1fr))",
           }}
         >
           <EmptyState
