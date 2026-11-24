@@ -43,6 +43,41 @@ let lastClosedAt = 0;
 // when another opens.
 let openTooltip: (() => void) | null = null;
 
+// Browsers without CSS anchor positioning get the tooltip placed from the
+// trigger's box instead (and again on scroll or resize while it shows).
+function supportsAnchor() {
+  return (
+    typeof CSS !== "undefined" &&
+    typeof CSS.supports === "function" &&
+    CSS.supports("position-area: top")
+  );
+}
+
+const EDGE = 4;
+
+function place(
+  tip: HTMLElement,
+  trigger: HTMLElement,
+  placement: TooltipPlacement,
+) {
+  const t = trigger.getBoundingClientRect();
+  const r = tip.getBoundingClientRect();
+  const gap =
+    parseFloat(getComputedStyle(tip).getPropertyValue("--_offset")) || 8;
+  let top: number;
+  let left: number;
+  if (placement === "left" || placement === "right") {
+    top = t.top + t.height / 2 - r.height / 2;
+    left = placement === "left" ? t.left - r.width - gap : t.right + gap;
+  } else {
+    top = placement === "top" ? t.top - r.height - gap : t.bottom + gap;
+    left = t.left + t.width / 2 - r.width / 2;
+    left = Math.min(Math.max(left, EDGE), window.innerWidth - r.width - EDGE);
+  }
+  tip.style.top = `${top}px`;
+  tip.style.left = `${left}px`;
+}
+
 function isFocusVisible(target: Element) {
   try {
     return target.matches(":focus-visible");
@@ -54,7 +89,8 @@ function isFocusVisible(target: Element) {
 /**
  * A short hint on hover and keyboard focus (role="tooltip", wired with
  * aria-describedby). A manual `popover` in the top layer, anchored to the
- * trigger with CSS anchor positioning; it fades in with a small offset and
+ * trigger with CSS anchor positioning (or, where that is missing, placed
+ * from the trigger's box in JS); it fades in with a small offset and
  * out again. Escape hides it; the pointer can move onto it without it
  * closing.
  */
@@ -79,6 +115,7 @@ export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(
     const tooltipId = `cherry-tooltip-${id}`;
     const anchor = `--cherry-tooltip-${id.replace(/[^a-zA-Z0-9_-]/g, "")}`;
     const tipRef = useRef<HTMLSpanElement | null>(null);
+    const triggerRef = useRef<HTMLSpanElement>(null);
     const timer = useRef<number | undefined>(undefined);
     const shown = useRef(false);
     const [open, setOpen] = useState(false);
@@ -118,11 +155,13 @@ export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(
         // Detached or unsupported: nothing to show.
         return;
       }
+      if (!supportsAnchor() && triggerRef.current)
+        place(tip, triggerRef.current, placement);
       shown.current = true;
       if (openTooltip && openTooltip !== conceal) openTooltip();
       openTooltip = conceal;
       setOpen(true);
-    }, [conceal]);
+    }, [conceal, placement]);
 
     const show = (delay: number) => {
       if (disabled) return;
@@ -147,8 +186,25 @@ export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(
         if (event.key === "Escape") conceal();
       };
       document.addEventListener("keydown", onKeyDown);
-      return () => document.removeEventListener("keydown", onKeyDown);
-    }, [open, conceal]);
+      // Without anchor positioning, follow the trigger while open.
+      const follow = supportsAnchor()
+        ? null
+        : () => {
+            if (tipRef.current && triggerRef.current)
+              place(tipRef.current, triggerRef.current, placement);
+          };
+      if (follow) {
+        window.addEventListener("scroll", follow, true);
+        window.addEventListener("resize", follow);
+      }
+      return () => {
+        document.removeEventListener("keydown", onKeyDown);
+        if (follow) {
+          window.removeEventListener("scroll", follow, true);
+          window.removeEventListener("resize", follow);
+        }
+      };
+    }, [open, conceal, placement]);
 
     useEffect(
       () => () => {
@@ -170,6 +226,7 @@ export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(
     return (
       <>
         <span
+          ref={triggerRef}
           className="cherry-tooltip__trigger"
           style={anchorStyle}
           onPointerEnter={(event) => {
