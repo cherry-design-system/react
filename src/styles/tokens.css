@@ -81,6 +81,10 @@
     --cherry-d-bg-muted: var(--cherry-zinc-800);
     --cherry-l-bg-elevated: var(--cherry-zinc-0);
     --cherry-d-bg-elevated: var(--cherry-zinc-900);
+    --cherry-l-bg-segment: var(--cherry-zinc-100);
+    --cherry-d-bg-segment: var(--cherry-zinc-900);
+    --cherry-l-bg-segment-selected: var(--cherry-zinc-0);
+    --cherry-d-bg-segment-selected: var(--cherry-zinc-700);
     --cherry-l-bg-inverse: var(--cherry-zinc-900);
     --cherry-d-bg-inverse: var(--cherry-zinc-50);
     --cherry-l-bg-overlay: var(--cherry-alpha-black-50);
@@ -334,6 +338,8 @@
     --cherry-bg-subtle: var(--cherry-light, var(--cherry-l-bg-subtle)) var(--cherry-dark, var(--cherry-d-bg-subtle));
     --cherry-bg-muted: var(--cherry-light, var(--cherry-l-bg-muted)) var(--cherry-dark, var(--cherry-d-bg-muted));
     --cherry-bg-elevated: var(--cherry-light, var(--cherry-l-bg-elevated)) var(--cherry-dark, var(--cherry-d-bg-elevated));
+    --cherry-bg-segment: var(--cherry-light, var(--cherry-l-bg-segment)) var(--cherry-dark, var(--cherry-d-bg-segment));
+    --cherry-bg-segment-selected: var(--cherry-light, var(--cherry-l-bg-segment-selected)) var(--cherry-dark, var(--cherry-d-bg-segment-selected));
     --cherry-bg-inverse: var(--cherry-light, var(--cherry-l-bg-inverse)) var(--cherry-dark, var(--cherry-d-bg-inverse));
     --cherry-bg-overlay: var(--cherry-light, var(--cherry-l-bg-overlay)) var(--cherry-dark, var(--cherry-d-bg-overlay));
     --cherry-fg-default: var(--cherry-light, var(--cherry-l-fg-default)) var(--cherry-dark, var(--cherry-d-fg-default));

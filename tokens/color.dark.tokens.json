@@ -17,6 +17,16 @@
       "$type": "color",
       "$value": "{zinc.900}"
     },
+    "segment": {
+      "$type": "color",
+      "$value": "{zinc.900}",
+      "$description": "Track of segmented controls (pill Tabs, ThemeToggle)."
+    },
+    "segment-selected": {
+      "$type": "color",
+      "$value": "{zinc.700}",
+      "$description": "Selected item surface inside a segment track; raised (lighter) in both modes."
+    },
     "inverse": {
       "$type": "color",
       "$value": "{zinc.50}"
