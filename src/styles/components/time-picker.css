@@ -217,11 +217,14 @@
       --_tp-fade-bottom: 0px;
     }
   }
+  /* The columns share the popover's width (at least the field's), each
+     never narrower than 60px. */
   .cherry-time-picker__columns {
     display: flex;
   }
   .cherry-time-picker__column {
-    width: 60px;
+    flex: 1 0 60px;
+    min-width: 60px;
     scrollbar-width: none;
   }
   .cherry-time-picker__column + .cherry-time-picker__column {
