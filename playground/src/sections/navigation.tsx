@@ -104,7 +104,11 @@ function SidebarDemo() {
         header={
           <>
             <span style={{ flex: 1, display: "flex", minWidth: 0 }}>
-              <CherryLogo compact={collapsed} title="cherry" size={22} />
+              <CherryLogo
+                compact={collapsed}
+                title="cherry"
+                size={collapsed ? 28 : 22}
+              />
             </span>
             {collapsed ? null : (
               <IconButton
@@ -133,7 +137,7 @@ function SidebarDemo() {
       </Sidebar>
       <Sidebar
         collapsed
-        header={<CherryLogo compact title="cherry" size={22} />}
+        header={<CherryLogo compact title="cherry" size={28} />}
         navLabel="Rail"
       >
         {groups}
@@ -203,7 +207,10 @@ function BannerDemo() {
     </a>
   );
   return (
-    <div style={{ display: "grid", gap: 12 }} key={key}>
+    <div
+      style={{ display: "flex", flexDirection: "column", gap: 12 }}
+      key={key}
+    >
       {(["inverse", "accent", "subtle"] as const).map((variant) => (
         <Banner
           key={variant}

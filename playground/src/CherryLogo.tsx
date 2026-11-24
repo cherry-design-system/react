@@ -3,13 +3,17 @@
 // the deep tone; the wordmark is Geist Bold with the "rr" in the two cherry
 // tones. Cherry colors are fixed primitives; the rest of the wordmark takes
 // fg-default, so one component serves both modes.
-// `compact` draws the glyph alone (a collapsed sidebar, a favicon spot).
+// `compact` draws Brand/Mark instead: the glyph on a primary tile (22.5%
+// corner radius) that inverts with the mode, for a collapsed sidebar or rail.
 import type { CSSProperties, HTMLAttributes } from "react";
 
 type CherryLogoProps = Omit<HTMLAttributes<HTMLSpanElement>, "children"> & {
-  /** The glyph only, without the wordmark. */
+  /** The app mark (glyph on a tile) instead of the lockup. */
   compact?: boolean;
-  /** Glyph height in px; the wordmark scales with it. Defaults to 24. */
+  /**
+   * Glyph height in px for the lockup (the wordmark scales with it), or the
+   * tile size for the compact mark. Defaults to 24.
+   */
   size?: number;
   /** The accessible name; the logo is decorative when omitted. */
   title?: string;
@@ -42,10 +46,18 @@ export function CherryLogo({
       {...props}
     >
       <svg
-        viewBox="104 160 304 192"
+        viewBox={compact ? "0 0 512 512" : "104 160 304 192"}
         style={{ height: size, width: "auto", flexShrink: 0 }}
         aria-hidden="true"
       >
+        {compact ? (
+          <rect
+            width="512"
+            height="512"
+            rx="115"
+            fill="var(--cherry-primary-default)"
+          />
+        ) : null}
         <circle cx="200" cy="256" r="96" fill="var(--cherry-cherry-400)" />
         <circle cx="312" cy="256" r="96" fill="var(--cherry-cherry-600)" />
         <path
