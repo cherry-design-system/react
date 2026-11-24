@@ -8,7 +8,7 @@
     padding: 2px;
     border: 1px solid var(--cherry-border-default);
     border-radius: var(--cherry-radius-full);
-    background: var(--cherry-bg-subtle);
+    background: var(--cherry-bg-segment);
     isolation: isolate;
   }
   .cherry-theme-toggle__indicator {
@@ -19,8 +19,8 @@
     width: var(--_item);
     height: var(--_item);
     border-radius: var(--cherry-radius-full);
-    background: var(--cherry-bg-canvas);
-    box-shadow: var(--cherry-elevation-sm);
+    background: var(--cherry-bg-segment-selected);
+    box-shadow: var(--cherry-elevation-xs);
     transform: translateX(calc(var(--_index) * var(--_item)));
     transition: transform var(--cherry-duration-base)
       var(--cherry-easing-spring);
@@ -52,14 +52,15 @@
   .cherry-theme-toggle__option > svg {
     width: var(--_icon);
     height: var(--_icon);
-    transition: transform var(--cherry-duration-base) var(--cherry-easing-pop);
+    transition: transform var(--cherry-duration-fast) var(--cherry-easing-pop);
   }
   .cherry-theme-toggle__option:hover,
   .cherry-theme-toggle__option[aria-checked="true"] {
     color: var(--cherry-fg-default);
   }
-  .cherry-theme-toggle__option[aria-checked="true"] > svg {
-    transform: rotate(-12deg) scale(1.05);
+  .cherry-theme-toggle__option:active > svg {
+    transform: scale(0.88);
+    transition-duration: var(--cherry-duration-instant);
   }
   .cherry-theme-toggle__option:focus-visible {
     outline: none;
