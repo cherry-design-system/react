@@ -1,26 +1,60 @@
-/* ConfirmButton: a square trigger that, on the first click, slides a
-   confirm / cancel pill out beside it. The control's width grows by the
-   pill's (known) width on the spring easing, clipping the pill while it
-   fades and scales in from the trigger side; everything reverses on exit. */
+/* ConfirmButton: one surface that widens on the first click. The trash lid
+   lifts, a recessed tray (with a notch pointing back at the trigger) slides
+   in, then the confirm / cancel circles pop in one after the other. Closing
+   plays the same steps in reverse. */
 @layer cherry {
   .cherry-confirm-button {
     --_size: 36px;
-    --_action: 28px;
+    --_radius: var(--cherry-radius-md);
+    --_inset: 3px;
+    --_action: 26px;
+    --_gap: var(--cherry-space-1);
+    /* Room left of the tray for its notch. */
+    --_notch: 4px;
     --_icon: 16px;
     --_action-icon: 14px;
-    --_overlap: 6px;
-    /* Pill beside the trigger: two actions, an 8px gap, 4px padding. */
-    --_panel: calc(var(--_action) * 2 + var(--cherry-space-2) + 8px);
+    /* The tray is as tall as the control minus the inset on each side. */
+    --_tray-h: calc(var(--_size) - var(--_inset) * 2);
+    --_pad: calc((var(--_tray-h) - var(--_action)) / 2);
+    --_panel: calc(var(--_pad) * 2 + var(--_action) * 2 + var(--_gap));
+    /* bg-canvas at 45% over the surface (the Figma tray paint). */
+    --_tray: color-mix(
+      in srgb,
+      var(--cherry-secondary-default),
+      var(--cherry-bg-canvas) 45%
+    );
     display: inline-grid;
     grid-template-columns: var(--_size) minmax(0, 1fr);
     align-items: center;
-    box-sizing: border-box;
     width: var(--_size);
+    height: var(--_size);
+    border-radius: var(--_radius);
+    background: var(--cherry-secondary-default);
     vertical-align: middle;
-    transition: width var(--cherry-duration-base) var(--cherry-easing-spring);
+    transition:
+      width var(--cherry-duration-slow) var(--cherry-easing-spring),
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      scale var(--cherry-duration-instant) var(--cherry-easing-standard);
   }
   .cherry-confirm-button[data-state="confirm"] {
-    width: calc(var(--_size) + var(--_panel));
+    width: calc(var(--_size) + var(--_notch) + var(--_panel) + var(--_inset));
+  }
+  /* Closing waits for the actions to fade before the surface shrinks. */
+  .cherry-confirm-button[data-state="idle"] {
+    transition-delay: 60ms, 0ms, 0ms;
+  }
+  .cherry-confirm-button[data-state="idle"]:has(
+      > .cherry-confirm-button__trigger:hover:not(:disabled)
+    ) {
+    background: var(--cherry-secondary-hover);
+  }
+  .cherry-confirm-button[data-state="idle"]:has(
+      > .cherry-confirm-button__trigger:active:not(:disabled)
+    ) {
+    scale: 0.94;
+  }
+  .cherry-confirm-button:has(> .cherry-confirm-button__trigger:disabled) {
+    opacity: 0.45;
   }
   .cherry-confirm-button[data-state="idle"] .cherry-confirm-button__panel {
     pointer-events: none;
@@ -34,85 +68,112 @@
     height: var(--_size);
     padding: 0;
     border: 0;
-    border-radius: var(--cherry-radius-md);
-    background: var(--cherry-secondary-default);
+    border-radius: var(--_radius);
+    background: transparent;
     color: var(--cherry-fg-muted);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
     transition:
-      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
       color var(--cherry-duration-fast) var(--cherry-easing-standard),
-      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
-      border-radius var(--cherry-duration-fast) var(--cherry-easing-standard),
-      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard);
   }
   .cherry-confirm-button__trigger:hover:not(:disabled) {
-    background: var(--cherry-secondary-hover);
     color: var(--cherry-fg-default);
-  }
-  .cherry-confirm-button__trigger:active:not(:disabled) {
-    transform: scale(0.94);
   }
   .cherry-confirm-button__trigger:focus-visible {
     outline: none;
     box-shadow: var(--cherry-ring);
   }
   .cherry-confirm-button__trigger:disabled {
-    opacity: 0.45;
     cursor: not-allowed;
   }
-  /* Confirm state: the trigger runs on under the pill. */
-  .cherry-confirm-button[data-state="confirm"] .cherry-confirm-button__trigger {
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
-    background: var(--cherry-secondary-default);
-    color: var(--cherry-fg-default);
-  }
+
   .cherry-confirm-button__glyph {
     display: grid;
     place-items: center;
     transition: transform var(--cherry-duration-emphasis)
       var(--cherry-easing-pop);
   }
+  /* One 1.5px line weight for the trash, check and x at every size (as in
+     Figma, where icon strokes do not scale with the icon). */
+  .cherry-confirm-button__glyph > svg,
+  .cherry-confirm-button__action > svg {
+    stroke-width: 1.5;
+  }
+  .cherry-confirm-button__glyph > svg *,
+  .cherry-confirm-button__action > svg * {
+    vector-effect: non-scaling-stroke;
+  }
   .cherry-confirm-button__glyph > svg {
     width: var(--_icon);
     height: var(--_icon);
+    /* The lifted lid draws past the viewBox. */
+    overflow: visible;
   }
-  .cherry-confirm-button[data-state="confirm"] .cherry-confirm-button__glyph {
+  /* The default icon lifts its lid, hinged on the left end of the bar. */
+  .cherry-confirm-button__lid {
+    transform-box: view-box;
+    transform-origin: 3px 6px;
+    transition: transform var(--cherry-duration-base) var(--cherry-easing-out);
+  }
+  .cherry-confirm-button[data-state="confirm"] .cherry-confirm-button__lid {
+    transform: translateY(-1.5px) rotate(-24deg);
+    transition: transform var(--cherry-duration-emphasis)
+      var(--cherry-easing-pop);
+  }
+  /* A custom icon tilts instead. */
+  .cherry-confirm-button[data-state="confirm"]
+    .cherry-confirm-button__glyph:not(:has(.cherry-confirm-button__lid)) {
     transform: rotate(-12deg) scale(1.05);
   }
 
-  /* The growing track clips the pill; the margin keeps its shadow. */
+  /* The growing column clips the tray, rounded like the surface so the tray
+     never pokes past its corners. The inset and the tray padding leave room
+     for the action focus rings inside the clip. */
   .cherry-confirm-button__clip {
+    display: grid;
+    align-items: center;
     min-width: 0;
+    height: 100%;
+    padding-inline-start: var(--_notch);
+    border-start-end-radius: var(--_radius);
+    border-end-end-radius: var(--_radius);
     overflow: clip;
-    overflow-clip-margin: 12px;
   }
   .cherry-confirm-button__panel {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: var(--cherry-space-2);
+    gap: var(--_gap);
     width: max-content;
-    height: var(--_size);
-    box-sizing: border-box;
-    margin-inline-start: calc(var(--_overlap) * -1);
-    padding: 4px 4px 4px calc(4px + var(--_overlap));
-    border-radius: var(--cherry-radius-full);
-    background: var(--cherry-bg-elevated);
-    box-shadow: var(--cherry-elevation-md);
-    transform-origin: left center;
+    height: var(--_tray-h);
+    padding: var(--_pad);
+    border-radius: calc(var(--_radius) - var(--_inset));
+    background: var(--_tray);
     opacity: 0;
-    transform: translateX(-8px) scale(0.96);
+    transform: translateX(-6px);
     transition:
       opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
       transform var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  /* The notch: a small diamond pointing back at the trigger. */
+  .cherry-confirm-button__panel::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 1.5px;
+    background: inherit;
+    transform: translate(-40%, -50%) rotate(45deg);
   }
   .cherry-confirm-button[data-state="confirm"] .cherry-confirm-button__panel {
     opacity: 1;
     transform: none;
     transition:
-      opacity var(--cherry-duration-fast) var(--cherry-easing-out),
-      transform var(--cherry-duration-base) var(--cherry-easing-spring);
+      opacity var(--cherry-duration-fast) var(--cherry-easing-out) 40ms,
+      transform var(--cherry-duration-slow) var(--cherry-easing-spring) 40ms;
   }
 
   .cherry-confirm-button__action {
@@ -124,7 +185,7 @@
     padding: 0;
     border: 0;
     border-radius: 50%;
-    background: var(--cherry-bg-muted);
+    background: var(--cherry-secondary-default);
     color: var(--cherry-fg-muted);
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
@@ -137,14 +198,13 @@
   .cherry-confirm-button__action > svg {
     width: var(--_action-icon);
     height: var(--_action-icon);
-    stroke-width: 2.5;
   }
   .cherry-confirm-button__action:hover {
     background: var(--cherry-secondary-hover);
     color: var(--cherry-fg-default);
   }
   .cherry-confirm-button__action:active {
-    transform: scale(0.94);
+    transform: scale(0.92);
   }
   .cherry-confirm-button__action:focus-visible {
     outline: none;
@@ -161,46 +221,45 @@
   .cherry-confirm-button__action[data-action="cancel"] {
     color: var(--cherry-fg-muted);
   }
-  /* Each action pops in just after the pill lands. */
-  .cherry-confirm-button__action > svg {
-    transform: scale(0.4);
+
+  /* Each circle pops in once the tray is out, confirm first. On close they
+     fade at once, before the surface shrinks. */
+  .cherry-confirm-button__action {
     opacity: 0;
-    transition:
-      opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
-      transform var(--cherry-duration-fast) var(--cherry-easing-standard);
+    scale: 0.6;
   }
-  .cherry-confirm-button[data-state="confirm"]
-    .cherry-confirm-button__action
-    > svg {
-    transform: none;
+  .cherry-confirm-button[data-state="idle"] .cherry-confirm-button__action {
+    transition:
+      opacity var(--cherry-duration-instant) var(--cherry-easing-standard),
+      scale var(--cherry-duration-fast) var(--cherry-easing-standard),
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard);
+  }
+  .cherry-confirm-button[data-state="confirm"] .cherry-confirm-button__action {
     opacity: 1;
+    scale: 1;
     transition:
-      opacity var(--cherry-duration-fast) var(--cherry-easing-out) 60ms,
-      transform var(--cherry-duration-emphasis) var(--cherry-easing-pop) 60ms;
+      opacity var(--cherry-duration-fast) var(--cherry-easing-out) 110ms,
+      scale var(--cherry-duration-emphasis) var(--cherry-easing-pop) 110ms,
+      background-color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      color var(--cherry-duration-fast) var(--cherry-easing-standard),
+      box-shadow var(--cherry-duration-fast) var(--cherry-easing-standard),
+      transform var(--cherry-duration-instant) var(--cherry-easing-standard);
   }
   .cherry-confirm-button[data-state="confirm"]
     .cherry-confirm-button__action
-    + .cherry-confirm-button__action
-    > svg {
-    transition-delay: 120ms;
+    + .cherry-confirm-button__action {
+    transition-delay: 170ms, 170ms, 0ms, 0ms, 0ms, 0ms;
   }
 
   .cherry-confirm-button[data-size="md"] {
     --_size: 36px;
-    --_action: 28px;
+    --_action: 26px;
   }
   .cherry-confirm-button[data-size="lg"] {
     --_size: 44px;
-    --_action: 36px;
+    --_radius: var(--cherry-radius-lg);
+    --_action: 32px;
     --_icon: 18px;
     --_action-icon: 16px;
-  }
-  .cherry-confirm-button[data-size="lg"] .cherry-confirm-button__trigger {
-    border-radius: var(--cherry-radius-lg);
-  }
-  .cherry-confirm-button[data-size="lg"][data-state="confirm"]
-    .cherry-confirm-button__trigger {
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
   }
 }

@@ -17,6 +17,7 @@
   "parts": [
     "cherry-confirm-button__trigger",
     "cherry-confirm-button__glyph",
+    "cherry-confirm-button__lid",
     "cherry-confirm-button__clip",
     "cherry-confirm-button__panel",
     "cherry-confirm-button__action"

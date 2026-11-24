@@ -10,7 +10,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
-import { Check, Trash2, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { cx } from "../../utils/cx";
 import { mergeRefs } from "../../utils/merge-refs";
 import type { ConfirmButtonSize } from "./variants.gen";
@@ -38,10 +38,31 @@ export interface ConfirmButtonProps extends Omit<
   wrapperClassName?: string;
 }
 
+// Lucide's trash, with the lid (bar and handle) in its own group so it can
+// lift open while the confirm step shows.
+function TrashIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" />
+      <g className="cherry-confirm-button__lid">
+        <path d="M3 6h18" />
+        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+      </g>
+    </svg>
+  );
+}
+
 /**
- * Two-step destructive action. The first click opens a confirm / cancel pair
- * beside the trigger (the control widens to make room); it closes again on
- * cancel, Escape, or after `resetAfter` ms.
+ * Two-step destructive action. The first click widens the control and
+ * reveals a confirm / cancel pair inside it (the default trash icon lifts its
+ * lid); it closes again on cancel, Escape, or after `resetAfter` ms.
  */
 export const ConfirmButton = forwardRef<HTMLButtonElement, ConfirmButtonProps>(
   function ConfirmButton(
@@ -139,7 +160,7 @@ export const ConfirmButton = forwardRef<HTMLButtonElement, ConfirmButtonProps>(
           {...rest}
         >
           <span className="cherry-confirm-button__glyph" aria-hidden="true">
-            {icon ?? <Trash2 />}
+            {icon ?? <TrashIcon />}
           </span>
         </button>
         <div className="cherry-confirm-button__clip">
