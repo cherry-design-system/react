@@ -39,6 +39,29 @@ describe("Calendar", () => {
     );
   });
 
+  it("keeps keyboard focus in the live month while the old one leaves", async () => {
+    render(
+      <Calendar
+        locale="en-US"
+        weekStartsOn={0}
+        today={today}
+        defaultValue={new Date(2026, 11, 5)}
+      />,
+    );
+    day("Saturday, December 5, 2026").focus();
+    // December's six-week grid also holds January 3-9 while it animates out.
+    await userEvent.keyboard("{PageDown}");
+    expect(document.activeElement).toHaveAccessibleName(
+      "Tuesday, January 5, 2027",
+    );
+    expect(document.activeElement?.closest("[data-leaving]")).toBeNull();
+    await userEvent.keyboard("{Home}");
+    expect(document.activeElement).toHaveAccessibleName(
+      "Sunday, January 3, 2027",
+    );
+    expect(document.activeElement?.closest("[data-leaving]")).toBeNull();
+  });
+
   it("starts the week on Sunday when asked", () => {
     render(<Calendar locale="en-US" weekStartsOn={0} today={today} />);
     expect(screen.getAllByRole("columnheader")[0]).toHaveAccessibleName(

@@ -206,9 +206,11 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
     useEffect(() => {
       if (!shouldFocus.current) return;
       shouldFocus.current = false;
+      // Only the live month: the leaving one (inert, mid-animation) shows six
+      // weeks too, so its trailing row can hold the same dates.
       gridRef.current
         ?.querySelector<HTMLButtonElement>(
-          `[data-date="${toISODate(tabbable)}"]`,
+          `.cherry-calendar__weeks:not([data-leaving]) [data-date="${toISODate(tabbable)}"]`,
         )
         ?.focus();
     });
@@ -440,9 +442,11 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
                 key={d.getDay()}
                 className="cherry-calendar__weekday"
                 role="columnheader"
-                aria-label={formats.weekdayLong.format(d)}
               >
                 <span aria-hidden="true">{formats.weekdayShort.format(d)}</span>
+                <span className="cherry-sr-only">
+                  {formats.weekdayLong.format(d)}
+                </span>
               </div>
             ))}
           </div>

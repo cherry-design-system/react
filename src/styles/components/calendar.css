@@ -10,6 +10,9 @@
     gap: var(--cherry-space-2);
     box-sizing: border-box;
     width: max-content;
+    /* In a narrow container the day columns shrink (to ~28px at a 320px
+       viewport) instead of pushing the page sideways. */
+    max-width: 100%;
     padding: var(--cherry-space-3);
     border: 1px solid var(--cherry-border-default);
     border-radius: var(--cherry-radius-xl);
@@ -78,7 +81,7 @@
     transform: scale(0.94);
   }
   .cherry-calendar__nav:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-calendar__nav:disabled {
@@ -95,7 +98,7 @@
   .cherry-calendar__weekdays,
   .cherry-calendar__week {
     display: grid;
-    grid-template-columns: repeat(7, var(--_cell));
+    grid-template-columns: repeat(7, minmax(0, var(--_cell)));
   }
   .cherry-calendar__weekday {
     display: grid;
@@ -174,7 +177,7 @@
     position: relative;
     display: grid;
     place-items: center;
-    width: var(--_cell);
+    width: 100%;
     height: var(--_cell);
     padding: 0;
     border: 0;
@@ -200,11 +203,11 @@
     transform: scale(0.94);
   }
   .cherry-calendar__day:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-calendar__day[data-outside] {
-    color: var(--cherry-fg-subtle);
+    color: var(--cherry-fg-muted);
   }
   .cherry-calendar__day[data-today] {
     font-weight: 600;
@@ -284,6 +287,23 @@
   @keyframes cherry-calendar-day-pop {
     from {
       transform: scale(0.85);
+    }
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-calendar .cherry-calendar__day[data-selected] {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
+    .cherry-calendar .cherry-calendar__cell[data-range="middle"]::before {
+      forced-color-adjust: none;
+      background: Canvas;
+      box-shadow:
+        inset 0 1px 0 Highlight,
+        inset 0 -1px 0 Highlight;
     }
   }
 }
