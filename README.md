@@ -1,8 +1,31 @@
-# @cherry-design-system/react
+<div align="center">
+  <a href="https://cherry.al/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/cherry-mark-dark.svg" />
+      <img src=".github/assets/cherry-mark-light.svg" alt="cherry" width="120" height="120" />
+    </picture>
+  </a>
 
-cherry 2.0: a themeable React design system in plain CSS. Zero styling runtime, Server Components ready, light and dark built in.
+  <h1>cherry 2.0</h1>
 
-> Status: alpha, private. The design source of truth is the cherry 2.0 Figma kit.
+  <p>
+    A themeable React design system in plain CSS.<br />
+    Zero styling runtime, Server Components ready, light and dark built in.
+  </p>
+
+  <p>
+    <code>pnpm add @cherry-design-system/react lucide-react</code>
+  </p>
+
+  <p>
+    <a href="https://cherry.al/">Docs</a> ·
+    <a href="#use">Use</a> ·
+    <a href="#how-it-works">How it works</a> ·
+    <a href="#develop">Develop</a>
+  </p>
+
+  <p><sub>Status: alpha, private. The design source of truth is the cherry 2.0 Figma kit.</sub></p>
+</div>
 
 ## Install
 
