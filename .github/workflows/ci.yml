@@ -23,3 +23,9 @@ jobs:
       - run: pnpm test
       - run: pnpm contract
       - run: pnpm build
+      - name: Install the Playwright browser
+        run: pnpm exec playwright install --with-deps --only-shell chromium
+      # axe (light/dark, 1280/320, every popup open), focus visibility,
+      # focus traps, forced colors, reflow: see e2e/a11y.e2e.ts.
+      - name: Accessibility checks
+        run: pnpm test:a11y

@@ -78,6 +78,9 @@ pnpm install
 pnpm dev        # playground
 pnpm check      # generate, typecheck, test, contract
 pnpm build
+pnpm test:a11y  # accessibility checks in Chromium (first run: pnpm exec playwright install chromium)
 ```
 
 Tokens are DTCG JSON in `tokens/`; `pnpm generate` writes `src/styles/tokens.css` and the TypeScript types. Each component has a `manifest.json` (its classes and data attributes); the contract check fails CI when the CSS and the manifest disagree.
+
+`pnpm test:a11y` runs the playground through axe (WCAG 2.2 AA, light and dark, desktop and 320px, every popup open) and checks what axe cannot: visible focus on every kind of tab stop, focus traps and focus return, outlines in forced colors (Windows High Contrast), placeholder contrast and reflow. It runs in CI after the build.

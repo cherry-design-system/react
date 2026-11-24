@@ -48,6 +48,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "contract": "node scripts/check-contract.mjs",
+    "playground:build": "vite build --config playground/vite.config.ts",
+    "test:a11y": "playwright test",
     "check": "pnpm generate && pnpm typecheck && pnpm test && pnpm contract",
     "format": "prettier --write ."
   },
@@ -57,11 +59,14 @@
     "react-dom": ">=18.2.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@fontsource-variable/geist": "^5.3.0",
     "@fontsource-variable/geist-mono": "^5.3.0",
+    "@playwright/test": "^1.65.1",
     "@testing-library/jest-dom": "8.0.0",
     "@testing-library/react": "16.3.3",
     "@testing-library/user-event": "14.6.13",
+    "@types/node": "^24.19.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.3.0",
