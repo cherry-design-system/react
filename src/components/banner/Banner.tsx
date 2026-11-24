@@ -4,12 +4,14 @@ import {
   useEffect,
   useRef,
   useState,
+  type CSSProperties,
   type HTMLAttributes,
   type ReactNode,
   type TransitionEvent,
 } from "react";
 import { X } from "lucide-react";
 import { cx } from "../../utils/cx";
+import { mergeRefs } from "../../utils/merge-refs";
 import type { BannerVariant } from "./variants.gen";
 
 export interface BannerProps extends HTMLAttributes<HTMLDivElement> {
@@ -33,7 +35,9 @@ const EXIT_FALLBACK_MS = 600;
 
 /**
  * Full-width announcement bar. It fades in on mount; dismissing fades it and
- * collapses its height to zero, then removes it and calls `onDismiss`.
+ * collapses its height to zero, then removes it and calls `onDismiss`. In a
+ * flex column or block flow the gap after it collapses too; a grid track
+ * cannot shrink below zero, so in a grid the row gap closes at the end.
  */
 export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
   {
@@ -44,6 +48,7 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
     onDismiss,
     dismissLabel = "Dismiss",
     className,
+    style,
     children,
     onTransitionEnd,
     "aria-label": ariaLabel = "Announcement",
@@ -54,6 +59,10 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
   const [state, setState] = useState<"shown" | "leaving" | "gone">("shown");
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const leaving = useRef(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  // The parent's row gap, measured on dismiss: the banner's margin swallows
+  // it while the height collapses, so siblings glide instead of snapping.
+  const [gap, setGap] = useState(0);
 
   // Runs once per dismissal: on the collapse's transitionend, or from the
   // fallback timer when no transition runs (e.g. display: none ancestors).
@@ -71,12 +80,17 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
 
   return (
     <div
-      ref={ref}
+      ref={mergeRefs(ref, rootRef)}
       role="region"
       aria-label={ariaLabel}
       className={cx("cherry-banner", className)}
       data-variant={variant}
       data-dismissed={state === "leaving" || undefined}
+      style={
+        state === "leaving"
+          ? ({ ...style, "--_gap": `${gap}px` } as CSSProperties)
+          : style
+      }
       onTransitionEnd={(event: TransitionEvent<HTMLDivElement>) => {
         onTransitionEnd?.(event);
         if (
@@ -106,6 +120,16 @@ export const Banner = forwardRef<HTMLDivElement, BannerProps>(function Banner(
             aria-label={dismissLabel}
             disabled={state !== "shown"}
             onClick={() => {
+              const parent = rootRef.current?.parentElement;
+              const rowGap = parent
+                ? parseFloat(getComputedStyle(parent).rowGap)
+                : 0;
+              // Only a following sibling sits behind the gap.
+              setGap(
+                rootRef.current?.nextElementSibling && Number.isFinite(rowGap)
+                  ? rowGap
+                  : 0,
+              );
               leaving.current = true;
               setState("leaving");
               timer.current = setTimeout(finish, EXIT_FALLBACK_MS);

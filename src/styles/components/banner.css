@@ -10,10 +10,11 @@
     /* The shared ring is a faint tint of the page's text color: invisible on
        a solid inverse or accent bar, so those use their own text color. */
     --_ring: 0 0 0 2px color-mix(in srgb, var(--_fg) 70%, transparent);
+    --_bw: 1px;
     display: grid;
     grid-template-rows: 1fr;
     width: 100%;
-    border-bottom: 1px solid var(--_border);
+    border-bottom: var(--_bw) solid var(--_border);
     background: var(--_bg);
     color: var(--_fg);
     font-family: var(--cherry-font-sans);
@@ -25,25 +26,27 @@
       opacity var(--cherry-duration-fast) var(--cherry-easing-out),
       grid-template-rows var(--cherry-duration-base)
         var(--cherry-easing-standard),
-      border-bottom-width var(--cherry-duration-base)
-        var(--cherry-easing-standard);
+      margin-bottom var(--cherry-duration-base) var(--cherry-easing-standard);
   }
   @starting-style {
     .cherry-banner {
       opacity: 0;
     }
   }
+  /* Exit: the margin swallows the border (browsers never paint an animating
+     border below 1px) and the container gap after it (--_gap, measured in
+     JS), so the content below glides up and nothing snaps at the end. */
   .cherry-banner[data-dismissed] {
     grid-template-rows: 0fr;
-    border-bottom-width: 0;
+    margin-bottom: calc((var(--_bw) + var(--_gap, 0px)) * -1);
     opacity: 0;
     pointer-events: none;
     transition:
       opacity var(--cherry-duration-fast) var(--cherry-easing-standard),
       grid-template-rows var(--cherry-duration-base)
         var(--cherry-easing-standard) var(--cherry-duration-instant),
-      border-bottom-width var(--cherry-duration-base)
-        var(--cherry-easing-standard) var(--cherry-duration-instant);
+      margin-bottom var(--cherry-duration-base) var(--cherry-easing-standard)
+        var(--cherry-duration-instant);
   }
 
   .cherry-banner__inner {
