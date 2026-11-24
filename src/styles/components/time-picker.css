@@ -166,6 +166,57 @@
   .cherry-time-picker__list {
     min-width: 180px;
   }
+
+  /* Scroll edges fade instead of cropping sharply. Each fade only shows when
+     there is more to scroll that way: a scroll-driven animation grows the
+     top fade as the list leaves the top and drops the bottom one at the
+     end. Without scroll timelines only the bottom fade shows. */
+  @property --_tp-fade-top {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+  }
+  @property --_tp-fade-bottom {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+  }
+  .cherry-time-picker__list,
+  .cherry-time-picker__column {
+    --_tp-fade-bottom: 20px;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      #000 var(--_tp-fade-top),
+      #000 calc(100% - var(--_tp-fade-bottom)),
+      transparent
+    );
+  }
+  @supports (animation-timeline: scroll()) {
+    .cherry-time-picker__list,
+    .cherry-time-picker__column {
+      /* A list that does not overflow has no active timeline: no fades. */
+      --_tp-fade-bottom: 0px;
+      animation: cherry-time-picker-fade linear both;
+      animation-timeline: scroll(self);
+    }
+  }
+  @keyframes cherry-time-picker-fade {
+    from {
+      --_tp-fade-top: 0px;
+      --_tp-fade-bottom: 20px;
+    }
+    8% {
+      --_tp-fade-top: 20px;
+    }
+    92% {
+      --_tp-fade-bottom: 20px;
+    }
+    to {
+      --_tp-fade-top: 20px;
+      --_tp-fade-bottom: 0px;
+    }
+  }
   .cherry-time-picker__columns {
     display: flex;
   }
