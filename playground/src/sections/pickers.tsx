@@ -45,32 +45,32 @@ function CalendarDemo() {
   );
 }
 
+// Every picker sits in a labelled Field of one width, so the rows line up
+// on the label, the control and the message line.
+const DATE_FIELD = { width: 240 };
+const TIME_FIELD = { width: 200 };
+const DATETIME_FIELD = { width: 300 };
+
 function DatePickerDemo() {
   const [date, setDate] = useState<Date | null>(null);
   return (
     <div className="pg-row" style={{ alignItems: "flex-start" }}>
-      <DatePicker
-        aria-label="Start date"
-        value={date}
-        onChange={setDate}
-        locale="en-US"
-        id="pg-date-empty"
-      />
-      <DatePicker
-        aria-label="Due date"
-        defaultValue={new Date(y, m, 27)}
-        locale="en-US"
-        id="pg-date-filled"
-      />
-      <Field label="Deadline" error="Pick a weekday" style={{ width: 260 }}>
+      <Field label="Start date" style={DATE_FIELD}>
+        <DatePicker value={date} onChange={setDate} locale="en-US" fullWidth />
+      </Field>
+      <Field label="Due date" style={DATE_FIELD}>
         <DatePicker
+          defaultValue={new Date(y, m, 27)}
           locale="en-US"
-          isDateDisabled={isWeekend}
           fullWidth
-          size="md"
         />
       </Field>
-      <DatePicker aria-label="Disabled date" disabled locale="en-US" />
+      <Field label="Deadline" error="Pick a weekday" style={DATE_FIELD}>
+        <DatePicker locale="en-US" isDateDisabled={isWeekend} fullWidth />
+      </Field>
+      <Field label="Disabled" style={DATE_FIELD}>
+        <DatePicker disabled locale="en-US" fullWidth />
+      </Field>
     </div>
   );
 }
@@ -78,32 +78,35 @@ function DatePickerDemo() {
 function TimePickerDemo() {
   return (
     <div className="pg-row" style={{ alignItems: "flex-start" }}>
-      <TimePicker
-        aria-label="Start time"
-        defaultValue="09:30"
-        hourCycle={12}
-        locale="en-US"
-        min="08:00"
-        max="18:00"
-        id="pg-time-12"
-      />
-      <TimePicker
-        aria-label="Departure"
-        defaultValue="14:30"
-        hourCycle={24}
-        locale="en-GB"
-        id="pg-time-24"
-      />
-      <TimePicker
-        aria-label="Alarm"
-        layout="columns"
-        step={5}
-        defaultValue="07:45"
-        hourCycle={12}
-        locale="en-US"
-        id="pg-time-columns"
-      />
-      <Field label="Check-in" error="Required" style={{ width: 200 }}>
+      <Field label="Start time" hint="08:00 to 18:00" style={TIME_FIELD}>
+        <TimePicker
+          defaultValue="09:30"
+          hourCycle={12}
+          locale="en-US"
+          min="08:00"
+          max="18:00"
+          fullWidth
+        />
+      </Field>
+      <Field label="Departure" style={TIME_FIELD}>
+        <TimePicker
+          defaultValue="14:30"
+          hourCycle={24}
+          locale="en-GB"
+          fullWidth
+        />
+      </Field>
+      <Field label="Alarm" style={TIME_FIELD}>
+        <TimePicker
+          layout="columns"
+          step={5}
+          defaultValue="07:45"
+          hourCycle={12}
+          locale="en-US"
+          fullWidth
+        />
+      </Field>
+      <Field label="Check-in" error="Required" style={TIME_FIELD}>
         <TimePicker fullWidth />
       </Field>
     </div>
@@ -114,16 +117,21 @@ function DateTimePickerDemo() {
   const [value, setValue] = useState<Date | null>(new Date(y, m, 27, 9, 30));
   return (
     <div className="pg-row" style={{ alignItems: "flex-start" }}>
-      <DateTimePicker
-        aria-label="Meeting"
-        value={value}
-        onChange={setValue}
-        locale="en-US"
-        hourCycle={12}
-        id="pg-datetime"
-      />
-      <Field label="Publish at" hint="Your local time zone">
-        <DateTimePicker locale="en-GB" hourCycle={24} />
+      <Field label="Meeting" style={DATETIME_FIELD}>
+        <DateTimePicker
+          value={value}
+          onChange={setValue}
+          locale="en-US"
+          hourCycle={12}
+          fullWidth
+        />
+      </Field>
+      <Field
+        label="Publish at"
+        hint="Your local time zone"
+        style={DATETIME_FIELD}
+      >
+        <DateTimePicker locale="en-GB" hourCycle={24} fullWidth />
       </Field>
     </div>
   );
