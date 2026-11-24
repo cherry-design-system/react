@@ -12,7 +12,12 @@ describe("Kbd", () => {
   });
   it("defaults to md and passes aria-label for icon keys", () => {
     render(<Kbd aria-label="Up arrow">↑</Kbd>);
-    const key = screen.getByLabelText("Up arrow");
+    const key = screen.getByRole("img", { name: "Up arrow" });
+    expect(key.tagName).toBe("KBD");
     expect(key).toHaveAttribute("data-size", "md");
+  });
+  it("keeps text keys role-free", () => {
+    render(<Kbd>esc</Kbd>);
+    expect(screen.getByText("esc")).not.toHaveAttribute("role");
   });
 });

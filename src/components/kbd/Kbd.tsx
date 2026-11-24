@@ -9,10 +9,11 @@ export interface KbdProps extends HTMLAttributes<HTMLElement> {
 
 /**
  * A keyboard key chip (<kbd>): text ("esc", "⌘K") or an icon (<ArrowUp />).
- * Give an icon-only key an aria-label. No client JS.
+ * Give an icon-only key an aria-label; the chip then takes role="img", since
+ * a bare <kbd> may not carry one. No client JS.
  */
 export const Kbd = forwardRef<HTMLElement, KbdProps>(function Kbd(
-  { size = "md", className, ...rest },
+  { size = "md", className, role, ...rest },
   ref,
 ) {
   return (
@@ -20,6 +21,7 @@ export const Kbd = forwardRef<HTMLElement, KbdProps>(function Kbd(
       ref={ref}
       className={cx("cherry-kbd", className)}
       data-size={size}
+      role={role ?? (rest["aria-label"] ? "img" : undefined)}
       {...rest}
     />
   );

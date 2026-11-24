@@ -94,7 +94,7 @@
     color: var(--cherry-fg-default);
   }
   summary.cherry-sidebar__group-label:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-sidebar__group-chevron {
@@ -181,7 +181,7 @@
     color: var(--cherry-fg-default);
   }
   .cherry-sidebar__link:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-sidebar__link:disabled {
@@ -233,16 +233,25 @@
     right: 2px;
     opacity: 0;
   }
-  /* Group titles become a hairline separator in the rail. */
+  /* Group titles become a hairline separator in the rail. The title itself
+     is hidden (so a collapsible group's <summary> leaves the tab order
+     instead of becoming an invisible stop); a pseudo draws the line. */
   .cherry-sidebar[data-collapsed] .cherry-sidebar__group-label {
     height: 1px;
     margin: var(--cherry-space-1) var(--cherry-space-2);
     padding: 0;
     overflow: hidden;
-    background: var(--cherry-border-default);
     color: transparent;
     font-size: 0;
     pointer-events: none;
+    visibility: hidden;
+  }
+  .cherry-sidebar[data-collapsed] .cherry-sidebar__group-label::before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--cherry-border-default);
+    visibility: visible;
   }
   .cherry-sidebar[data-collapsed] .cherry-sidebar__group-chevron {
     display: none;
@@ -258,5 +267,16 @@
     height: auto;
     opacity: 1;
     content-visibility: visible;
+  }
+
+  /* Forced colors (Windows High Contrast) drop author backgrounds, so the
+     state this component paints with them is redrawn in system colors. */
+  @media (forced-colors: active) {
+    .cherry-sidebar
+      .cherry-sidebar__link:is([aria-current="page"], [aria-current="true"]) {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
   }
 }

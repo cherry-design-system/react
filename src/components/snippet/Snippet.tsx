@@ -52,7 +52,22 @@ export const Snippet = forwardRef<HTMLDivElement, SnippetProps>(
     ref,
   ) {
     const [copied, setCopied] = useState(false);
+    const [overflows, setOverflows] = useState(false);
     const codeRef = useRef<HTMLElement>(null);
+
+    // A command wider than the pill scrolls sideways; only then is it a tab
+    // stop, so keyboard users can reach the hidden part.
+    useEffect(() => {
+      const node = codeRef.current;
+      if (!node) return;
+      const measure = () =>
+        setOverflows(node.scrollWidth > node.clientWidth + 1);
+      measure();
+      if (typeof ResizeObserver === "undefined") return;
+      const observer = new ResizeObserver(measure);
+      observer.observe(node);
+      return () => observer.disconnect();
+    }, [children]);
 
     useEffect(() => {
       if (!copied) return;
@@ -93,7 +108,11 @@ export const Snippet = forwardRef<HTMLDivElement, SnippetProps>(
             {prompt}
           </span>
         ) : null}
-        <code ref={codeRef} className="cherry-snippet__code">
+        <code
+          ref={codeRef}
+          className="cherry-snippet__code"
+          tabIndex={overflows ? 0 : undefined}
+        >
           {children}
         </code>
         <IconButton

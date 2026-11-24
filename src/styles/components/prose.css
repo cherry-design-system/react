@@ -119,7 +119,7 @@
       100% 1px;
   }
   .cherry-prose a:not([class]):focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow:
       0 0 0 2px var(--cherry-bg-canvas),
       0 0 0 4px var(--cherry-border-focus);
@@ -191,8 +191,14 @@
     font-size: 0.875em;
     overflow-wrap: anywhere;
   }
+  /* Raw markdown code wraps (indentation kept) rather than scrolling:
+     Prose has no JS to make an overflowing <pre> keyboard-scrollable, and
+     wrapping also reflows at 320px. CodeBlock is the scrollable, focusable
+     option for wide code. */
   .cherry-prose pre:not([class]) {
     overflow-x: auto;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
     padding: var(--cherry-space-3) var(--cherry-space-4);
     border: 1px solid var(--cherry-border-default);
     border-radius: var(--cherry-radius-lg);

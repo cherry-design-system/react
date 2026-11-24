@@ -19,7 +19,11 @@
     display: inline-flex;
     min-width: 0;
   }
+  /* 24px tall: a wrapped trail keeps every link a 24px target (WCAG 2.5.8). */
   .cherry-breadcrumb__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
     border-radius: var(--cherry-radius-xs);
     color: var(--cherry-fg-muted);
     text-decoration: none;
@@ -31,7 +35,7 @@
     color: var(--cherry-fg-default);
   }
   a.cherry-breadcrumb__link:focus-visible {
-    outline: none;
+    outline: 2px solid transparent;
     box-shadow: var(--cherry-ring);
   }
   .cherry-breadcrumb__current {
