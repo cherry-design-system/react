@@ -1,0 +1,3 @@
+# Supply-chain guard: only install releases that are at least a day old.
+# Matches pnpm's CI default, so local installs resolve what CI accepts.
+minimumReleaseAge: 1440
