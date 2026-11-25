@@ -144,7 +144,7 @@ function Showcase() {
       <Section title="Buttons">
         <Buttons />
       </Section>
-      <Section title="Badges and spinners">
+      <Section title="Badges and spinners" id="badges">
         <div className="pg-row">
           <Badge>Neutral</Badge>
           <Badge variant="primary">Primary</Badge>
