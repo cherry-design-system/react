@@ -334,6 +334,39 @@ function TableDemo({ striped }: { striped?: boolean }) {
   );
 }
 
+// Shared by the Typography demo and the stand-alone /preview/links: links,
+// inline code and separators, without the CodeBlock.
+const linksDemo = (
+  <>
+    <Flex gap={6} align="center">
+      <Link href="#docs">Read the docs</Link>
+      <Link href="#docs" variant="muted">
+        Read the docs
+      </Link>
+      <Link href="https://example.com" external>
+        Example site
+      </Link>
+    </Flex>
+    <p style={{ margin: 0, color: "var(--cherry-fg-muted)" }}>
+      Call <InlineCode>useColorMode()</InlineCode> to read the active mode.
+    </p>
+    <Separator />
+    <Flex
+      gap={3}
+      align="center"
+      wrap="nowrap"
+      style={{ color: "var(--cherry-fg-muted)", fontSize: 14 }}
+    >
+      <span>Docs</span>
+      <Separator orientation="vertical" style={{ height: 16 }} />
+      <span>Components</span>
+      <Separator orientation="vertical" style={{ height: 16 }} />
+      <span>Tokens</span>
+    </Flex>
+    <Separator label="or" />
+  </>
+);
+
 // Shared by the Typography demo and the stand-alone /preview/codeblock.
 const codeBlockDemo = (
   <CodeBlock
@@ -367,32 +400,7 @@ function Typography() {
         <pre>pnpm add @cherry-design-system/react</pre>
       </Prose>
       <Stack gap={5}>
-        <Flex gap={6} align="center">
-          <Link href="#docs">Read the docs</Link>
-          <Link href="#docs" variant="muted">
-            Read the docs
-          </Link>
-          <Link href="https://example.com" external>
-            Example site
-          </Link>
-        </Flex>
-        <p style={{ margin: 0, color: "var(--cherry-fg-muted)" }}>
-          Call <InlineCode>useColorMode()</InlineCode> to read the active mode.
-        </p>
-        <Separator />
-        <Flex
-          gap={3}
-          align="center"
-          wrap="nowrap"
-          style={{ color: "var(--cherry-fg-muted)", fontSize: 14 }}
-        >
-          <span>Docs</span>
-          <Separator orientation="vertical" style={{ height: 16 }} />
-          <span>Components</span>
-          <Separator orientation="vertical" style={{ height: 16 }} />
-          <span>Tokens</span>
-        </Flex>
-        <Separator label="or" />
+        {linksDemo}
         {codeBlockDemo}
       </Stack>
     </Grid>
@@ -624,6 +632,11 @@ export function MediaSections() {
       </Section>
       <Section title="CodeBlock" id="codeblock" previewOnly>
         {codeBlockDemo}
+      </Section>
+      <Section title="Link, InlineCode, Separator" id="links" previewOnly>
+        <Stack gap={5} style={{ textAlign: "center" }}>
+          {linksDemo}
+        </Stack>
       </Section>
       <Section title="Chat panel (inline)" id="chat-inline">
         <ChatDemo />
