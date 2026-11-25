@@ -5,6 +5,24 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-11-25
+
+### Added
+
+- `NavPill` `position`: `"static"` (default), `"sticky"` or `"fixed"`. A fixed pill floats over the page on a translucent, blurred surface and slides in from its edge
+- `NavPill` `placement`: `"top"`, `"bottom"`, `"top-start"`, `"top-end"`, `"bottom-start"` or `"bottom-end"` for a sticky or fixed pill (sticky uses only the top or bottom). `start` and `end` follow the writing direction, the distance to the edge is `--cherry-nav-pill-offset` (16px), and the safe-area insets keep it clear of notches and home bars
+- `NavPill` `trackRoute`: marks the link for the current URL path as the current page (`aria-current="page"`, the deepest match wins, so `/docs/button` beats `/docs`) and follows client-side route changes in Next.js and other routers. A link's own `active` prop always wins
+- `NavPill` `trackSections`: highlights in-page links (`#section`, or `/path#section` on that path) as their section scrolls into view, with `aria-current="location"`. While a section is active it takes the highlight; the current-page link keeps its meaning
+- `NavItem` `asChild`: renders your router's link (Next.js `<Link>`, React Router, TanStack) as the item, so clicks navigate client-side instead of reloading the page. The link keeps the item's class, state, icon and tracking
+- `useActiveSection(ids)` and `getActiveSection(ids)`: the same section tracking for a table of contents or a docs sidebar
+- A sticky or fixed pill offsets anchor jumps so headings never land under it, and a fixed bottom pill reserves room under the page's last content
+
+### Changed
+
+- The README shows npm and license badges, a light and dark component showcase, and release and security sections
+- The agent skill documents navigation with a router: `asChild` with Next.js `<Link>`, `active` from `usePathname()` versus `trackRoute`, section tracking and positions (`references/setup.md`), plus a rule that router links go through `asChild`
+- `ChatInput`'s `footnote` examples no longer suggest an "AI can make mistakes" line; the prop itself is unchanged
+
 ## [2.0.0] - 2026-11-25
 
 The first release of `@cherry-design-system/react`, cherry's second generation and the successor to `cherry-styled-components`. Components ship static CSS in `@layer cherry` and are styled through `--cherry-*` tokens: no CSS-in-JS, no theme provider, Server Components ready.
