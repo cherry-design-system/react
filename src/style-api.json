@@ -884,8 +884,10 @@
     "parts": [
       "cherry-password__toggle",
       "cherry-password__icon",
-      "cherry-password__icon-show",
-      "cherry-password__icon-hide"
+      "cherry-password__eye",
+      "cherry-password__lid",
+      "cherry-password__pupil",
+      "cherry-password__lashes"
     ]
   },
   "popover": {

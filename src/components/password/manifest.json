@@ -8,8 +8,10 @@
   "parts": [
     "cherry-password__toggle",
     "cherry-password__icon",
-    "cherry-password__icon-show",
-    "cherry-password__icon-hide"
+    "cherry-password__eye",
+    "cherry-password__lid",
+    "cherry-password__pupil",
+    "cherry-password__lashes"
   ],
   "category": "Forms",
   "accessibility": "The reveal button is labelled (`toggleLabel`) and exposes aria-pressed. Label the field like Input.",
