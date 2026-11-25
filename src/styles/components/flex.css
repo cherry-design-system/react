@@ -7,7 +7,8 @@
      "at" chain so a value set at md holds through every larger breakpoint.
      Media queries cannot read custom properties, so the breakpoint widths
      are hardcoded below and mirror --cherry-breakpoint-sm ... -xxxl
-     (576 / 768 / 992 / 1200 / 1440 / 1920). */
+     (576 / 768 / 992 / 1200 / 1440 / 1920). rowGap and columnGap fall back
+     to gap, so either one overrides only its own axis. */
   .cherry-flex {
     --_direction-xs: initial;
     --_direction-sm: initial;
@@ -30,6 +31,13 @@
     --_align-xl: initial;
     --_align-xxl: initial;
     --_align-xxxl: initial;
+    --_align-content-xs: initial;
+    --_align-content-sm: initial;
+    --_align-content-md: initial;
+    --_align-content-lg: initial;
+    --_align-content-xl: initial;
+    --_align-content-xxl: initial;
+    --_align-content-xxxl: initial;
     --_wrap-xs: initial;
     --_wrap-sm: initial;
     --_wrap-md: initial;
@@ -44,6 +52,20 @@
     --_gap-xl: initial;
     --_gap-xxl: initial;
     --_gap-xxxl: initial;
+    --_row-gap-xs: initial;
+    --_row-gap-sm: initial;
+    --_row-gap-md: initial;
+    --_row-gap-lg: initial;
+    --_row-gap-xl: initial;
+    --_row-gap-xxl: initial;
+    --_row-gap-xxxl: initial;
+    --_column-gap-xs: initial;
+    --_column-gap-sm: initial;
+    --_column-gap-md: initial;
+    --_column-gap-lg: initial;
+    --_column-gap-xl: initial;
+    --_column-gap-xxl: initial;
+    --_column-gap-xxxl: initial;
     --_direction-at-xs: var(--_direction-xs);
     --_direction-at-sm: var(--_direction-sm, var(--_direction-at-xs));
     --_direction-at-md: var(--_direction-md, var(--_direction-at-sm));
@@ -65,6 +87,31 @@
     --_align-at-xl: var(--_align-xl, var(--_align-at-lg));
     --_align-at-xxl: var(--_align-xxl, var(--_align-at-xl));
     --_align-at-xxxl: var(--_align-xxxl, var(--_align-at-xxl));
+    --_align-content-at-xs: var(--_align-content-xs);
+    --_align-content-at-sm: var(
+      --_align-content-sm,
+      var(--_align-content-at-xs)
+    );
+    --_align-content-at-md: var(
+      --_align-content-md,
+      var(--_align-content-at-sm)
+    );
+    --_align-content-at-lg: var(
+      --_align-content-lg,
+      var(--_align-content-at-md)
+    );
+    --_align-content-at-xl: var(
+      --_align-content-xl,
+      var(--_align-content-at-lg)
+    );
+    --_align-content-at-xxl: var(
+      --_align-content-xxl,
+      var(--_align-content-at-xl)
+    );
+    --_align-content-at-xxxl: var(
+      --_align-content-xxxl,
+      var(--_align-content-at-xxl)
+    );
     --_wrap-at-xs: var(--_wrap-xs);
     --_wrap-at-sm: var(--_wrap-sm, var(--_wrap-at-xs));
     --_wrap-at-md: var(--_wrap-md, var(--_wrap-at-sm));
@@ -79,19 +126,51 @@
     --_gap-at-xl: var(--_gap-xl, var(--_gap-at-lg));
     --_gap-at-xxl: var(--_gap-xxl, var(--_gap-at-xl));
     --_gap-at-xxxl: var(--_gap-xxxl, var(--_gap-at-xxl));
+    --_row-gap-at-xs: var(--_row-gap-xs);
+    --_row-gap-at-sm: var(--_row-gap-sm, var(--_row-gap-at-xs));
+    --_row-gap-at-md: var(--_row-gap-md, var(--_row-gap-at-sm));
+    --_row-gap-at-lg: var(--_row-gap-lg, var(--_row-gap-at-md));
+    --_row-gap-at-xl: var(--_row-gap-xl, var(--_row-gap-at-lg));
+    --_row-gap-at-xxl: var(--_row-gap-xxl, var(--_row-gap-at-xl));
+    --_row-gap-at-xxxl: var(--_row-gap-xxxl, var(--_row-gap-at-xxl));
+    --_column-gap-at-xs: var(--_column-gap-xs);
+    --_column-gap-at-sm: var(--_column-gap-sm, var(--_column-gap-at-xs));
+    --_column-gap-at-md: var(--_column-gap-md, var(--_column-gap-at-sm));
+    --_column-gap-at-lg: var(--_column-gap-lg, var(--_column-gap-at-md));
+    --_column-gap-at-xl: var(--_column-gap-xl, var(--_column-gap-at-lg));
+    --_column-gap-at-xxl: var(--_column-gap-xxl, var(--_column-gap-at-xl));
+    --_column-gap-at-xxxl: var(--_column-gap-xxxl, var(--_column-gap-at-xxl));
     flex-direction: var(--_direction-at-xs, row);
     justify-content: var(--_justify-at-xs, flex-start);
     align-items: var(--_align-at-xs, stretch);
+    align-content: var(--_align-content-at-xs, normal);
     flex-wrap: var(--_wrap-at-xs, wrap);
     gap: var(--_gap-at-xs, var(--cherry-gutter-mobile));
+    row-gap: var(
+      --_row-gap-at-xs,
+      var(--_gap-at-xs, var(--cherry-gutter-mobile))
+    );
+    column-gap: var(
+      --_column-gap-at-xs,
+      var(--_gap-at-xs, var(--cherry-gutter-mobile))
+    );
   }
   @media (min-width: 576px) {
     .cherry-flex {
       flex-direction: var(--_direction-at-sm, row);
       justify-content: var(--_justify-at-sm, flex-start);
       align-items: var(--_align-at-sm, stretch);
+      align-content: var(--_align-content-at-sm, normal);
       flex-wrap: var(--_wrap-at-sm, wrap);
       gap: var(--_gap-at-sm, var(--cherry-gutter-mobile));
+      row-gap: var(
+        --_row-gap-at-sm,
+        var(--_gap-at-sm, var(--cherry-gutter-mobile))
+      );
+      column-gap: var(
+        --_column-gap-at-sm,
+        var(--_gap-at-sm, var(--cherry-gutter-mobile))
+      );
     }
   }
   @media (min-width: 768px) {
@@ -99,8 +178,17 @@
       flex-direction: var(--_direction-at-md, row);
       justify-content: var(--_justify-at-md, flex-start);
       align-items: var(--_align-at-md, stretch);
+      align-content: var(--_align-content-at-md, normal);
       flex-wrap: var(--_wrap-at-md, wrap);
       gap: var(--_gap-at-md, var(--cherry-gutter-mobile));
+      row-gap: var(
+        --_row-gap-at-md,
+        var(--_gap-at-md, var(--cherry-gutter-mobile))
+      );
+      column-gap: var(
+        --_column-gap-at-md,
+        var(--_gap-at-md, var(--cherry-gutter-mobile))
+      );
     }
   }
   @media (min-width: 992px) {
@@ -108,8 +196,17 @@
       flex-direction: var(--_direction-at-lg, row);
       justify-content: var(--_justify-at-lg, flex-start);
       align-items: var(--_align-at-lg, stretch);
+      align-content: var(--_align-content-at-lg, normal);
       flex-wrap: var(--_wrap-at-lg, wrap);
       gap: var(--_gap-at-lg, var(--cherry-gutter-desktop));
+      row-gap: var(
+        --_row-gap-at-lg,
+        var(--_gap-at-lg, var(--cherry-gutter-desktop))
+      );
+      column-gap: var(
+        --_column-gap-at-lg,
+        var(--_gap-at-lg, var(--cherry-gutter-desktop))
+      );
     }
   }
   @media (min-width: 1200px) {
@@ -117,8 +214,17 @@
       flex-direction: var(--_direction-at-xl, row);
       justify-content: var(--_justify-at-xl, flex-start);
       align-items: var(--_align-at-xl, stretch);
+      align-content: var(--_align-content-at-xl, normal);
       flex-wrap: var(--_wrap-at-xl, wrap);
       gap: var(--_gap-at-xl, var(--cherry-gutter-desktop));
+      row-gap: var(
+        --_row-gap-at-xl,
+        var(--_gap-at-xl, var(--cherry-gutter-desktop))
+      );
+      column-gap: var(
+        --_column-gap-at-xl,
+        var(--_gap-at-xl, var(--cherry-gutter-desktop))
+      );
     }
   }
   @media (min-width: 1440px) {
@@ -126,8 +232,17 @@
       flex-direction: var(--_direction-at-xxl, row);
       justify-content: var(--_justify-at-xxl, flex-start);
       align-items: var(--_align-at-xxl, stretch);
+      align-content: var(--_align-content-at-xxl, normal);
       flex-wrap: var(--_wrap-at-xxl, wrap);
       gap: var(--_gap-at-xxl, var(--cherry-gutter-desktop));
+      row-gap: var(
+        --_row-gap-at-xxl,
+        var(--_gap-at-xxl, var(--cherry-gutter-desktop))
+      );
+      column-gap: var(
+        --_column-gap-at-xxl,
+        var(--_gap-at-xxl, var(--cherry-gutter-desktop))
+      );
     }
   }
   @media (min-width: 1920px) {
@@ -135,8 +250,17 @@
       flex-direction: var(--_direction-at-xxxl, row);
       justify-content: var(--_justify-at-xxxl, flex-start);
       align-items: var(--_align-at-xxxl, stretch);
+      align-content: var(--_align-content-at-xxxl, normal);
       flex-wrap: var(--_wrap-at-xxxl, wrap);
       gap: var(--_gap-at-xxxl, var(--cherry-gutter-desktop));
+      row-gap: var(
+        --_row-gap-at-xxxl,
+        var(--_gap-at-xxxl, var(--cherry-gutter-desktop))
+      );
+      column-gap: var(
+        --_column-gap-at-xxxl,
+        var(--_gap-at-xxxl, var(--cherry-gutter-desktop))
+      );
     }
   }
 

@@ -13,11 +13,30 @@ export type FlexJustify =
   | "flex-start"
   | "center"
   | "flex-end"
+  | "start"
+  | "end"
   | "space-between"
   | "space-around"
   | "space-evenly";
 export type FlexAlign =
-  "stretch" | "flex-start" | "center" | "flex-end" | "baseline";
+  | "stretch"
+  | "flex-start"
+  | "center"
+  | "flex-end"
+  | "start"
+  | "end"
+  | "baseline";
+export type FlexAlignContent =
+  | "normal"
+  | "stretch"
+  | "flex-start"
+  | "center"
+  | "flex-end"
+  | "start"
+  | "end"
+  | "space-between"
+  | "space-around"
+  | "space-evenly";
 export type FlexWrap = "wrap" | "nowrap" | "wrap-reverse";
 
 export interface FlexProps extends HTMLAttributes<HTMLDivElement> {
@@ -25,12 +44,21 @@ export interface FlexProps extends HTMLAttributes<HTMLDivElement> {
   direction?: Responsive<FlexDirection>;
   /** Defaults to "flex-start". */
   justify?: Responsive<FlexJustify>;
-  /** Defaults to "stretch". */
+  /** Cross-axis alignment of the items (align-items). Defaults to "stretch". */
   align?: Responsive<FlexAlign>;
+  /**
+   * How wrapped lines share the cross axis (align-content). Only has an
+   * effect when the items wrap onto more than one line. Defaults to "normal".
+   */
+  alignContent?: Responsive<FlexAlignContent>;
   /** Defaults to "wrap" (as in cherry 1.x). */
   wrap?: Responsive<FlexWrap>;
   /** Gap as a spacing step. Defaults to the gutter (20px, 40px from lg). */
   gap?: Responsive<SpaceStep>;
+  /** Gap between lines only (row-gap). Defaults to `gap`. */
+  rowGap?: Responsive<SpaceStep>;
+  /** Gap between items on a line only (column-gap). Defaults to `gap`. */
+  columnGap?: Responsive<SpaceStep>;
   /** display: inline-flex. */
   inline?: boolean;
   /** Stretch to the container width. */
@@ -43,8 +71,11 @@ export const Flex = forwardRef<HTMLDivElement, FlexProps>(function Flex(
     direction,
     justify,
     align,
+    alignContent,
     wrap,
     gap,
+    rowGap,
+    columnGap,
     inline,
     fullWidth,
     className,
@@ -58,7 +89,10 @@ export const Flex = forwardRef<HTMLDivElement, FlexProps>(function Flex(
     ...responsiveVars("justify", justify),
     ...responsiveVars("align", align),
     ...responsiveVars("wrap", wrap),
+    ...responsiveVars("align-content", alignContent),
     ...responsiveVars("gap", gap, space),
+    ...responsiveVars("row-gap", rowGap, space),
+    ...responsiveVars("column-gap", columnGap, space),
   };
   return (
     <div

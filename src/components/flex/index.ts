@@ -6,5 +6,6 @@ export {
   type FlexDirection,
   type FlexJustify,
   type FlexAlign,
+  type FlexAlignContent,
   type FlexWrap,
 } from "./Flex";

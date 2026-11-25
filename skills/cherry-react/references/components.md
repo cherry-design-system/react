@@ -1725,9 +1725,12 @@ _Server Component safe: no client JavaScript._
 | --- | --- | --- | --- |
 | `direction` | `Responsive<FlexDirection>` | "row" |  |
 | `justify` | `Responsive<FlexJustify>` | "flex-start" |  |
-| `align` | `Responsive<FlexAlign>` | "stretch" |  |
+| `align` | `Responsive<FlexAlign>` | "stretch" | Cross-axis alignment of the items (align-items). |
+| `alignContent` | `Responsive<FlexAlignContent>` | "normal" | How wrapped lines share the cross axis (align-content). Only has an effect when the items wrap onto more than one line. |
 | `wrap` | `Responsive<FlexWrap>` | "wrap" (as in cherry 1 | x). |
 | `gap` | `Responsive<SpaceStep>` | the gutter (20px, 40px from lg) | Gap as a spacing step. |
+| `rowGap` | `Responsive<SpaceStep>` | `gap` | Gap between lines only (row-gap). |
+| `columnGap` | `Responsive<SpaceStep>` | `gap` | Gap between items on a line only (column-gap). |
 | `inline` | `boolean` |  | display: inline-flex. |
 | `fullWidth` | `boolean` |  | Stretch to the container width. |
 
@@ -1739,9 +1742,12 @@ Plus all `<div>` attributes.
 | --- | --- | --- | --- |
 | `direction` | `Responsive<FlexDirection>` | "row" |  |
 | `justify` | `Responsive<FlexJustify>` | "flex-start" |  |
-| `align` | `Responsive<FlexAlign>` | "stretch" |  |
+| `align` | `Responsive<FlexAlign>` | "stretch" | Cross-axis alignment of the items (align-items). |
+| `alignContent` | `Responsive<FlexAlignContent>` | "normal" | How wrapped lines share the cross axis (align-content). Only has an effect when the items wrap onto more than one line. |
 | `wrap` | `Responsive<FlexWrap>` | "wrap" (as in cherry 1 | x). |
 | `gap` | `Responsive<SpaceStep>` | the gutter (20px, 40px from lg) | Gap as a spacing step. |
+| `rowGap` | `Responsive<SpaceStep>` | `gap` | Gap between lines only (row-gap). |
+| `columnGap` | `Responsive<SpaceStep>` | `gap` | Gap between items on a line only (column-gap). |
 | `inline` | `boolean` |  | display: inline-flex. |
 | `fullWidth` | `boolean` |  | Stretch to the container width. |
 

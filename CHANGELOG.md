@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `Flex` and `Stack` `alignContent` (`align-content`): how wrapped lines share the cross axis, with `normal` (default), `stretch`, `flex-start`, `center`, `flex-end`, `start`, `end`, `space-between`, `space-around` and `space-evenly`. Responsive like every other layout prop
+- `Flex` and `Stack` `rowGap` and `columnGap`: a spacing step for one axis only, falling back to `gap`, so `gap={4} rowGap={1}` tightens just the space between lines
+- `start` and `end` for `Flex` `justify` and `align`, which follow the writing direction (unlike `flex-start` and `flex-end`, which follow the flex direction). The new `FlexAlignContent` type is exported
+
 ### Changed
 
 - `SearchDialog` results scroll from right under the search header, so rows slide up to its edge instead of being cut on a line mid-dialog, and the bottom of the list fades out while there are more results below (no fade when the list fits or is scrolled to the end)

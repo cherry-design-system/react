@@ -22,6 +22,31 @@ describe("Flex + Stack", () => {
       "var(--cherry-space-8)",
     );
   });
+  it("maps alignContent, rowGap and columnGap", () => {
+    const { container } = render(
+      <Flex
+        align="end"
+        alignContent={{ xs: "flex-start", md: "space-between" }}
+        rowGap={2}
+        columnGap={{ lg: 6 }}
+      />,
+    );
+    const flex = container.firstElementChild as HTMLElement;
+    expect(flex.style.getPropertyValue("--_align-xs")).toBe("end");
+    expect(flex.style.getPropertyValue("--_align-content-xs")).toBe(
+      "flex-start",
+    );
+    expect(flex.style.getPropertyValue("--_align-content-md")).toBe(
+      "space-between",
+    );
+    expect(flex.style.getPropertyValue("--_row-gap-xs")).toBe(
+      "var(--cherry-space-2)",
+    );
+    expect(flex.style.getPropertyValue("--_column-gap-lg")).toBe(
+      "var(--cherry-space-6)",
+    );
+    expect(flex.style.getPropertyValue("--_gap-xs")).toBe("");
+  });
   it("Stack is a non-wrapping column with a 16px gap", () => {
     const { container } = render(<Stack />);
     const stack = container.firstElementChild as HTMLElement;
