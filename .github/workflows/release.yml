@@ -10,9 +10,9 @@ on:
       tag:
         description: npm dist-tag
         required: true
-        default: next
+        default: latest
         type: choice
-        options: [next, latest]
+        options: [latest, next]
 permissions:
   contents: read
   id-token: write

@@ -1,6 +1,6 @@
 {
   "name": "@cherry-design-system/react",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0",
   "description": "A themeable React design system in plain CSS. Accessible by default, zero runtime, Server Components ready.",
   "type": "module",
   "license": "MIT",
