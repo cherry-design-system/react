@@ -102,5 +102,5 @@ The visitor's choice lives in `localStorage` (`themePreference`: light, dark or 
 | `@cherry-design-system/react/tokens.css`     | only the tokens                                                            |
 | `@cherry-design-system/react/css/<name>.css` | one component's CSS                                                        |
 | `@cherry-design-system/react/theme-init`     | `themeInitScript`, `createThemeInitScript`, `modeFromCookie` (server safe) |
-| `@cherry-design-system/react/tokens`         | token values in TypeScript                                                 |
+| `@cherry-design-system/react/tokens`         | token names as typed lists (`colorTokens`, `spaceTokens`, `textStyles`…)   |
 | `@cherry-design-system/react/style-api.json` | every class, data attribute and allowed value                              |
