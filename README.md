@@ -73,6 +73,16 @@ import { Button, ThemeToggle } from "@cherry-design-system/react";
 - **Brands.** `createBrand("acme", { accent: "#5b5bd6" })` returns validated CSS for a `[data-cherry-brand="acme"]` scope.
 - **Motion.** Durations and easings are tokens (`--cherry-duration-*`, `--cherry-easing-*`), and every animation honours `prefers-reduced-motion`.
 
+## AI agent skill
+
+`skills/cherry-react` teaches Claude and other coding agents to build with cherry correctly: which component to use, exact props and values, tokens instead of hardcoded styles, and what accessibility needs from the app. Its component and token references are generated from the source, so they match each release.
+
+```bash
+npx -y skills add cherry-design-system/react
+```
+
+See [`skills/cherry-react/README.md`](./skills/cherry-react/README.md) for manual installs and other agents.
+
 ## Develop
 
 ```bash
