@@ -16,6 +16,11 @@
   </p>
 
   <p>
+    <a href="https://www.npmjs.com/package/@cherry-design-system/react"><img src="https://img.shields.io/npm/v/@cherry-design-system/react.svg?style=flat" alt="npm version" /></a>
+    <a href="https://github.com/cherry-design-system/react/blob/main/LICENSE"><img src="https://img.shields.io/npm/l/@cherry-design-system/react.svg?style=flat" alt="license" /></a>
+  </p>
+
+  <p>
     <code>pnpm add @cherry-design-system/react lucide-react</code>
   </p>
 
@@ -23,10 +28,9 @@
     <a href="https://cherry.al/">Docs</a> ·
     <a href="#use">Use</a> ·
     <a href="#how-it-works">How it works</a> ·
-    <a href="#develop">Develop</a>
+    <a href="#develop">Develop</a> ·
+    <a href="./CHANGELOG.md">Changelog</a>
   </p>
-
-  <p><sub>Status: alpha, private. The design source of truth is the cherry 2.0 Figma kit.</sub></p>
 </div>
 
 ## Install
@@ -96,3 +100,13 @@ pnpm test:a11y  # accessibility checks in Chromium (first run: pnpm exec playwri
 Tokens are DTCG JSON in `tokens/`; `pnpm generate` writes `src/styles/tokens.css` and the TypeScript types. Each component has a `manifest.json` (its classes and data attributes); the contract check fails CI when the CSS and the manifest disagree.
 
 `pnpm test:a11y` runs the playground through axe (WCAG 2.2 AA, light and dark, desktop and 320px, every popup open) and checks what axe cannot: visible focus on every kind of tab stop, focus traps and focus return, outlines in forced colors (Windows High Contrast), placeholder contrast and reflow. It runs in CI after the build.
+
+See [`CONTRIBUTING.md`](./CONTRIBUTING.md) before opening a pull request.
+
+## Release
+
+Releases publish from CI. In one change, bump `version` in `package.json` and add its `## [x.y.z] - YYYY-MM-DD` section to [`CHANGELOG.md`](./CHANGELOG.md) (CI fails a version bump without one). Once it lands on `main`, the Release workflow runs the checks, waits for approval on the `npm` environment, publishes to npm through trusted publishing with provenance (no token), and creates the `vX.Y.Z` tag and GitHub release with that changelog section as the notes.
+
+## Security
+
+Report vulnerabilities privately through the [Security tab](https://github.com/cherry-design-system/react/security); see [`SECURITY.md`](./SECURITY.md).
