@@ -19,7 +19,8 @@
     "aria-current",
     "aria-disabled",
     ":focus-visible",
-    ":hover"
+    ":hover",
+    "data-full-width"
   ],
   "parts": [
     "cherry-calendar__header",
@@ -37,5 +38,5 @@
   ],
   "category": "Pickers",
   "accessibility": "role=grid with one tab stop. Arrows move by day/week, PageUp/PageDown by month (Shift for a year), Home/End to the week's start/end. Today is aria-current=date and month changes are announced.",
-  "example": "<Calendar locale=\"en-US\" defaultValue={new Date()} onChange={setDate} />"
+  "example": "<Calendar locale=\"en-US\" defaultValue={new Date()} onChange={setDate} fullWidth />"
 }

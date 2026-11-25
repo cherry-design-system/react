@@ -100,6 +100,15 @@
     display: grid;
     grid-template-columns: repeat(7, minmax(0, var(--_cell)));
   }
+  /* fullWidth: the calendar takes its container's width and the day columns
+     share it; the selected day stays a full-width tile in its column. */
+  .cherry-calendar[data-full-width] {
+    width: 100%;
+  }
+  .cherry-calendar[data-full-width]
+    :is(.cherry-calendar__weekdays, .cherry-calendar__week) {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
   .cherry-calendar__weekday {
     display: grid;
     place-items: center;

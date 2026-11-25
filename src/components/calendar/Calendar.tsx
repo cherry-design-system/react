@@ -58,6 +58,8 @@ interface CalendarBaseProps extends Omit<
   today?: Date;
   /** Button labels (translate here). */
   labels?: CalendarLabels;
+  /** Fill the container: the seven day columns share its width. */
+  fullWidth?: boolean;
 }
 
 export interface CalendarSingleProps extends CalendarBaseProps {
@@ -104,6 +106,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
       weekStartsOn: weekStartsOnProp,
       today: todayProp,
       labels,
+      fullWidth,
       className,
       ...rest
     } = props;
@@ -393,6 +396,7 @@ export const Calendar = forwardRef<HTMLDivElement, CalendarProps>(
         ref={ref}
         className={cx("cherry-calendar", className)}
         data-mode={mode}
+        data-full-width={fullWidth || undefined}
         {...rest}
       >
         <div className="cherry-calendar__header">

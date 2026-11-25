@@ -214,7 +214,8 @@
       "aria-current",
       "aria-disabled",
       ":focus-visible",
-      ":hover"
+      ":hover",
+      "data-full-width"
     ],
     "parts": [
       "cherry-calendar__header",

@@ -630,11 +630,12 @@ Month grid (role="grid"). Arrows move by day/week, PageUp/PageDown by month (wit
 | `weekStartsOn` | `Weekday` | the locale's first day | 0 = Sunday ... 6 = Saturday. |
 | `today` | `Date` |  | Override "today" (tests, server rendering in another time zone). |
 | `labels` | `CalendarLabels` |  | Button labels (translate here). |
+| `fullWidth` | `boolean` |  | Fill the container: the seven day columns share its width. |
 
 **Accessibility:** role=grid with one tab stop. Arrows move by day/week, PageUp/PageDown by month (Shift for a year), Home/End to the week's start/end. Today is aria-current=date and month changes are announced.
 
 ```tsx
-<Calendar locale="en-US" defaultValue={new Date()} onChange={setDate} />
+<Calendar locale="en-US" defaultValue={new Date()} onChange={setDate} fullWidth />
 ```
 
 ### DatePicker
