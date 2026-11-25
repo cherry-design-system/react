@@ -12,7 +12,7 @@ body {
 .pg {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 32px 24px 96px;
+  padding: 32px 24px 24px;
 }
 .pg-header {
   display: flex;
@@ -56,4 +56,30 @@ body {
   display: grid;
   gap: 16px;
   max-width: 360px;
+}
+
+/* Footer: the repo link as GitHub's mark, a 40px target with the cherry ring. */
+.pg-footer {
+  display: flex;
+  justify-content: center;
+  padding: 0 24px 48px;
+}
+.pg-footer__github {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--cherry-radius-full);
+  color: var(--cherry-fg-muted);
+  transition:
+    color var(--cherry-duration-fast) var(--cherry-easing-standard),
+    background-color var(--cherry-duration-fast) var(--cherry-easing-standard);
+}
+.pg-footer__github:hover {
+  color: var(--cherry-fg-default);
+  background: var(--cherry-ghost-hover);
+}
+.pg-footer__github:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cherry-ring);
 }

@@ -1,6 +1,7 @@
 import { Bell, Mail, Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { CherryLogo } from "./CherryLogo";
+import { GitHubMark } from "./GitHubMark";
 import {
   Badge,
   Button,
@@ -206,6 +207,15 @@ export function App() {
           <Buttons />
         </div>
       </main>
+      <footer className="pg-footer">
+        <a
+          className="pg-footer__github"
+          href="https://github.com/cherry-design-system/react"
+          aria-label="cherry on GitHub"
+        >
+          <GitHubMark />
+        </a>
+      </footer>
       <Toaster />
     </ToastProvider>
   );
