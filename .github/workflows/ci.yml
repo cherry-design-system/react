@@ -18,7 +18,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm generate
       - name: Generated files are committed
-        run: git diff --exit-code -- src/index.ts src/style-api.json src/styles/tokens.css src/tokens 'src/components/**/variants.gen.ts'
+        run: git diff --exit-code -- src/index.ts src/style-api.json src/styles/tokens.css src/tokens 'src/components/**/variants.gen.ts' skills/cherry-react/references
       - run: pnpm typecheck
       - run: pnpm test
       - run: pnpm contract

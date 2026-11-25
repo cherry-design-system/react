@@ -1,12 +1,17 @@
 {
   "name": "table",
   "class": "cherry-table",
-  "attributes": { "size": ["sm", "md"] },
+  "attributes": {
+    "size": ["sm", "md"]
+  },
   "states": [
     "data-striped",
     "data-hoverable",
     "data-numeric",
     ":focus-visible"
   ],
-  "parts": ["cherry-table__table"]
+  "parts": ["cherry-table__table"],
+  "category": "Data display",
+  "accessibility": "A native table: use <th> headers (scope where needed). `scrollLabel` makes a table that can scroll sideways a named, keyboard-focusable region. Add `data-numeric` to number columns.",
+  "example": "<Table scrollLabel=\"Releases\">\n  <thead><tr><th>Component</th><th data-numeric>Downloads</th></tr></thead>\n  <tbody><tr><td>Button</td><td data-numeric>12,840</td></tr></tbody>\n</Table>"
 }

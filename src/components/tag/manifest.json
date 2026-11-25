@@ -6,5 +6,8 @@
     "size": ["sm", "md"]
   },
   "states": ["data-exiting", ":focus-visible", ":hover", ":disabled"],
-  "parts": ["cherry-tag__label", "cherry-tag__remove"]
+  "parts": ["cherry-tag__label", "cherry-tag__remove"],
+  "category": "Forms",
+  "accessibility": "The remove button is labelled (`removeLabel`, default \"Remove <label>\"). Don't rely on color alone to carry meaning.",
+  "example": "<Tag onRemove={() => removeTag(\"react\")}>React</Tag>"
 }

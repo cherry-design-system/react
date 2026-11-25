@@ -1,11 +1,16 @@
 {
   "name": "menu-item",
   "class": "cherry-menu-item",
-  "attributes": { "variant": ["default", "danger"] },
+  "attributes": {
+    "variant": ["default", "danger"]
+  },
   "states": ["aria-disabled", ":hover", ":focus"],
   "parts": [
     "cherry-menu-item__icon",
     "cherry-menu-item__label",
     "cherry-menu-item__shortcut"
-  ]
+  ],
+  "category": "Overlays",
+  "accessibility": "role=menuitem. Name destructive items clearly (\"Delete project\"): the danger tint is not announced.",
+  "example": "<MenuItem icon={<Trash />} variant=\"danger\">Delete project</MenuItem>"
 }

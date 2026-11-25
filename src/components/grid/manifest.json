@@ -3,5 +3,8 @@
   "class": "cherry-grid",
   "attributes": {},
   "states": [],
-  "parts": ["cherry-col"]
+  "parts": ["cherry-col"],
+  "category": "Layout",
+  "accessibility": "Layout only: no role. Keep the DOM order the reading order.",
+  "example": "<Grid cols={{ xs: 1, md: 2, lg: 4 }} gap={4}>\n  <Col span={{ xs: 1, lg: 2 }}>…</Col>\n</Grid>"
 }

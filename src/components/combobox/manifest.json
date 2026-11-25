@@ -1,7 +1,9 @@
 {
   "name": "combobox",
   "class": "cherry-combobox",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [
     "data-open",
     "data-invalid",
@@ -24,5 +26,8 @@
     "cherry-combobox__empty",
     "cherry-combobox__empty-title",
     "cherry-combobox__empty-hint"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "Combobox + listbox pattern: Up/Down highlight options (aria-activedescendant), Enter selects, Escape closes; the result count is announced (`resultsLabel`).",
+  "example": "<Field label=\"Framework\">\n  <Combobox options={[\"Next.js\", \"Remix\", \"Astro\"]} placeholder=\"Select a framework\" />\n</Field>"
 }

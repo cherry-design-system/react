@@ -1,11 +1,16 @@
 {
   "name": "input",
   "class": "cherry-input",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": ["data-invalid", "data-disabled", ":focus-within", ":hover"],
   "parts": [
     "cherry-input__control",
     "cherry-input__icon",
     "cherry-input__suffix"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "Always label it: wrap in Field or pass aria-label; a placeholder is a hint, not a label. `invalid` (or Field's `error`) sets aria-invalid and the error is read with the field.",
+  "example": "<Field label=\"Email\" hint=\"We never share it.\">\n  <Input type=\"email\" leadingIcon={<Mail />} placeholder=\"you@example.com\" />\n</Field>"
 }

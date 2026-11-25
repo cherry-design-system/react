@@ -1,7 +1,9 @@
 {
   "name": "modal",
   "class": "cherry-modal",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": ["[open]", "::backdrop"],
   "parts": [
     "cherry-modal__header",
@@ -10,5 +12,8 @@
     "cherry-modal__close",
     "cherry-modal__body",
     "cherry-modal__footer"
-  ]
+  ],
+  "category": "Overlays",
+  "accessibility": "Native <dialog> (modal): the page behind is inert, focus moves in and stays in, Escape closes, focus returns to the trigger. `title` names it and `description` describes it.",
+  "example": "<Modal open={isOpen} onClose={() => setIsOpen(false)} title=\"Delete project?\" description=\"This cannot be undone.\">\n  <ModalFooter>\n    <Button variant=\"outline\" onClick={() => setIsOpen(false)}>Cancel</Button>\n    <Button variant=\"accent\" onClick={remove}>Delete</Button>\n  </ModalFooter>\n</Modal>"
 }

@@ -11,5 +11,8 @@
     "cherry-breadcrumb__link",
     "cherry-breadcrumb__current",
     "cherry-breadcrumb__separator"
-  ]
+  ],
+  "category": "Navigation",
+  "accessibility": "A nav landmark (\"Breadcrumb\"); the current page is aria-current=page; separators are hidden; links are 24px targets.",
+  "example": "<Breadcrumb items={[{ label: \"Docs\", href: \"/docs\" }, { label: \"Combobox\" }]} />"
 }

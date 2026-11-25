@@ -15,5 +15,8 @@
     "cherry-stepper__text",
     "cherry-stepper__label",
     "cherry-stepper__description"
-  ]
+  ],
+  "category": "Navigation",
+  "accessibility": "The current step is aria-current=step; completed steps say so in text (`labels`), not only with the check.",
+  "example": "<Stepper steps={[{ label: \"Account\" }, { label: \"Workspace\" }, { label: \"Invite\" }]} current={1} aria-label=\"Setup\" />"
 }

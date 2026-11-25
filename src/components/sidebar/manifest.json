@@ -23,5 +23,8 @@
     "cherry-sidebar__icon",
     "cherry-sidebar__label",
     "cherry-sidebar__badge"
-  ]
+  ],
+  "category": "Navigation",
+  "accessibility": "A nav landmark (`navLabel`); the active item is aria-current. Collapsed, items keep their names for screen readers and group titles leave the tab order.",
+  "example": "<Sidebar collapsed={collapsed} navLabel=\"Main\">\n  <SidebarGroup label=\"Workspace\">\n    <SidebarItem href=\"/\" icon={<House />} active>Home</SidebarItem>\n    <SidebarItem href=\"/team\" icon={<Users />}>Team</SidebarItem>\n  </SidebarGroup>\n</Sidebar>"
 }

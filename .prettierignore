@@ -5,3 +5,5 @@ src/style-api.json
 src/styles/tokens.css
 src/tokens/tokens.gen.ts
 src/components/**/variants.gen.ts
+skills/cherry-react/references/components.md
+skills/cherry-react/references/tokens.md

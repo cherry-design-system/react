@@ -17,5 +17,8 @@
     "cherry-dropzone__text",
     "cherry-dropzone__prompt",
     "cherry-dropzone__hint"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "A native file input: Tab to it, Enter/Space opens the picker. The hint states the limits; rejected files set aria-invalid.",
+  "example": "<Dropzone accept=\"image/*\" maxBytes={10_000_000} hint=\"PNG or JPG, up to 10 MB\" onFilesAdded={upload} />"
 }

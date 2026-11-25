@@ -21,5 +21,8 @@
     "cherry-confirm-button__clip",
     "cherry-confirm-button__panel",
     "cherry-confirm-button__action"
-  ]
+  ],
+  "category": "Actions",
+  "accessibility": "The trigger has aria-expanded. Opening moves focus to Confirm; Cancel, Escape, leaving the control or `resetAfter` closes it and returns focus to the trigger. Give it a specific `aria-label` (\"Delete report.pdf\").",
+  "example": "<ConfirmButton aria-label=\"Delete report.pdf\" onConfirm={() => remove(id)} />"
 }

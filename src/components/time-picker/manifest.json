@@ -28,5 +28,8 @@
     "cherry-time-picker__option",
     "cherry-time-picker__option-label",
     "cherry-time-picker__check"
-  ]
+  ],
+  "category": "Pickers",
+  "accessibility": "A listbox of times: Up/Down, Home/End, Enter selects, Escape closes and returns focus. `layout=\"columns\"`: Left/Right move between hour, minute and AM/PM.",
+  "example": "<Field label=\"Start time\">\n  <TimePicker hourCycle={12} min=\"08:00\" max=\"18:00\" fullWidth />\n</Field>"
 }

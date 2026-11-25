@@ -1,7 +1,9 @@
 {
   "name": "checkbox",
   "class": "cherry-checkbox",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [
     ":checked",
     ":indeterminate",
@@ -19,5 +21,8 @@
     "cherry-checkbox__check",
     "cherry-checkbox__dash",
     "cherry-checkbox__label"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "Native checkbox: Space toggles, the label is clickable, `indeterminate` is announced as mixed.",
+  "example": "<Checkbox label=\"Accept the terms\" required />"
 }

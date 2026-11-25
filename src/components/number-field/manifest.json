@@ -1,7 +1,9 @@
 {
   "name": "number-field",
   "class": "cherry-number-field",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [
     "data-invalid",
     "data-disabled",
@@ -14,5 +16,8 @@
     "cherry-number-field__button",
     "cherry-number-field__decrement",
     "cherry-number-field__increment"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "role=spinbutton: Up/Down step, PageUp/PageDown use `largeStep`, Home/End go to min/max. The steppers are labelled buttons (`decrementLabel`, `incrementLabel`).",
+  "example": "<Field label=\"Guests\">\n  <NumberField min={1} max={8} defaultValue={2} />\n</Field>"
 }

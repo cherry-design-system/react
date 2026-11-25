@@ -10,5 +10,8 @@
     "cherry-popover__title",
     "cherry-popover__body",
     "cherry-popover__actions"
-  ]
+  ],
+  "category": "Overlays",
+  "accessibility": "Native popover (non-modal): Escape and outside clicks close it and focus returns to the trigger. With `title` it is a labelled dialog. Open it with `popoverTarget` on a button, no JS needed.",
+  "example": "<Button variant=\"outline\" popoverTarget=\"share\">Share</Button>\n<Popover id=\"share\" title=\"Share preview\">Anyone with the link can view it.</Popover>"
 }

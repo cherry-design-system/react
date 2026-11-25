@@ -14,5 +14,8 @@
     "cherry-chat-panel__body",
     "cherry-chat-launcher",
     "cherry-chat-launcher__icon"
-  ]
+  ],
+  "category": "Chat",
+  "accessibility": "The drawer is a modal dialog (`title` names it); the transcript (ChatMessageList) is a live log; Escape closes and focus returns to the ChatLauncher.",
+  "example": "<ChatLauncher onClick={() => setIsOpen(true)}>Ask AI</ChatLauncher>\n<ChatPanel variant=\"drawer\" open={isOpen} onOpenChange={setIsOpen} title=\"Assistant\">\n  <ChatMessageList>{messages}</ChatMessageList>\n  <ChatInput onSend={send} />\n</ChatPanel>"
 }

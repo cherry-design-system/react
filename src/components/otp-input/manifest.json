@@ -1,7 +1,9 @@
 {
   "name": "otp-input",
   "class": "cherry-otp-input",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [
     "data-invalid",
     "data-disabled",
@@ -14,5 +16,8 @@
     "cherry-otp-input__char",
     "cherry-otp-input__caret",
     "cherry-otp-input__separator"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "A named group; each slot is labelled \"Character n of length\" (`slotLabel`). Typing advances, Backspace goes back, arrows/Home/End move, paste fills every slot.",
+  "example": "<Field label=\"Verification code\">\n  <OTPInput length={6} separator onComplete={verify} />\n</Field>"
 }

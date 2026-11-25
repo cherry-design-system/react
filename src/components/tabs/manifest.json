@@ -17,5 +17,8 @@
     "cherry-tabs__indicator",
     "cherry-tabs__tab",
     "cherry-tabs__panel"
-  ]
+  ],
+  "category": "Navigation",
+  "accessibility": "tablist / tab / tabpanel: Left/Right move and select, Home/End jump; one tab stop; each panel is labelled by its tab. Name the TabList.",
+  "example": "<Tabs defaultValue=\"overview\">\n  <TabList aria-label=\"Project\">\n    <Tab value=\"overview\">Overview</Tab>\n    <Tab value=\"settings\">Settings</Tab>\n  </TabList>\n  <TabPanel value=\"overview\">…</TabPanel>\n  <TabPanel value=\"settings\">…</TabPanel>\n</Tabs>"
 }

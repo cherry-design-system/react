@@ -20,5 +20,8 @@
     "cherry-radio__input",
     "cherry-radio__dot",
     "cherry-radio__label"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "Native radios in a named radiogroup: arrow keys move and select. Name the group with aria-label or a Field.",
+  "example": "<RadioGroup name=\"plan\" defaultValue=\"pro\" aria-label=\"Plan\">\n  <Radio value=\"free\" label=\"Free\" />\n  <Radio value=\"pro\" label=\"Pro\" />\n</RadioGroup>"
 }

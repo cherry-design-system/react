@@ -3,5 +3,8 @@
   "class": "cherry-container",
   "attributes": {},
   "states": ["data-fluid"],
-  "parts": []
+  "parts": [],
+  "category": "Layout",
+  "accessibility": "Layout only: no role.",
+  "example": "<Container padding={{ xs: 4, lg: 8 }}>…</Container>"
 }

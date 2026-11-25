@@ -3,5 +3,8 @@
   "class": "cherry-flex",
   "attributes": {},
   "states": ["data-inline", "data-full-width"],
-  "parts": []
+  "parts": [],
+  "category": "Layout",
+  "accessibility": "Layout only: no role. Keep the DOM order the reading order; don't reorder visually with `direction` in a way that breaks it.",
+  "example": "<Flex gap={3} align=\"center\" wrap=\"wrap\">…</Flex>\n<Stack gap={4}>…</Stack>"
 }

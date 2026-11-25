@@ -26,5 +26,8 @@
     "cherry-toast__description",
     "cherry-toast__action",
     "cherry-toast__close"
-  ]
+  ],
+  "category": "Feedback",
+  "accessibility": "Toasts are announced through a polite live region without moving focus; the close button is labelled (`dismissLabel`); Escape dismisses. Don't put the only copy of important actions in a toast.",
+  "example": "// Once, near the root:\n<ToastProvider>\n  {children}\n  <Toaster />\n</ToastProvider>\n\n// Anywhere below:\nconst toast = useToast();\ntoast.show(\"Changes saved\", { color: \"success\" });"
 }

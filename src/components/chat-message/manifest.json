@@ -1,12 +1,17 @@
 {
   "name": "chat-message",
   "class": "cherry-chat-message",
-  "attributes": { "role": ["user", "assistant"] },
+  "attributes": {
+    "role": ["user", "assistant"]
+  },
   "states": ["data-streaming", "data-still"],
   "parts": [
     "cherry-chat-message__avatar",
     "cherry-chat-message__main",
     "cherry-chat-message__content",
     "cherry-chat-message__actions"
-  ]
+  ],
+  "category": "Chat",
+  "accessibility": "Messages sit in the ChatMessageList log; a `streaming` reply is aria-busy until it finishes.",
+  "example": "<ChatMessage role=\"user\">How do I add a brand color?</ChatMessage>\n<ChatMessage role=\"assistant\" streaming={pending}>{reply}</ChatMessage>"
 }

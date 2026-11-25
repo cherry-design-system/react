@@ -1,7 +1,9 @@
 {
   "name": "file-item",
   "class": "cherry-file-item",
-  "attributes": { "status": ["uploading", "complete", "error"] },
+  "attributes": {
+    "status": ["uploading", "complete", "error"]
+  },
   "states": ["data-removing"],
   "parts": [
     "cherry-file-item__tile",
@@ -13,5 +15,8 @@
     "cherry-file-item__progress",
     "cherry-file-item__bar",
     "cherry-file-item__remove"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "Upload progress is a labelled progressbar, errors are announced as alerts, the remove button is labelled.",
+  "example": "<FileItem name=\"brand.pdf\" bytes={2_400_000} status=\"uploading\" progress={64} onRemove={cancel} />"
 }

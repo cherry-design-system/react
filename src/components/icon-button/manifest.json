@@ -5,5 +5,8 @@
     "variant": ["ghost", "outline", "solid"],
     "size": ["sm", "md", "lg"]
   },
-  "states": ["disabled", "aria-pressed", ":focus-visible", ":hover", ":active"]
+  "states": ["disabled", "aria-pressed", ":focus-visible", ":hover", ":active"],
+  "category": "Actions",
+  "accessibility": "`aria-label` is required: the glyph is hidden from screen readers. As a toggle, pass `aria-pressed`.",
+  "example": "<IconButton aria-label=\"Search\" icon={<Search />} variant=\"ghost\" />"
 }

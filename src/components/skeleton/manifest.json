@@ -4,5 +4,8 @@
   "attributes": {
     "shape": ["text", "circle", "rect"]
   },
-  "parts": ["cherry-skeleton__line"]
+  "parts": ["cherry-skeleton__line"],
+  "category": "Feedback",
+  "accessibility": "Hidden from screen readers: mark the loading region aria-busy instead.",
+  "example": "<div aria-busy=\"true\">\n  <Skeleton shape=\"text\" lines={3} />\n</div>"
 }

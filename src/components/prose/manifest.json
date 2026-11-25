@@ -1,7 +1,12 @@
 {
   "name": "prose",
   "class": "cherry-prose",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": ["data-compact"],
-  "parts": []
+  "parts": [],
+  "category": "Content",
+  "accessibility": "Semantic HTML for markdown (headings, lists, tables) with cherry typography. Raw code blocks wrap their long lines, so nothing needs sideways scrolling.",
+  "example": "<Prose>{markdownHtmlOrJsx}</Prose>"
 }

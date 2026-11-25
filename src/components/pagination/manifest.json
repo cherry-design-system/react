@@ -18,5 +18,8 @@
     "cherry-pagination__step",
     "cherry-pagination__ellipsis",
     "cherry-pagination__status"
-  ]
+  ],
+  "category": "Navigation",
+  "accessibility": "A nav landmark; give each one a distinct name (`labels.nav`) when a page has two. The current page is aria-current=page; Previous/Next are labelled. `getHref` renders links and needs no JS.",
+  "example": "<Pagination page={page} totalPages={10} onPageChange={setPage} />"
 }

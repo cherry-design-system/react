@@ -8,5 +8,8 @@
     "cherry-field__required",
     "cherry-field__hint",
     "cherry-field__error"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "Links the label to the control and the hint/error through aria-describedby; `error` sets aria-invalid on the control. `required` uses the native required attribute, not just the asterisk. Works with Input, Textarea, Select, Password, NumberField, Combobox, OTPInput and the pickers.",
+  "example": "<Field label=\"Username\" required error={errors.username}>\n  <Input name=\"username\" />\n</Field>"
 }

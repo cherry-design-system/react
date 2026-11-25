@@ -1,7 +1,9 @@
 {
   "name": "date-picker",
   "class": "cherry-date-picker",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [
     "data-open",
     "data-invalid",
@@ -17,5 +19,8 @@
     "cherry-date-picker__value",
     "cherry-date-picker__placeholder",
     "cherry-date-picker__popover"
-  ]
+  ],
+  "category": "Pickers",
+  "accessibility": "The trigger opens a dialog and focus moves into the Calendar grid; Escape closes and returns focus to the trigger. Label it with Field.",
+  "example": "<Field label=\"Due date\">\n  <DatePicker locale=\"en-US\" onChange={setDue} fullWidth />\n</Field>"
 }

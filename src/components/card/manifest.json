@@ -10,5 +10,8 @@
     "cherry-card__icon",
     "cherry-card__title",
     "cherry-card__description"
-  ]
+  ],
+  "category": "Content",
+  "accessibility": "No role of its own; give it a CardTitle (a real heading, `level`) for structure. An `interactive` card needs a single link or button inside that names it.",
+  "example": "<Card variant=\"outline\">\n  <CardIcon><Layers /></CardIcon>\n  <CardTitle level={3}>Token-driven theming</CardTitle>\n  <CardDescription>Swap brands and modes from one set of variables.</CardDescription>\n</Card>"
 }

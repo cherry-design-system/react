@@ -1,7 +1,9 @@
 {
   "name": "avatar-dropzone",
   "class": "cherry-avatar-dropzone",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [
     "data-filled",
     "data-drag-over",
@@ -16,5 +18,8 @@
     "cherry-avatar-dropzone__icon",
     "cherry-avatar-dropzone__image",
     "cherry-avatar-dropzone__remove"
-  ]
+  ],
+  "category": "Forms",
+  "accessibility": "A labelled native file input (`label`); the remove button is labelled (`removeLabel`).",
+  "example": "<AvatarDropzone label=\"Upload profile picture\" onFileChange={setAvatar} />"
 }

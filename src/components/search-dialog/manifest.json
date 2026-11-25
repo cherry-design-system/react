@@ -1,7 +1,9 @@
 {
   "name": "search-dialog",
   "class": "cherry-search-dialog",
-  "attributes": { "layout": ["list", "preview"] },
+  "attributes": {
+    "layout": ["list", "preview"]
+  },
   "states": ["[open]", "::backdrop"],
   "parts": [
     "cherry-search-dialog__header",
@@ -17,5 +19,8 @@
     "cherry-search-dialog__hints",
     "cherry-search-dialog__hint",
     "cherry-search-dialog__status"
-  ]
+  ],
+  "category": "Overlays",
+  "accessibility": "A modal dialog around a combobox: Up/Down move the active result, Enter opens it, Escape closes; the result count is announced through `status`.",
+  "example": "<SearchDialog open={isOpen} onClose={() => setIsOpen(false)} query={query} onQueryChange={setQuery} placeholder=\"Search components\">\n  <SearchGroup label=\"Components\">\n    <SearchResult onSelect={() => go(\"/button\")}>Button</SearchResult>\n  </SearchGroup>\n</SearchDialog>"
 }

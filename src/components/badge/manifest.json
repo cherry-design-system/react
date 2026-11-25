@@ -14,5 +14,8 @@
     ],
     "size": ["sm", "md"]
   },
-  "parts": ["cherry-badge__dot"]
+  "parts": ["cherry-badge__dot"],
+  "category": "Data display",
+  "accessibility": "Plain text: the label carries the meaning; the tone color only reinforces it.",
+  "example": "<Badge variant=\"success\" dot>Live</Badge>"
 }

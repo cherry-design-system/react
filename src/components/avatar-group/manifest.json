@@ -1,7 +1,12 @@
 {
   "name": "avatar-group",
   "class": "cherry-avatar-group",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [":hover"],
-  "parts": ["cherry-avatar-group__overflow"]
+  "parts": ["cherry-avatar-group__overflow"],
+  "category": "Data display",
+  "accessibility": "A named group; the \"+N\" overflow chip has an accessible name (`overflowLabel`).",
+  "example": "<AvatarGroup max={3} aria-label=\"Team\">\n  <Avatar name=\"Ada Lovelace\" />\n  <Avatar name=\"Alan Turing\" />\n</AvatarGroup>"
 }

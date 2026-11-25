@@ -13,5 +13,8 @@
     "cherry-code-block__pre",
     "cherry-code-block__code",
     "cherry-code-block__line"
-  ]
+  ],
+  "category": "Content",
+  "accessibility": "The copy result is announced; code wider than the block can be focused and scrolled with the keyboard, and the whole block shows the focus ring.",
+  "example": "<CodeBlock filename=\"save.tsx\" language=\"tsx\" lineNumbers highlightLines={[3]} code={source} />"
 }

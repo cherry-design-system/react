@@ -11,5 +11,8 @@
     "cherry-avatar__fallback",
     "cherry-avatar__image",
     "cherry-avatar__status"
-  ]
+  ],
+  "category": "Data display",
+  "accessibility": "role=img named after the person when it adds information; decorative (hidden) next to a visible name. `status` is announced through `statusLabels`.",
+  "example": "<Avatar name=\"Ada Lovelace\" src=\"/ada.jpg\" status=\"online\" />"
 }

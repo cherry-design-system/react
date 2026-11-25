@@ -1,7 +1,12 @@
 {
   "name": "separator",
   "class": "cherry-separator",
-  "attributes": { "orientation": ["horizontal", "vertical"] },
+  "attributes": {
+    "orientation": ["horizontal", "vertical"]
+  },
   "states": ["data-labelled"],
-  "parts": ["cherry-separator__label"]
+  "parts": ["cherry-separator__label"],
+  "category": "Content",
+  "accessibility": "role=separator, or hidden from assistive tech with `decorative`.",
+  "example": "<Separator label=\"or\" />"
 }

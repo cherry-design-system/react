@@ -11,5 +11,8 @@
     "cherry-menu__group",
     "cherry-menu__label",
     "cherry-menu__separator"
-  ]
+  ],
+  "category": "Overlays",
+  "accessibility": "role=menu: opening focuses the first item, Up/Down and Home/End move, Escape closes and returns focus to the trigger. Shortcut hints are hidden from screen readers.",
+  "example": "<Menu trigger={<Button variant=\"outline\">Actions</Button>}>\n  <MenuGroup label=\"Project\">\n    <MenuItem icon={<Copy />} shortcut=\"⌘C\" onClick={copyLink}>Copy link</MenuItem>\n  </MenuGroup>\n  <MenuSeparator />\n  <MenuItem variant=\"danger\" onClick={remove}>Delete project</MenuItem>\n</Menu>"
 }

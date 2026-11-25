@@ -14,5 +14,8 @@
     ":focus-visible",
     ":hover"
   ],
-  "parts": ["cherry-toggle-group__indicator", "cherry-toggle-group__item"]
+  "parts": ["cherry-toggle-group__indicator", "cherry-toggle-group__item"],
+  "category": "Forms",
+  "accessibility": "`type=\"single\"` is a radiogroup (arrows, Home/End move and select); `type=\"multiple\"` is toggle buttons with aria-pressed. Label icon-only items and name the group.",
+  "example": "<ToggleGroup type=\"single\" defaultValue=\"week\" aria-label=\"Range\">\n  <ToggleGroupItem value=\"day\">Day</ToggleGroupItem>\n  <ToggleGroupItem value=\"week\">Week</ToggleGroupItem>\n</ToggleGroup>"
 }

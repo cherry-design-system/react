@@ -9,5 +9,8 @@
     "cherry-snippet__copy",
     "cherry-snippet__icons",
     "cherry-snippet__icon"
-  ]
+  ],
+  "category": "Content",
+  "accessibility": "The copy button is labelled and \"Copied\" is announced; a command wider than the pill becomes keyboard-scrollable.",
+  "example": "<Snippet>pnpm add @cherry-design-system/react lucide-react</Snippet>"
 }

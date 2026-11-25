@@ -18,5 +18,8 @@
     "cherry-chat-input__send",
     "cherry-chat-input__arrow",
     "cherry-chat-input__footnote"
-  ]
+  ],
+  "category": "Chat",
+  "accessibility": "The textarea is labelled (\"Message\" by default, override with aria-label): Enter sends, Shift+Enter adds a line; the send button is labelled (`sendLabel`).",
+  "example": "<ChatInput onSend={send} loading={pending} footnote=\"AI can make mistakes.\" />"
 }

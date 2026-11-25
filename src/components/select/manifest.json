@@ -1,7 +1,9 @@
 {
   "name": "select",
   "class": "cherry-select",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [
     "data-invalid",
     "data-disabled",
@@ -10,5 +12,8 @@
     ":focus-visible",
     ":hover"
   ],
-  "parts": ["cherry-select__control", "cherry-select__chevron"]
+  "parts": ["cherry-select__control", "cherry-select__chevron"],
+  "category": "Forms",
+  "accessibility": "Native <select>: full keyboard and screen reader support. Label it like Input.",
+  "example": "<Field label=\"Country\">\n  <Select placeholder=\"Select a country\">\n    <option value=\"al\">Albania</option>\n    <option value=\"de\">Germany</option>\n  </Select>\n</Field>"
 }

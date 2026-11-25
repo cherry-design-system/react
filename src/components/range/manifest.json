@@ -1,7 +1,9 @@
 {
   "name": "range",
   "class": "cherry-range",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [
     "data-invalid",
     "data-disabled",
@@ -11,5 +13,8 @@
     ":focus-visible",
     ":disabled"
   ],
-  "parts": ["cherry-range__input"]
+  "parts": ["cherry-range__input"],
+  "category": "Forms",
+  "accessibility": "Native range: arrows step, PageUp/PageDown jump, Home/End go to min/max. Give it a label (Field or aria-label).",
+  "example": "<Range aria-label=\"Volume\" min={0} max={100} defaultValue={60} />"
 }

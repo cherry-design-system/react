@@ -11,5 +11,8 @@
     "cherry-accordion__title",
     "cherry-accordion__chevron",
     "cherry-accordion__body"
-  ]
+  ],
+  "category": "Content",
+  "accessibility": "Native <details>/<summary>: Enter/Space toggles and the open state is announced natively. `type=\"single\"` keeps one item open (native exclusive accordion).",
+  "example": "<Accordion type=\"single\">\n  <AccordionItem title=\"What is cherry?\" defaultOpen>A React design system in plain CSS.</AccordionItem>\n  <AccordionItem title=\"Does it need client JS?\">Only where a component is interactive.</AccordionItem>\n</Accordion>"
 }

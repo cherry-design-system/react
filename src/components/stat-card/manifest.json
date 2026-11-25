@@ -1,7 +1,9 @@
 {
   "name": "stat-card",
   "class": "cherry-stat-card",
-  "attributes": { "trend": ["up", "down", "neutral"] },
+  "attributes": {
+    "trend": ["up", "down", "neutral"]
+  },
   "states": ["data-inverse"],
   "parts": [
     "cherry-stat-card__label",
@@ -15,5 +17,8 @@
     "cherry-stat-card__footer",
     "cherry-stat-card__delta",
     "cherry-stat-card__delta-label"
-  ]
+  ],
+  "category": "Data display",
+  "accessibility": "The delta is read as text with its direction (`trendLabels`: \"Up\", \"Down\"), not only through color and the arrow.",
+  "example": "<StatCard label=\"Monthly active users\" value=\"12,480\" delta=\"+12.4%\" trend=\"up\" data={[4, 6, 5, 8, 9]} />"
 }

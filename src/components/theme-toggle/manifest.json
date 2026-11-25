@@ -1,6 +1,12 @@
 {
   "name": "theme-toggle",
   "class": "cherry-theme-toggle",
-  "attributes": { "value": ["system", "light", "dark"], "size": ["sm", "md"] },
-  "parts": ["cherry-theme-toggle__indicator", "cherry-theme-toggle__option"]
+  "attributes": {
+    "value": ["system", "light", "dark"],
+    "size": ["sm", "md"]
+  },
+  "parts": ["cherry-theme-toggle__indicator", "cherry-theme-toggle__option"],
+  "category": "Forms",
+  "accessibility": "A radiogroup: arrow keys change the mode; each option is labelled (System, Light, Dark; override with `labels`).",
+  "example": "<ThemeToggle />"
 }

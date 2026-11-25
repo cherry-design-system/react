@@ -9,5 +9,8 @@
     "cherry-search-result__label",
     "cherry-search-result__description",
     "cherry-search-result__arrow"
-  ]
+  ],
+  "category": "Overlays",
+  "accessibility": "role=option inside the SearchDialog listbox; `onSelect` runs on Enter or click.",
+  "example": "<SearchResult icon={<Box />} description=\"Actions\" onSelect={() => go(\"/button\")}>Button</SearchResult>"
 }

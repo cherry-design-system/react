@@ -12,5 +12,8 @@
     "cherry-progress__value",
     "cherry-progress__track",
     "cherry-progress__fill"
-  ]
+  ],
+  "category": "Feedback",
+  "accessibility": "role=progressbar with a label and value; `value={null}` is indeterminate.",
+  "example": "<Progress label=\"Uploading\" value={64} showValue />"
 }

@@ -14,5 +14,8 @@
     "cherry-nav-item",
     "cherry-nav-item__link",
     "cherry-nav-item__icon"
-  ]
+  ],
+  "category": "Navigation",
+  "accessibility": "A nav landmark (name it with aria-label); the active link is aria-current=page. Dividers are decorative and hide beside the active item.",
+  "example": "<NavPill aria-label=\"Main\">\n  <NavItem href=\"/\" active>Home</NavItem>\n  <NavItem href=\"/docs\">Docs</NavItem>\n</NavPill>"
 }

@@ -13,5 +13,8 @@
     ":hover",
     ":active"
   ],
-  "parts": ["cherry-button__label", "cherry-button__icon"]
+  "parts": ["cherry-button__label", "cherry-button__icon"],
+  "category": "Actions",
+  "accessibility": "Native <button> with a visible focus ring. `loading` sets aria-busy and keeps the label readable. For icon-only actions use IconButton.",
+  "example": "<Button variant=\"primary\" leadingIcon={<Plus />}>New project</Button>\n<Button variant=\"outline\" loading>Saving</Button>"
 }

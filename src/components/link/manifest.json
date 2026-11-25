@@ -1,7 +1,12 @@
 {
   "name": "link",
   "class": "cherry-link",
-  "attributes": { "variant": ["default", "muted"] },
+  "attributes": {
+    "variant": ["default", "muted"]
+  },
   "states": ["data-external", ":hover", ":focus-visible"],
-  "parts": ["cherry-link__icon"]
+  "parts": ["cherry-link__icon"],
+  "category": "Actions",
+  "accessibility": "Underlined so it is not identified by color alone. `external` opens a new tab and adds `externalLabel` (\"opens in a new tab\") to the name.",
+  "example": "<Link href=\"/docs\">Read the docs</Link>\n<Link href=\"https://example.com\" external>Example site</Link>"
 }

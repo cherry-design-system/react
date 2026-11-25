@@ -1,5 +1,10 @@
 {
   "name": "kbd",
   "class": "cherry-kbd",
-  "attributes": { "size": ["sm", "md"] }
+  "attributes": {
+    "size": ["sm", "md"]
+  },
+  "category": "Data display",
+  "accessibility": "Text keys are read as text. Icon-only keys need an aria-label (they then become role=img).",
+  "example": "<Kbd>⌘K</Kbd>\n<Kbd aria-label=\"Up arrow\"><ArrowUp /></Kbd>"
 }

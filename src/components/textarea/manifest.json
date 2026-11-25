@@ -1,7 +1,9 @@
 {
   "name": "textarea",
   "class": "cherry-textarea",
-  "attributes": { "size": ["sm", "md", "lg"] },
+  "attributes": {
+    "size": ["sm", "md", "lg"]
+  },
   "states": [
     "data-invalid",
     "data-disabled",
@@ -10,5 +12,8 @@
     ":focus-within",
     ":hover"
   ],
-  "parts": ["cherry-textarea__control", "cherry-textarea__count"]
+  "parts": ["cherry-textarea__control", "cherry-textarea__count"],
+  "category": "Forms",
+  "accessibility": "Label it like Input. `showCount` links the counter with aria-describedby.",
+  "example": "<Field label=\"Bio\">\n  <Textarea autoResize maxRows={8} maxLength={160} showCount />\n</Field>"
 }

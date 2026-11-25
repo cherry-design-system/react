@@ -43,7 +43,7 @@
   },
   "scripts": {
     "dev": "vite --config playground/vite.config.ts",
-    "generate": "node scripts/build-tokens.mjs && node scripts/build-manifests.mjs && node scripts/build-index.mjs",
+    "generate": "node scripts/build-tokens.mjs && node scripts/build-manifests.mjs && node scripts/build-index.mjs && node scripts/build-skill.mjs",
     "build": "pnpm generate && vite build && tsc -p tsconfig.build.json && node scripts/build-css.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -76,6 +76,7 @@
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "typescript": "7.0.2",
+    "typescript-v5": "npm:typescript@5.9.3",
     "vite": "8.3.8",
     "vitest": "5.1.1"
   },

@@ -1,5 +1,10 @@
 {
   "name": "spinner",
   "class": "cherry-spinner",
-  "attributes": { "size": ["xs", "sm", "md", "lg"] }
+  "attributes": {
+    "size": ["xs", "sm", "md", "lg"]
+  },
+  "category": "Feedback",
+  "accessibility": "With `label` it is a role=status announcement; pass `label={null}` when visible text nearby already says it is loading.",
+  "example": "<Spinner label=\"Loading results\" />"
 }

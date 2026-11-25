@@ -7,5 +7,8 @@
     "cherry-chat-sources__item",
     "cherry-chat-source",
     "cherry-chat-source__label"
-  ]
+  ],
+  "category": "Chat",
+  "accessibility": "A labelled list (`label`) of source links; each chip's text names its source.",
+  "example": "<ChatSources>\n  <ChatSource href=\"/docs/theming\">Theming</ChatSource>\n</ChatSources>"
 }

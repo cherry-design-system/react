@@ -9,5 +9,8 @@
     "cherry-date-time-picker__time",
     "cherry-date-time-picker__time-label",
     "cherry-date-time-picker__footer"
-  ]
+  ],
+  "category": "Pickers",
+  "accessibility": "A dialog with the Calendar grid and a time listbox; Cancel and Apply are buttons; Escape closes and returns focus.",
+  "example": "<Field label=\"Publish at\">\n  <DateTimePicker locale=\"en-GB\" hourCycle={24} fullWidth />\n</Field>"
 }

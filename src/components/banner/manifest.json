@@ -12,5 +12,8 @@
     "cherry-banner__message",
     "cherry-banner__action",
     "cherry-banner__dismiss"
-  ]
+  ],
+  "category": "Feedback",
+  "accessibility": "A region landmark: give it a distinct aria-label when several show. The dismiss button is labelled (`dismissLabel`).",
+  "example": "<Banner variant=\"accent\" icon={<Megaphone />} dismissible>cherry 2.0 is here.</Banner>"
 }

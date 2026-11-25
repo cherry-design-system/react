@@ -1,7 +1,12 @@
 {
   "name": "tooltip",
   "class": "cherry-tooltip",
-  "attributes": { "placement": ["top", "bottom", "left", "right"] },
+  "attributes": {
+    "placement": ["top", "bottom", "left", "right"]
+  },
   "states": [":popover-open"],
-  "parts": ["cherry-tooltip__trigger"]
+  "parts": ["cherry-tooltip__trigger"],
+  "category": "Overlays",
+  "accessibility": "role=tooltip, linked to its trigger with aria-describedby. Shows on hover and keyboard focus, Escape hides it. Never put essential information or controls inside; the trigger still needs its own name.",
+  "example": "<Tooltip content=\"Copy to clipboard\">\n  <IconButton aria-label=\"Copy\" icon={<Copy />} />\n</Tooltip>"
 }

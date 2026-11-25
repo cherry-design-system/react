@@ -1,7 +1,9 @@
 {
   "name": "sheet",
   "class": "cherry-sheet",
-  "attributes": { "side": ["right", "left", "bottom"] },
+  "attributes": {
+    "side": ["right", "left", "bottom"]
+  },
   "states": ["[open]", "::backdrop"],
   "parts": [
     "cherry-sheet__handle",
@@ -11,5 +13,8 @@
     "cherry-sheet__close",
     "cherry-sheet__body",
     "cherry-sheet__footer"
-  ]
+  ],
+  "category": "Overlays",
+  "accessibility": "Native <dialog> (modal) sliding from an edge: the page behind is inert, focus moves in and stays in, Escape closes, focus returns to the trigger. `title` names it.",
+  "example": "<Sheet open={isOpen} onClose={() => setIsOpen(false)} side=\"right\" title=\"Filters\">\n  <SheetBody>…</SheetBody>\n</Sheet>"
 }

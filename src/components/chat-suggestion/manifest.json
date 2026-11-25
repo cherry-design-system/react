@@ -7,5 +7,8 @@
     "cherry-chat-suggestions",
     "cherry-chat-suggestion__icon",
     "cherry-chat-suggestion__label"
-  ]
+  ],
+  "category": "Chat",
+  "accessibility": "A labelled group (`label`) of buttons; each suggestion's text is its name.",
+  "example": "<ChatSuggestions>\n  <ChatSuggestion onClick={() => ask(\"How do I add a brand?\")}>How do I add a brand?</ChatSuggestion>\n</ChatSuggestions>"
 }

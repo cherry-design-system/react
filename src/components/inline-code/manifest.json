@@ -3,5 +3,8 @@
   "class": "cherry-inline-code",
   "attributes": {},
   "states": [],
-  "parts": []
+  "parts": [],
+  "category": "Content",
+  "accessibility": "A plain <code> element.",
+  "example": "<p>Call <InlineCode>useColorMode()</InlineCode> to read the mode.</p>"
 }

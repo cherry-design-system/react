@@ -9,5 +9,8 @@
     "cherry-callout__content",
     "cherry-callout__title",
     "cherry-callout__body"
-  ]
+  ],
+  "category": "Feedback",
+  "accessibility": "The icon is decorative: the title or text must state the tone (Warning, Error), not the color alone.",
+  "example": "<Callout variant=\"warning\" title=\"Heads up\">Back up your tokens before upgrading.</Callout>"
 }

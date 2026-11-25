@@ -7,5 +7,8 @@
     "cherry-empty-state__title",
     "cherry-empty-state__description",
     "cherry-empty-state__actions"
-  ]
+  ],
+  "category": "Feedback",
+  "accessibility": "A heading (`headingLevel`) plus text; the icon is decorative.",
+  "example": "<EmptyState icon={<Inbox />} title=\"No projects yet\" description=\"Create your first project.\" actions={<Button>New project</Button>} />"
 }
