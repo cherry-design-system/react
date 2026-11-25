@@ -130,16 +130,48 @@
     grid-template-columns: minmax(0, 1fr);
     gap: var(--cherry-space-3);
     min-height: 0;
-    margin-top: var(--cherry-space-2);
   }
   .cherry-search-dialog[data-layout="preview"] .cherry-search-dialog__content {
     grid-template-columns: minmax(0, 1fr) minmax(0, 260px);
   }
+  /* The list scrolls from right under the header (the gap above the first
+     group is padding inside it, not a margin outside), so rows slide up to
+     the header's edge instead of being cut on a line mid-dialog. The bottom
+     edge fades out while there is more to scroll. */
+  @property --_sd-fade {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+  }
   .cherry-search-dialog__results {
-    max-height: 360px;
+    --_sd-fade: 32px;
+    max-height: calc(360px + var(--cherry-space-2));
+    padding-top: var(--cherry-space-2);
     overflow-y: auto;
     overscroll-behavior: contain;
-    scroll-padding-block: var(--cherry-space-2);
+    scroll-padding-block: var(--cherry-space-2) 32px;
+    mask-image: linear-gradient(
+      to bottom,
+      #000 calc(100% - var(--_sd-fade)),
+      transparent
+    );
+  }
+  @supports (animation-timeline: scroll()) {
+    .cherry-search-dialog__results {
+      /* A list that does not overflow has no active timeline: no fade. */
+      --_sd-fade: 0px;
+      animation: cherry-search-dialog-fade linear both;
+      animation-timeline: scroll(self);
+    }
+  }
+  @keyframes cherry-search-dialog-fade {
+    from,
+    92% {
+      --_sd-fade: 32px;
+    }
+    to {
+      --_sd-fade: 0px;
+    }
   }
   .cherry-search-dialog__group + .cherry-search-dialog__group {
     margin-top: var(--cherry-space-2);
@@ -162,6 +194,7 @@
     justify-content: center;
     gap: var(--cherry-space-2);
     min-height: 160px;
+    margin-top: var(--cherry-space-2);
     padding: var(--cherry-space-6) var(--cherry-space-4);
     color: var(--cherry-fg-muted);
     font-size: var(--cherry-text-body-sm-size);
@@ -184,6 +217,7 @@
   }
   .cherry-search-dialog__preview {
     min-width: 0;
+    margin-top: var(--cherry-space-2);
     overflow-y: auto;
     padding: var(--cherry-space-1) var(--cherry-space-1) var(--cherry-space-1) 0;
   }

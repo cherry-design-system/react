@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- `SearchDialog` results scroll from right under the search header, so rows slide up to its edge instead of being cut on a line mid-dialog, and the bottom of the list fades out while there are more results below (no fade when the list fits or is scrolled to the end)
 - The ConfirmButton playground demo shows its files as a list card in FileItem's style (icon tile, name, size line) with the ConfirmButton as each row's action, matching the new example in the Figma kit
 
 ### Fixed
