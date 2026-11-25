@@ -209,7 +209,7 @@ body {
   justify-content: safe center;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: 40px 24px;
+  padding: 24px;
 }
 .pg-preview-box {
   box-sizing: border-box;
