@@ -69,6 +69,8 @@ docs(skill): describe the tokens entry as token names
 
 Maintainers release. A release is one change that bumps `version` in `package.json` and adds its section to [`CHANGELOG.md`](./CHANGELOG.md); the Release workflow publishes it from CI once it is approved. Contributors don't need to touch either file.
 
+Changes waiting for a release are noted under `## [Unreleased]` at the top of the changelog. When you bump the version, rename that heading to `## [x.y.z] - YYYY-MM-DD`. CI fails a version bump whose section is missing, so pending notes can't be dropped.
+
 ## License
 
 By contributing, you agree that your contributions are licensed under the [MIT License](./LICENSE).
