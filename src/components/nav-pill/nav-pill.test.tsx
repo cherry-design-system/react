@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import { createRef, forwardRef, type AnchorHTMLAttributes } from "react";
 import { describe, expect, it } from "vitest";
 import { NavItem, NavPill } from "./index";
 
@@ -47,5 +48,56 @@ describe("NavPill", () => {
     expect(
       screen.getByRole("navigation", { name: "Main" }),
     ).toBeInTheDocument();
+  });
+});
+
+describe("NavItem asChild", () => {
+  // Stands in for a router link (Next.js <Link>): renders an <a> itself.
+  const RouterLink = forwardRef<
+    HTMLAnchorElement,
+    AnchorHTMLAttributes<HTMLAnchorElement>
+  >(function RouterLink(props, ref) {
+    return <a ref={ref} data-router="" {...props} />;
+  });
+
+  it("renders the child link with the item's class, state and icon", () => {
+    const ref = createRef<HTMLAnchorElement>();
+    render(
+      <NavPill>
+        <NavItem asChild active icon={<svg data-testid="icon" />} ref={ref}>
+          <RouterLink href="/docs" className="mine">
+            Docs
+          </RouterLink>
+        </NavItem>
+      </NavPill>,
+    );
+    const link = screen.getByRole("link", { name: "Docs" });
+    expect(link).toHaveAttribute("data-router");
+    expect(link).toHaveClass("cherry-nav-item__link", "mine");
+    expect(link).toHaveAttribute("aria-current", "page");
+    expect(link).toContainElement(screen.getByTestId("icon"));
+    expect(ref.current).toBe(link);
+    expect(link.parentElement).toHaveClass("cherry-nav-item");
+  });
+
+  it("is tracked like a plain item", async () => {
+    window.history.replaceState(null, "", "/docs");
+    render(
+      <NavPill trackRoute>
+        <NavItem asChild>
+          <RouterLink href="/">Home</RouterLink>
+        </NavItem>
+        <NavItem asChild>
+          <RouterLink href="/docs">Docs</RouterLink>
+        </NavItem>
+      </NavPill>,
+    );
+    await waitFor(() =>
+      expect(screen.getByRole("link", { name: "Docs" })).toHaveAttribute(
+        "aria-current",
+        "page",
+      ),
+    );
+    window.history.replaceState(null, "", "/");
   });
 });

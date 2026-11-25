@@ -782,10 +782,26 @@
   },
   "nav-pill": {
     "class": "cherry-nav-pill",
-    "attributes": {},
+    "attributes": {
+      "data-position": [
+        "static",
+        "sticky",
+        "fixed"
+      ],
+      "data-placement": [
+        "top",
+        "bottom",
+        "top-start",
+        "top-end",
+        "bottom-start",
+        "bottom-end"
+      ]
+    },
     "states": [
       "data-indicator",
+      "data-location",
       "[aria-current=\"page\"]",
+      "[aria-current=\"location\"]",
       ":hover",
       ":focus-visible"
     ],

@@ -68,9 +68,15 @@
     transition: opacity var(--cherry-duration-fast)
       var(--cherry-easing-standard);
   }
-  /* The active pill hides the dividers on both of its sides. */
-  .cherry-nav-item:has([aria-current="page"])::before,
-  .cherry-nav-item:has([aria-current="page"]) + .cherry-nav-item::before {
+  /* The highlighted item hides the dividers on both of its sides: the
+     section link in view (location) when there is one, else the page. */
+  .cherry-nav-pill__list:not([data-location])
+    .cherry-nav-item:has([aria-current="page"])::before,
+  .cherry-nav-pill__list:not([data-location])
+    .cherry-nav-item:has([aria-current="page"])
+    + .cherry-nav-item::before,
+  .cherry-nav-item:has([aria-current="location"])::before,
+  .cherry-nav-item:has([aria-current="location"]) + .cherry-nav-item::before {
     opacity: 0;
   }
 
@@ -96,8 +102,15 @@
       transform var(--cherry-duration-instant) var(--cherry-easing-standard);
   }
   .cherry-nav-item__link:hover,
-  .cherry-nav-item__link[aria-current="page"] {
+  .cherry-nav-item__link[aria-current="page"],
+  .cherry-nav-item__link[aria-current="location"] {
     color: var(--cherry-fg-default);
+  }
+  /* While a section link holds the highlight, the current-page link keeps
+     aria-current but reads like its neighbours. */
+  .cherry-nav-pill__list[data-location]
+    .cherry-nav-item__link[aria-current="page"]:not(:hover) {
+    color: var(--cherry-fg-muted);
   }
   .cherry-nav-item__link:active {
     transform: scale(0.98);
@@ -107,8 +120,10 @@
     outline-offset: -2px;
     box-shadow: var(--cherry-ring-inset);
   }
+  .cherry-nav-pill__list:not([data-indicator]):not([data-location])
+    .cherry-nav-item__link[aria-current="page"],
   .cherry-nav-pill__list:not([data-indicator])
-    .cherry-nav-item__link[aria-current="page"] {
+    .cherry-nav-item__link[aria-current="location"] {
     background: var(--cherry-ghost-hover);
   }
 
@@ -127,9 +142,114 @@
       forced-color-adjust: none;
       background: Highlight;
     }
-    .cherry-nav-pill .cherry-nav-item__link[aria-current="page"] {
+    .cherry-nav-pill
+      .cherry-nav-pill__list:not([data-location])
+      .cherry-nav-item__link[aria-current="page"],
+    .cherry-nav-pill .cherry-nav-item__link[aria-current="location"] {
       forced-color-adjust: none;
       color: HighlightText;
     }
+  }
+
+  /* Position and placement. --cherry-nav-pill-offset is the gap to the
+     viewport edge; the safe-area insets keep clear of notches and home bars.
+     start/end follow the writing direction. */
+  .cherry-nav-pill {
+    --_offset: var(--cherry-nav-pill-offset, 16px);
+    --_top: calc(var(--_offset) + env(safe-area-inset-top, 0px));
+    --_bottom: calc(var(--_offset) + env(safe-area-inset-bottom, 0px));
+  }
+  .cherry-nav-pill[data-position="static"] {
+    position: relative;
+  }
+  .cherry-nav-pill[data-position="sticky"] {
+    position: sticky;
+    z-index: 40;
+  }
+  .cherry-nav-pill[data-position="sticky"][data-placement^="top"] {
+    top: var(--_top);
+  }
+  .cherry-nav-pill[data-position="sticky"][data-placement^="bottom"] {
+    bottom: var(--_bottom);
+  }
+
+  .cherry-nav-pill[data-position="fixed"] {
+    position: fixed;
+    z-index: 40;
+    width: max-content;
+    max-width: calc(
+      100% - 2 * var(--_offset) - env(safe-area-inset-left, 0px) -
+        env(safe-area-inset-right, 0px)
+    );
+    background: color-mix(in srgb, var(--cherry-bg-subtle) 82%, transparent);
+    box-shadow: var(--cherry-elevation-md);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    backdrop-filter: blur(12px) saturate(1.4);
+    transition:
+      opacity var(--cherry-duration-base) var(--cherry-easing-out),
+      translate var(--cherry-duration-base) var(--cherry-easing-out);
+  }
+  .cherry-nav-pill[data-position="fixed"][data-placement^="top"] {
+    top: var(--_top);
+  }
+  .cherry-nav-pill[data-position="fixed"][data-placement^="bottom"] {
+    bottom: var(--_bottom);
+  }
+  .cherry-nav-pill[data-position="fixed"][data-placement="top"],
+  .cherry-nav-pill[data-position="fixed"][data-placement="bottom"] {
+    inset-inline: 0;
+    margin-inline: auto;
+  }
+  .cherry-nav-pill[data-position="fixed"][data-placement="top-start"],
+  .cherry-nav-pill[data-position="fixed"][data-placement="bottom-start"] {
+    inset-inline-start: calc(var(--_offset) + env(safe-area-inset-left, 0px));
+  }
+  .cherry-nav-pill[data-position="fixed"][data-placement="top-end"],
+  .cherry-nav-pill[data-position="fixed"][data-placement="bottom-end"] {
+    inset-inline-end: calc(var(--_offset) + env(safe-area-inset-right, 0px));
+  }
+  /* A fixed pill slides in from its edge on load. */
+  @starting-style {
+    .cherry-nav-pill[data-position="fixed"][data-placement^="top"] {
+      opacity: 0;
+      translate: 0 -8px;
+    }
+    .cherry-nav-pill[data-position="fixed"][data-placement^="bottom"] {
+      opacity: 0;
+      translate: 0 8px;
+    }
+  }
+
+  /* Anchor jumps land clear of a top pill; a bottom pill gets the same room
+     at the end, and a fixed one reserves space under the last content.
+     NavPill measures --cherry-nav-pill-height. Any unlayered rule of yours
+     on html or body wins over these. */
+  :root:has(
+    .cherry-nav-pill:is(
+        [data-position="sticky"],
+        [data-position="fixed"]
+      )[data-placement^="top"]
+  ) {
+    scroll-padding-top: calc(
+      var(--cherry-nav-pill-height, 50px) + 2 *
+        var(--cherry-nav-pill-offset, 16px)
+    );
+  }
+  :root:has(
+    .cherry-nav-pill:is(
+        [data-position="sticky"],
+        [data-position="fixed"]
+      )[data-placement^="bottom"]
+  ) {
+    scroll-padding-bottom: calc(
+      var(--cherry-nav-pill-height, 50px) + 2 *
+        var(--cherry-nav-pill-offset, 16px)
+    );
+  }
+  body:has(.cherry-nav-pill[data-position="fixed"][data-placement^="bottom"]) {
+    padding-bottom: calc(
+      var(--cherry-nav-pill-height, 50px) + 2 *
+        var(--cherry-nav-pill-offset, 16px) + env(safe-area-inset-bottom, 0px)
+    );
   }
 }

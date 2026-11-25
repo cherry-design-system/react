@@ -24,7 +24,13 @@ import {
   EmptyState,
   IconButton,
   NavItem,
+  Field,
+  Select,
   NavPill,
+  navPillPlacements,
+  navPillPositions,
+  type NavPillPlacement,
+  type NavPillPosition,
   Pagination,
   Progress,
   Sidebar,
@@ -40,6 +46,14 @@ import {
 import { Section } from "../Section";
 
 const stack = { display: "grid", gap: 24 } as const;
+// A grid column grows to its widest child unless told not to, which would
+// stop a NavPill from shrinking (and scrolling its items) on narrow screens.
+const pillStack = {
+  display: "grid",
+  gap: 24,
+  gridTemplateColumns: "minmax(0, 1fr)",
+  justifyItems: "start",
+} as const;
 
 function NavPillDemo() {
   const items = ["Home", "Components", "Theming", "Sponsors", "Docs"];
@@ -60,6 +74,64 @@ function NavPillDemo() {
         </NavItem>
       ))}
     </NavPill>
+  );
+}
+
+// Live tracking: the route link plus in-page links to playground sections.
+// Fixed and sticky float over the playground itself, so they are opt-in.
+function NavPillTrackingDemo() {
+  const [position, setPosition] = useState<NavPillPosition>("static");
+  const [placement, setPlacement] = useState<NavPillPlacement>("top");
+  return (
+    <div style={pillStack}>
+      <div className="pg-row">
+        <Field label="Position">
+          <Select
+            size="sm"
+            value={position}
+            onChange={(event) =>
+              setPosition(event.target.value as NavPillPosition)
+            }
+          >
+            {navPillPositions.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </Select>
+        </Field>
+        <Field label="Placement">
+          <Select
+            size="sm"
+            value={placement}
+            disabled={position === "static"}
+            onChange={(event) =>
+              setPlacement(event.target.value as NavPillPlacement)
+            }
+          >
+            {navPillPlacements.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </Select>
+        </Field>
+      </div>
+      <NavPill
+        aria-label="Playground sections"
+        position={position}
+        placement={placement}
+        trackRoute
+        trackSections
+      >
+        <NavItem href="/">Home</NavItem>
+        <NavItem href="#buttons">Buttons</NavItem>
+        <NavItem href="#fields">Fields</NavItem>
+        <NavItem href="#calendar">Calendar</NavItem>
+        <NavItem href="#navpill">NavPill</NavItem>
+        <NavItem href="#sidebar">Sidebar</NavItem>
+      </NavPill>
+    </div>
   );
 }
 
@@ -315,7 +387,10 @@ export function NavigationSections() {
   return (
     <>
       <Section title="NavPill">
-        <NavPillDemo />
+        <div style={pillStack}>
+          <NavPillDemo />
+          <NavPillTrackingDemo />
+        </div>
       </Section>
 
       <Section title="Tabs">

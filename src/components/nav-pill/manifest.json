@@ -1,10 +1,22 @@
 {
   "name": "nav-pill",
   "class": "cherry-nav-pill",
-  "attributes": {},
+  "attributes": {
+    "position": ["static", "sticky", "fixed"],
+    "placement": [
+      "top",
+      "bottom",
+      "top-start",
+      "top-end",
+      "bottom-start",
+      "bottom-end"
+    ]
+  },
   "states": [
     "data-indicator",
+    "data-location",
     "[aria-current=\"page\"]",
+    "[aria-current=\"location\"]",
     ":hover",
     ":focus-visible"
   ],
@@ -16,6 +28,6 @@
     "cherry-nav-item__icon"
   ],
   "category": "Navigation",
-  "accessibility": "A nav landmark (name it with aria-label); the active link is aria-current=page. Dividers are decorative and hide beside the active item.",
-  "example": "<NavPill aria-label=\"Main\">\n  <NavItem href=\"/\" active>Home</NavItem>\n  <NavItem href=\"/docs\">Docs</NavItem>\n</NavPill>"
+  "accessibility": "A nav landmark (name it with aria-label). The current route's link is aria-current=page; with trackSections the in-page link whose section is in view is aria-current=location and takes the highlight. Dividers are decorative and hide beside the highlighted item. A sticky or fixed pill offsets anchor jumps so headings never land under it.",
+  "example": "<NavPill aria-label=\"Main\" position=\"fixed\" placement=\"top\" trackRoute trackSections>\n  <NavItem href=\"/\">Home</NavItem>\n  <NavItem href=\"/#components\">Components</NavItem>\n  <NavItem href=\"/docs\">Docs</NavItem>\n</NavPill>"
 }
