@@ -501,7 +501,6 @@ function ChatDemo({ variant = "inline" }: { variant?: "inline" | "drawer" }) {
         loading={thinking}
         onSend={send}
         placeholder="Ask anything about cherry…"
-        footnote="AI can make mistakes. Check important info."
         actions={
           <>
             <IconButton size="sm" aria-label="Add" icon={<Plus />} />

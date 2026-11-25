@@ -31,7 +31,7 @@ export interface ChatInputProps extends Omit<
   glow?: boolean;
   /** Controls at the start of the footer (attach, tools...), e.g. IconButtons. */
   actions?: ReactNode;
-  /** Small print under the composer ("AI can make mistakes."). */
+  /** Small print under the composer ("Enter to send, Shift+Enter for a new line."). */
   footnote?: ReactNode;
   /** Tallest the text area grows before it scrolls, in px. Defaults to 160. */
   maxHeight?: number;

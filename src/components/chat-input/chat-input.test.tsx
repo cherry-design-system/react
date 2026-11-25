@@ -48,10 +48,12 @@ describe("ChatInput", () => {
     render(
       <ChatInput
         actions={<button>Attach</button>}
-        footnote="AI can make mistakes."
+        footnote="Enter to send, Shift+Enter for a new line."
       />,
     );
     expect(screen.getByRole("button", { name: "Attach" })).toBeInTheDocument();
-    expect(screen.getByText("AI can make mistakes.")).toBeInTheDocument();
+    expect(
+      screen.getByText("Enter to send, Shift+Enter for a new line."),
+    ).toBeInTheDocument();
   });
 });
