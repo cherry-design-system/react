@@ -21,8 +21,10 @@ const acme = createBrand("acme", { accent: "#5b5bd6" });
 const brandStyle = document.createElement("style");
 brandStyle.textContent = acme.css;
 document.head.appendChild(brandStyle);
+applyPreviewAccent();
 
 import { Section } from "./Section";
+import { applyPreviewAccent, previewName, previewQuery } from "./preview";
 import { OverlaysSections } from "./sections/overlays";
 import { FormsSections } from "./sections/forms";
 import { PickersSections } from "./sections/pickers";
@@ -181,41 +183,83 @@ function Showcase() {
   );
 }
 
+function AllSections() {
+  return (
+    <>
+      <Showcase />
+      <FormsSections />
+      <PickersSections />
+      <NavigationSections />
+      <OverlaysSections />
+      <MediaSections />
+    </>
+  );
+}
+
+// /preview and /preview/<id>: see preview.ts.
+function PreviewApp() {
+  if (previewName === "") {
+    return (
+      <main className="pg pg-preview-index">
+        <h1>cherry previews</h1>
+        <p>
+          One component per page, for embeds and screenshots. Add{" "}
+          <code>?theme=dark</code> or <code>?theme=light</code> to pin the mode,
+          and <code>?accent=%23be123c</code> for a brand color.
+        </p>
+        <ul>
+          <AllSections />
+        </ul>
+      </main>
+    );
+  }
+  return (
+    <main className="pg-preview">
+      <AllSections />
+      <p className="pg-preview-missing">
+        No preview named <code>{previewName}</code>.{" "}
+        <a href={`/preview${previewQuery}`}>See all previews</a>
+      </p>
+    </main>
+  );
+}
+
 export function App() {
   return (
     <ToastProvider>
-      <main className="pg">
-        <header className="pg-header">
-          <h1 className="pg-title">
-            <CherryLogo title="cherry" size={28} />
-            <span>playground</span>
-          </h1>
-          <ThemeToggle />
-        </header>
-        <Showcase />
-        <FormsSections />
-        <PickersSections />
-        <NavigationSections />
-        <OverlaysSections />
-        <MediaSections />
-        <div data-cherry-mode="dark" className="pg-section">
-          <h2>Dark scope inside the page</h2>
-          <Buttons />
-        </div>
-        <div {...acme.attributes} className="pg-section">
-          <h2>Brand scope (acme)</h2>
-          <Buttons />
-        </div>
-      </main>
-      <footer className="pg-footer">
-        <a
-          className="pg-footer__github"
-          href="https://github.com/cherry-design-system/react"
-          aria-label="cherry on GitHub"
-        >
-          <GitHubMark />
-        </a>
-      </footer>
+      {previewName !== null ? (
+        <PreviewApp />
+      ) : (
+        <>
+          <main className="pg">
+            <header className="pg-header">
+              <h1 className="pg-title">
+                <CherryLogo title="cherry" size={28} />
+                <span>playground</span>
+              </h1>
+              <ThemeToggle />
+            </header>
+            <AllSections />
+            <div data-cherry-mode="dark" className="pg-section">
+              <h2>Dark scope inside the page</h2>
+              <Buttons />
+            </div>
+            <div {...acme.attributes} className="pg-section">
+              <h2>Brand scope (acme)</h2>
+              <Buttons />
+            </div>
+          </main>
+          <footer className="pg-footer">
+            <a
+              className="pg-footer__github"
+              href="https://github.com/cherry-design-system/react"
+              aria-label="cherry on GitHub"
+            >
+              <GitHubMark />
+            </a>
+          </footer>
+        </>
+      )}
       <Toaster />
     </ToastProvider>
   );
