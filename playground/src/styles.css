@@ -116,6 +116,53 @@ body {
   line-height: var(--cherry-text-body-xs-line-height);
   font-variant-numeric: tabular-nums;
 }
+/* Layout previews (/preview/container, /grid, /flex): a code label over
+   each example, accent-tinted blocks, and a subtle track behind flex rows. */
+.pg-demo-label {
+  display: block;
+  margin-bottom: var(--cherry-space-2);
+  color: var(--cherry-fg-muted);
+  font-family: var(--cherry-font-mono);
+  font-size: var(--cherry-text-body-xs-size);
+  line-height: var(--cherry-text-body-xs-line-height);
+  text-align: start;
+}
+.pg-demo-block {
+  box-sizing: border-box;
+  padding: var(--cherry-space-2) var(--cherry-space-3);
+  border: 1px solid
+    color-mix(in srgb, var(--cherry-accent-default) 30%, transparent);
+  border-radius: var(--cherry-radius-md);
+  background: var(--cherry-accent-subtle);
+  color: var(--cherry-accent-fg);
+  font-family: var(--cherry-font-mono);
+  font-size: var(--cherry-text-body-xs-size);
+  line-height: var(--cherry-text-body-xs-line-height);
+  text-align: center;
+}
+.pg-demo-track {
+  padding: var(--cherry-space-2);
+  border-radius: var(--cherry-radius-lg);
+  background: var(--cherry-bg-subtle);
+}
+/* The Container's padding shows as a striped band around its content. */
+.pg-demo-container {
+  border: 1px dashed
+    color-mix(in srgb, var(--cherry-accent-default) 40%, transparent);
+  border-radius: var(--cherry-radius-lg);
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--cherry-accent-subtle) 0 6px,
+    transparent 6px 12px
+  );
+}
+.pg-demo-container > .pg-demo-block {
+  padding-block: var(--cherry-space-4);
+  background: var(--cherry-bg-elevated);
+  border-color: var(--cherry-border-default);
+  color: var(--cherry-fg-muted);
+}
+
 /* NavPill demos: a grid column grows to its widest child unless told not
    to, which would stop a NavPill from shrinking on narrow screens. */
 .pg-pill-stack {

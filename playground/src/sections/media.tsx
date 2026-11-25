@@ -7,7 +7,7 @@ import {
   RotateCcw,
   Sparkles,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   Avatar,
   AvatarDropzone,
@@ -632,6 +632,118 @@ function Layout() {
   );
 }
 
+// Stand-alone previews for the layout primitives (/preview/container,
+// /preview/grid, /preview/flex): each example is labelled with the props
+// that produce it, and the blocks are accent-tinted so they follow the mode
+// and a ?accent= brand.
+function DemoLabel({ children }: { children: ReactNode }) {
+  return <code className="pg-demo-label">{children}</code>;
+}
+
+function ContainerPreview() {
+  return (
+    <Stack gap={5}>
+      {([4, 8] as const).map((padding) => (
+        <div key={padding}>
+          <DemoLabel>{`<Container padding={${padding}}>`}</DemoLabel>
+          <Container padding={padding} className="pg-demo-container">
+            <div className="pg-demo-block">Content</div>
+          </Container>
+        </div>
+      ))}
+    </Stack>
+  );
+}
+
+function GridPreview() {
+  return (
+    <div>
+      <DemoLabel>{"<Grid cols={4} gap={3}>"}</DemoLabel>
+      <Grid cols={4} gap={3}>
+        {[1, 2, 3, 4].map((n) => (
+          <div key={n} className="pg-demo-block">
+            {n}
+          </div>
+        ))}
+        <Col span={2} className="pg-demo-block">
+          span={"{2}"}
+        </Col>
+        <div className="pg-demo-block">1</div>
+        <div className="pg-demo-block">1</div>
+        <Col span="full" className="pg-demo-block">
+          span="full"
+        </Col>
+      </Grid>
+    </div>
+  );
+}
+
+const FLEX_ITEMS = ["A", "B", "C"];
+const FLEX_WRAP_ITEMS = ["A", "B", "C", "D", "E", "F", "G"];
+
+function FlexExample({
+  label,
+  children,
+}: {
+  label: string;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <DemoLabel>{label}</DemoLabel>
+      <div className="pg-demo-track">{children}</div>
+    </div>
+  );
+}
+
+function FlexPreview() {
+  const blocks = (items: string[]) =>
+    items.map((item) => (
+      <div key={item} className="pg-demo-block">
+        {item}
+      </div>
+    ));
+  return (
+    <Grid cols={{ xs: 1, sm: 2 }} gap={4}>
+      {(["flex-start", "center", "space-between", "end"] as const).map(
+        (justify) => (
+          <FlexExample key={justify} label={`justify="${justify}"`}>
+            <Flex justify={justify} gap={2}>
+              {blocks(FLEX_ITEMS)}
+            </Flex>
+          </FlexExample>
+        ),
+      )}
+      <FlexExample label='align="center"'>
+        <Flex align="center" gap={2}>
+          <div className="pg-demo-block" style={{ paddingBlock: 20 }}>
+            Tall
+          </div>
+          {blocks(["B", "C"])}
+        </Flex>
+      </FlexExample>
+      <FlexExample label='align="end"'>
+        <Flex align="end" gap={2}>
+          <div className="pg-demo-block" style={{ paddingBlock: 20 }}>
+            Tall
+          </div>
+          {blocks(["B", "C"])}
+        </Flex>
+      </FlexExample>
+      <FlexExample label='alignContent="space-between"'>
+        <Flex alignContent="space-between" gap={2} style={{ height: 112 }}>
+          {blocks(FLEX_WRAP_ITEMS)}
+        </Flex>
+      </FlexExample>
+      <FlexExample label="rowGap={1} columnGap={6}">
+        <Flex rowGap={1} columnGap={6}>
+          {blocks(FLEX_WRAP_ITEMS)}
+        </Flex>
+      </FlexExample>
+    </Grid>
+  );
+}
+
 export function MediaSections() {
   return (
     <>
@@ -687,6 +799,15 @@ export function MediaSections() {
       </Section>
       <Section title="Layout: Container, Grid, Col, Flex">
         <Layout />
+      </Section>
+      <Section title="Container" id="container" previewOnly>
+        <ContainerPreview />
+      </Section>
+      <Section title="Grid and Col" id="grid" previewOnly>
+        <GridPreview />
+      </Section>
+      <Section title="Flex" id="flex" previewOnly>
+        <FlexPreview />
       </Section>
     </>
   );
