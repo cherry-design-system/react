@@ -334,8 +334,8 @@ function TableDemo({ striped }: { striped?: boolean }) {
   );
 }
 
-// Shared by the Typography demo and the stand-alone /preview/links: links,
-// inline code and separators, without the CodeBlock.
+// Shared by the Typography demo and the stand-alone /preview/links: links
+// and inline code.
 const linksDemo = (
   <>
     <Flex gap={6} align="center">
@@ -350,6 +350,12 @@ const linksDemo = (
     <p style={{ margin: 0, color: "var(--cherry-fg-muted)" }}>
       Call <InlineCode>useColorMode()</InlineCode> to read the active mode.
     </p>
+  </>
+);
+
+// Shared by the Typography demo and the stand-alone /preview/separator.
+const separatorDemo = (
+  <>
     <Separator />
     <Flex
       gap={3}
@@ -401,6 +407,7 @@ function Typography() {
       </Prose>
       <Stack gap={5}>
         {linksDemo}
+        {separatorDemo}
         {codeBlockDemo}
       </Stack>
     </Grid>
@@ -633,10 +640,13 @@ export function MediaSections() {
       <Section title="CodeBlock" id="codeblock" previewOnly>
         {codeBlockDemo}
       </Section>
-      <Section title="Link, InlineCode, Separator" id="links" previewOnly>
+      <Section title="Link, InlineCode" id="links" previewOnly>
         <Stack gap={5} style={{ textAlign: "center" }}>
           {linksDemo}
         </Stack>
+      </Section>
+      <Section title="Separator" id="separator" previewOnly>
+        <Stack gap={5}>{separatorDemo}</Stack>
       </Section>
       <Section title="Chat panel (inline)" id="chat-inline">
         <ChatDemo />
