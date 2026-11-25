@@ -1,34 +1,84 @@
 name: Release
-# Manual: bump the version in package.json, merge, then run this workflow.
-# Uses npm Trusted Publishing (OIDC): no NPM_TOKEN secret. Configure the
-# trusted publisher for @cherry-design-system/react on npmjs.com first.
-# Provenance attestations need a public repository; while the repo is
-# private, publish without --provenance.
+# Bump the version in package.json and describe it in CHANGELOG.md in the same
+# change; once that lands on main, this publishes it. npm Trusted Publishing
+# (OIDC) authenticates the publish: no NPM_TOKEN secret. The trusted publisher
+# on npmjs.com must name this workflow (release.yml) and the npm environment.
+
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
-    inputs:
-      tag:
-        description: npm dist-tag
-        required: true
-        default: latest
-        type: choice
-        options: [latest, next]
+
+# Never let two releases run at once: both would race the same version check.
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 permissions:
   contents: read
-  id-token: write
+
 jobs:
+  guard:
+    name: Look for an unpublished version
+    runs-on: ubuntu-latest
+    outputs:
+      publish: ${{ steps.check.outputs.publish }}
+      version: ${{ steps.check.outputs.version }}
+      dist_tag: ${{ steps.check.outputs.dist_tag }}
+    steps:
+      - uses: actions/checkout@v7
+      - id: check
+        run: node scripts/release-guard.mjs >> "$GITHUB_OUTPUT"
+
   publish:
+    name: Publish to npm
+    needs: guard
+    if: needs.guard.outputs.publish == 'true'
     runs-on: ubuntu-latest
     environment: npm
+    permissions:
+      contents: write # create the tag and the GitHub release
+      id-token: write # mint the OIDC token npm trusted publishing verifies
+    env:
+      VERSION: ${{ needs.guard.outputs.version }}
+      DIST_TAG: ${{ needs.guard.outputs.dist_tag }}
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org
           cache: pnpm
+          registry-url: https://registry.npmjs.org
+
+      # Trusted publishing needs npm 11.5.1 or newer.
+      - name: Update npm
+        run: npm install --global npm@latest
+
+      # Before anything is published, so a missing entry fails the release
+      # rather than leaving a published version with no notes. Written outside
+      # the workspace to keep the tree clean.
+      - name: Collect the release notes
+        run: node scripts/release-notes.mjs > "$RUNNER_TEMP/release-notes.md"
+
       - run: pnpm install --frozen-lockfile
       - run: pnpm check
       - run: pnpm build
-      - run: npm publish --access public --tag ${{ inputs.tag }}
+
+      # No token: the OIDC token from id-token: write authenticates the publish,
+      # and npm attaches a provenance attestation on its own once the
+      # repository is public.
+      - name: Publish
+        run: npm publish --access public --tag "$DIST_TAG"
+
+      - name: Tag the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          args=(
+            --target "$GITHUB_SHA"
+            --title "v$VERSION"
+            --notes-file "$RUNNER_TEMP/release-notes.md"
+          )
+          [ "$DIST_TAG" = "latest" ] || args+=(--prerelease)
+          gh release create "v$VERSION" "${args[@]}"
