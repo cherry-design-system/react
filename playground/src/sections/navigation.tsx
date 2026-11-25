@@ -63,6 +63,10 @@ function NavPillDemo() {
   );
 }
 
+// Each sidebar gets the height itself (not the row), so they fill the demo
+// and still stack cleanly when the row wraps on narrow screens.
+const SIDEBAR_HEIGHT = { height: 520 };
+
 function SidebarDemo() {
   const [collapsed, setCollapsed] = useState(false);
   const [active, setActive] = useState("Home");
@@ -97,9 +101,10 @@ function SidebarDemo() {
     </>
   );
   return (
-    <div className="pg-row" style={{ alignItems: "stretch", minHeight: 520 }}>
+    <div className="pg-row" style={{ alignItems: "flex-start" }}>
       <Sidebar
         id="pg-sidebar"
+        style={SIDEBAR_HEIGHT}
         collapsed={collapsed}
         header={
           <>
@@ -137,6 +142,7 @@ function SidebarDemo() {
       </Sidebar>
       <Sidebar
         collapsed
+        style={SIDEBAR_HEIGHT}
         header={<CherryLogo compact title="cherry" size={28} />}
         navLabel="Rail"
       >
