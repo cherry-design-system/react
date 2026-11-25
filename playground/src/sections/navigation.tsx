@@ -56,7 +56,7 @@ const pillStack = {
 } as const;
 
 function NavPillDemo() {
-  const items = ["Home", "Components", "Theming", "Sponsors", "Docs"];
+  const items = ["Home", "AI kit", "Components", "Docs"];
   const [active, setActive] = useState("Home");
   return (
     <NavPill aria-label="Site">
