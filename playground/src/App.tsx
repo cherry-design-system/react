@@ -1,5 +1,6 @@
 import { Bell, Mail, Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
+import { CherryLogo } from "./CherryLogo";
 import {
   Badge,
   Button,
@@ -184,7 +185,10 @@ export function App() {
     <ToastProvider>
       <main className="pg">
         <header className="pg-header">
-          <h1>cherry playground</h1>
+          <h1 className="pg-title">
+            <CherryLogo title="cherry" size={28} />
+            <span>playground</span>
+          </h1>
           <ThemeToggle />
         </header>
         <Showcase />

@@ -1,11 +1,12 @@
-// The cherry 2.0 logo, from the Figma kit (Assets: Brand/Glyph and
-// Brand/Lockup). The glyph is two overlapping cherries with the overlap in
-// the deep tone; the wordmark is Geist Bold with the "rr" in the two cherry
-// tones. Cherry colors are fixed primitives; the rest of the wordmark takes
-// fg-default, so one component serves both modes.
+// The cherry 2.0 logo, from the Figma kit (Assets: Brand/Lockup and
+// Brand/Mark). The glyph is two overlapping cherries with the overlap in the
+// deep tone. The wordmark is outlined from Figma (Geist Bold, "rr" in the two
+// cherry tones), so it renders the same without the font. Cherry colors are
+// fixed primitives; the rest of the wordmark takes fg-default, so one
+// component serves both modes.
 // `compact` draws Brand/Mark instead: the glyph on a primary tile (22.5%
 // corner radius) that inverts with the mode, for a collapsed sidebar or rail.
-import type { CSSProperties, HTMLAttributes } from "react";
+import type { HTMLAttributes } from "react";
 
 type CherryLogoProps = Omit<HTMLAttributes<HTMLSpanElement>, "children"> & {
   /** The app mark (glyph on a tile) instead of the lockup. */
@@ -19,8 +20,9 @@ type CherryLogoProps = Omit<HTMLAttributes<HTMLSpanElement>, "children"> & {
   title?: string;
 };
 
-// Lockup proportions from Figma: 32px glyph, 34px wordmark, 12px gap.
-const FONT_RATIO = 34 / 32;
+// Brand/Lockup exported with outlined text: the glyph is 32 units tall and
+// the "y" descender takes the drawing to 33.1.
+const LOCKUP = { x: 17.333, y: 26.667, w: 161.466, h: 33.1, glyph: 32 };
 
 export function CherryLogo({
   compact,
@@ -34,53 +36,62 @@ export function CherryLogo({
       role={title ? "img" : undefined}
       aria-label={title}
       aria-hidden={title ? undefined : true}
-      style={
-        {
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "calc(12em / 34)",
-          fontSize: size * FONT_RATIO,
-          ...style,
-        } as CSSProperties
-      }
+      style={{ display: "inline-flex", alignItems: "flex-start", ...style }}
       {...props}
     >
-      <svg
-        viewBox={compact ? "0 0 512 512" : "104 160 304 192"}
-        style={{ height: size, width: "auto", flexShrink: 0 }}
-        aria-hidden="true"
-      >
-        {compact ? (
+      {compact ? (
+        <svg
+          viewBox="0 0 512 512"
+          style={{ height: size, width: size, flexShrink: 0 }}
+          aria-hidden="true"
+        >
           <rect
             width="512"
             height="512"
             rx="115"
             fill="var(--cherry-primary-default)"
           />
-        ) : null}
-        <circle cx="200" cy="256" r="96" fill="var(--cherry-cherry-400)" />
-        <circle cx="312" cy="256" r="96" fill="var(--cherry-cherry-600)" />
-        <path
-          d="M256 178.019C280.225 195.445 296 223.88 296 256C296 288.12 280.224 316.554 256 333.98C231.776 316.554 216 288.12 216 256C216 223.88 231.775 195.445 256 178.019Z"
-          fill="var(--cherry-cherry-900)"
-        />
-      </svg>
-      {compact ? null : (
-        <span
-          aria-hidden="true"
+          <circle cx="200" cy="256" r="96" fill="var(--cherry-cherry-400)" />
+          <circle cx="312" cy="256" r="96" fill="var(--cherry-cherry-600)" />
+          <path
+            d="M256 178.019C280.225 195.445 296 223.88 296 256C296 288.12 280.224 316.554 256 333.98C231.776 316.554 216 288.12 216 256C216 223.88 231.775 195.445 256 178.019Z"
+            fill="var(--cherry-cherry-900)"
+          />
+        </svg>
+      ) : (
+        <svg
+          viewBox={`${LOCKUP.x} ${LOCKUP.y} ${LOCKUP.w} ${LOCKUP.h}`}
           style={{
-            color: "var(--cherry-fg-default)",
-            fontFamily: "var(--cherry-font-sans)",
-            fontWeight: 700,
-            letterSpacing: "-0.05em",
-            lineHeight: 1,
-            whiteSpace: "nowrap",
+            height: (size * LOCKUP.h) / LOCKUP.glyph,
+            width: "auto",
+            flexShrink: 0,
           }}
+          aria-hidden="true"
         >
-          che
-          <span style={{ color: "var(--cherry-cherry-400)" }}>r</span>
-          <span style={{ color: "var(--cherry-cherry-600)" }}>r</span>y
-        </span>
+          <circle
+            cx="33.333"
+            cy="42.667"
+            r="16"
+            fill="var(--cherry-cherry-400)"
+          />
+          <circle cx="52" cy="42.667" r="16" fill="var(--cherry-cherry-600)" />
+          <path
+            d="M42.666 29.6707C46.7034 32.5752 49.333 37.3135 49.333 42.6668C49.333 48.02 46.7032 52.7575 42.666 55.662C38.6293 52.7574 36.0001 48.0196 36 42.6668C36 37.3139 38.6291 32.5753 42.666 29.6707Z"
+            fill="var(--cherry-cherry-900)"
+          />
+          <path
+            d="M90.8394 55.0747C88.9807 55.0747 87.36 54.6893 85.9774 53.9187C84.5947 53.1253 83.518 52.0147 82.7474 50.5867C81.9767 49.1587 81.5914 47.4813 81.5914 45.5547C81.5914 43.628 81.9767 41.962 82.7474 40.5567C83.518 39.1287 84.5947 38.018 85.9774 37.2247C87.36 36.4313 88.9807 36.0347 90.8394 36.0347C92.4487 36.0347 93.888 36.318 95.1574 36.8847C96.4494 37.4513 97.492 38.2673 98.2854 39.3327C99.0787 40.398 99.566 41.6787 99.7474 43.1747L94.4774 43.4127C94.3187 42.2793 93.9107 41.4293 93.2534 40.8627C92.6187 40.2733 91.814 39.9787 90.8394 39.9787C89.57 39.9787 88.584 40.466 87.8814 41.4407C87.1787 42.4153 86.8274 43.7867 86.8274 45.5547C86.8274 47.3227 87.1787 48.7053 87.8814 49.7027C88.584 50.6773 89.57 51.1647 90.8394 51.1647C91.814 51.1647 92.63 50.87 93.2874 50.2807C93.9447 49.6687 94.3414 48.7507 94.4774 47.5267L99.7474 47.7307C99.5887 49.2267 99.1127 50.53 98.3194 51.6407C97.5487 52.7287 96.5174 53.5787 95.2254 54.1907C93.956 54.78 92.494 55.0747 90.8394 55.0747ZM100.866 54.6667V30.5267H105.966V40.6927H105.286C105.467 39.6273 105.818 38.7547 106.34 38.0747C106.884 37.3947 107.552 36.8847 108.346 36.5447C109.162 36.2047 110.046 36.0347 110.998 36.0347C112.358 36.0347 113.491 36.3293 114.398 36.9187C115.304 37.508 115.984 38.324 116.438 39.3667C116.914 40.4093 117.152 41.5993 117.152 42.9367V54.6667H112.052V44.1607C112.052 42.8007 111.836 41.7807 111.406 41.1007C110.998 40.4207 110.295 40.0807 109.298 40.0807C108.255 40.0807 107.439 40.432 106.85 41.1347C106.26 41.8373 105.966 42.8913 105.966 44.2967V54.6667H100.866ZM127.713 55.0747C125.855 55.0747 124.234 54.6893 122.851 53.9187C121.491 53.1253 120.426 52.0147 119.655 50.5867C118.907 49.1587 118.533 47.4813 118.533 45.5547C118.533 43.628 118.907 41.962 119.655 40.5567C120.426 39.1287 121.491 38.018 122.851 37.2247C124.211 36.4313 125.821 36.0347 127.679 36.0347C129.493 36.0347 131.068 36.4313 132.405 37.2247C133.743 38.018 134.774 39.1513 135.499 40.6247C136.247 42.098 136.621 43.8547 136.621 45.8947V46.9147H123.803C123.871 48.3653 124.257 49.442 124.959 50.1447C125.685 50.8473 126.637 51.1987 127.815 51.1987C128.677 51.1987 129.391 51.0173 129.957 50.6547C130.547 50.292 130.966 49.7367 131.215 48.9887L136.349 49.2947C135.873 51.108 134.865 52.5247 133.323 53.5447C131.782 54.5647 129.912 55.0747 127.713 55.0747ZM123.803 43.7867H131.385C131.317 42.4493 130.943 41.452 130.263 40.7947C129.606 40.1373 128.745 39.8087 127.679 39.8087C126.614 39.8087 125.73 40.16 125.027 40.8627C124.347 41.5427 123.939 42.5173 123.803 43.7867ZM163.329 59.7667V55.9587H165.743C166.333 55.9587 166.763 55.868 167.035 55.6867C167.33 55.528 167.557 55.2333 167.715 54.8027L168.089 53.7487H166.695L160.303 36.4427H165.505L169.687 48.9887L173.597 36.4427H178.799L171.795 56.4007C171.387 57.602 170.798 58.4633 170.027 58.9847C169.257 59.506 168.18 59.7667 166.797 59.7667H163.329Z"
+            fill="var(--cherry-fg-default)"
+          />
+          <path
+            d="M138.073 54.6667V36.4427H142.901L143.071 41.7467L142.697 41.6447C142.992 39.8087 143.513 38.4827 144.261 37.6667C145.009 36.8507 146.04 36.4427 147.355 36.4427H149.021V40.6587H147.355C146.403 40.6587 145.621 40.7833 145.009 41.0327C144.397 41.282 143.932 41.6787 143.615 42.2227C143.32 42.7667 143.173 43.5033 143.173 44.4327V54.6667H138.073Z"
+            fill="var(--cherry-cherry-400)"
+          />
+          <path
+            d="M149.854 54.6667V36.4427H154.682L154.852 41.7467L154.478 41.6447C154.772 39.8087 155.294 38.4827 156.042 37.6667C156.79 36.8507 157.821 36.4427 159.136 36.4427H160.802V40.6587H159.136C158.184 40.6587 157.402 40.7833 156.79 41.0327C156.178 41.282 155.713 41.6787 155.396 42.2227C155.101 42.7667 154.954 43.5033 154.954 44.4327V54.6667H149.854Z"
+            fill="var(--cherry-cherry-600)"
+          />
+        </svg>
       )}
     </span>
   );

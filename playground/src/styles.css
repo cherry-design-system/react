@@ -16,13 +16,19 @@ body {
 }
 .pg-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   margin-bottom: 32px;
 }
 :where(.pg-header) > h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 0;
+  font-weight: 500;
+  color: var(--cherry-fg-muted);
   font-size: var(--cherry-text-h4-size);
   letter-spacing: var(--cherry-text-h4-tracking);
 }
