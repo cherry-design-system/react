@@ -1,6 +1,13 @@
 // Playground section: pickers. Owned by one agent; one <Section> per component.
 import { useState } from "react";
-import { LayoutGrid, List, Bold, Italic, Underline } from "lucide-react";
+import {
+  Bold,
+  FileText,
+  Italic,
+  LayoutGrid,
+  List,
+  Underline,
+} from "lucide-react";
 import {
   Button,
   Calendar,
@@ -137,23 +144,38 @@ function DateTimePickerDemo() {
   );
 }
 
+const DEMO_FILES = [
+  { name: "report-q3.pdf", meta: "2.4 MB · PDF" },
+  { name: "invoice-0042.pdf", meta: "184 KB · PDF" },
+];
+
 function ConfirmButtonDemo() {
-  const [files, setFiles] = useState(["report-q3.pdf", "invoice-0042.pdf"]);
+  const [files, setFiles] = useState(DEMO_FILES);
   return (
     <div className="pg-stack">
-      {files.map((file) => (
-        <div
-          key={file}
-          className="pg-row"
-          style={{ justifyContent: "space-between" }}
-        >
-          <span>{file}</span>
-          <ConfirmButton
-            aria-label={`Delete ${file}`}
-            onConfirm={() => setFiles((list) => list.filter((f) => f !== file))}
-          />
-        </div>
-      ))}
+      {files.length ? (
+        <ul className="pg-files" aria-label="Attachments">
+          {files.map((file) => (
+            <li key={file.name} className="pg-files__row">
+              <span className="pg-files__tile" aria-hidden="true">
+                <FileText />
+              </span>
+              <span className="pg-files__body">
+                <span className="pg-files__name" title={file.name}>
+                  {file.name}
+                </span>
+                <span className="pg-files__meta">{file.meta}</span>
+              </span>
+              <ConfirmButton
+                aria-label={`Delete ${file.name}`}
+                onConfirm={() =>
+                  setFiles((list) => list.filter((f) => f.name !== file.name))
+                }
+              />
+            </li>
+          ))}
+        </ul>
+      ) : null}
       <div className="pg-row">
         <ConfirmButton
           aria-label="Delete project"
@@ -165,11 +187,11 @@ function ConfirmButtonDemo() {
           disabled
           onConfirm={() => {}}
         />
-        {files.length < 2 ? (
+        {files.length < DEMO_FILES.length ? (
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setFiles(["report-q3.pdf", "invoice-0042.pdf"])}
+            onClick={() => setFiles(DEMO_FILES)}
           >
             Reset files
           </Button>

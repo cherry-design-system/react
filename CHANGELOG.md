@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- The ConfirmButton playground demo shows its files as a list card in FileItem's style (icon tile, name, size line) with the ConfirmButton as each row's action, matching the new example in the Figma kit
+
 ### Fixed
 
 - iOS Safari no longer zooms the page when a field gets focus. On touch screens, text-entry controls (Input, Textarea, Select, Combobox, NumberField, OTPInput, ChatInput, SearchDialog) render their typed text at 16px or more, at the same box size, so they still line up with buttons. The floor is `--cherry-control-text-min`; set it to `0px` to opt out

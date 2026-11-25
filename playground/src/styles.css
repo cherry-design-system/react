@@ -58,6 +58,64 @@ body {
   max-width: 360px;
 }
 
+/* ConfirmButton demo: a file list in FileItem's visual language (icon tile,
+   name over a muted meta line) with the ConfirmButton as the row action. */
+.pg-files {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  border: 1px solid var(--cherry-border-default);
+  border-radius: var(--cherry-radius-lg);
+  background: var(--cherry-bg-elevated);
+  box-shadow: var(--cherry-elevation-xs);
+}
+.pg-files__row {
+  display: flex;
+  align-items: center;
+  gap: var(--cherry-space-3);
+  padding: var(--cherry-space-3);
+}
+.pg-files__row + .pg-files__row {
+  border-top: 1px solid var(--cherry-border-default);
+}
+.pg-files__tile {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--cherry-radius-md);
+  background: var(--cherry-bg-muted);
+  color: var(--cherry-fg-muted);
+}
+.pg-files__tile > svg {
+  width: 18px;
+  height: 18px;
+}
+.pg-files__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.pg-files__name {
+  overflow: hidden;
+  color: var(--cherry-fg-default);
+  font-size: var(--cherry-text-label-md-size);
+  line-height: var(--cherry-text-label-md-line-height);
+  letter-spacing: var(--cherry-text-label-md-tracking);
+  font-weight: var(--cherry-text-label-md-weight);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.pg-files__meta {
+  color: var(--cherry-fg-muted);
+  font-size: var(--cherry-text-body-xs-size);
+  line-height: var(--cherry-text-body-xs-line-height);
+  font-variant-numeric: tabular-nums;
+}
 /* NavPill demos: a grid column grows to its widest child unless told not
    to, which would stop a NavPill from shrinking on narrow screens. */
 .pg-pill-stack {
