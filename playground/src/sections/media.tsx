@@ -49,7 +49,7 @@ import { previewName } from "../preview";
 /** A gradient "photo" as a data URI, so no external image host is needed. */
 const photo = (from: string, to: string) =>
   `data:image/svg+xml,${encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${from}"/><stop offset="1" stop-color="${to}"/></linearGradient></defs><rect width="64" height="64" fill="url(#g)"/><circle cx="32" cy="26" r="11" fill="#fff" fill-opacity=".85"/><path d="M12 60c3-12 11-18 20-18s17 6 20 18z" fill="#fff" fill-opacity=".85"/></svg>`,
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${from}"/><stop offset="1" stop-color="${to}"/></linearGradient></defs><rect width="64" height="64" fill="url(#g)"/><circle cx="32" cy="25" r="12" fill="#fff" fill-opacity=".85"/><path d="M8 68c3-15 12-22 24-22s21 7 24 22z" fill="#fff" fill-opacity=".85"/></svg>`,
   )}`;
 const photoA = photo("#ef2f54", "#8b5cf6");
 const photoB = photo("#3b82f6", "#10b981");
