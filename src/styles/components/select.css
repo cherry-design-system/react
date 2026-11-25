@@ -137,7 +137,10 @@
         transform: scale(0.96);
       }
     }
+    /* Native options carry no cherry class, so base.css's border-box does
+       not reach them: set it here, or the padding adds to the 32px row. */
     .cherry-select__control option:not([hidden]) {
+      box-sizing: border-box;
       display: flex;
       align-items: center;
       gap: var(--cherry-space-2);
