@@ -334,23 +334,24 @@ function TableDemo({ striped }: { striped?: boolean }) {
   );
 }
 
-// Shared by the Typography demo and the stand-alone /preview/links: links
-// and inline code.
+// Shared by the Typography demo and the stand-alone /preview/links.
 const linksDemo = (
-  <>
-    <Flex gap={6} align="center">
-      <Link href="#docs">Read the docs</Link>
-      <Link href="#docs" variant="muted">
-        Read the docs
-      </Link>
-      <Link href="https://example.com" external>
-        Example site
-      </Link>
-    </Flex>
-    <p style={{ margin: 0, color: "var(--cherry-fg-muted)" }}>
-      Call <InlineCode>useColorMode()</InlineCode> to read the active mode.
-    </p>
-  </>
+  <Flex gap={6} align="center">
+    <Link href="#docs">Read the docs</Link>
+    <Link href="#docs" variant="muted">
+      Read the docs
+    </Link>
+    <Link href="https://example.com" external>
+      Example site
+    </Link>
+  </Flex>
+);
+
+// Shared by the Typography demo and the stand-alone /preview/inline-code.
+const inlineCodeDemo = (
+  <p style={{ margin: 0, color: "var(--cherry-fg-muted)" }}>
+    Call <InlineCode>useColorMode()</InlineCode> to read the active mode.
+  </p>
 );
 
 // Shared by the Typography demo and the stand-alone /preview/separator.
@@ -407,6 +408,7 @@ function Typography() {
       </Prose>
       <Stack gap={5}>
         {linksDemo}
+        {inlineCodeDemo}
         {separatorDemo}
         {codeBlockDemo}
       </Stack>
@@ -640,10 +642,11 @@ export function MediaSections() {
       <Section title="CodeBlock" id="codeblock" previewOnly>
         {codeBlockDemo}
       </Section>
-      <Section title="Link, InlineCode" id="links" previewOnly>
-        <Stack gap={5} style={{ textAlign: "center" }}>
-          {linksDemo}
-        </Stack>
+      <Section title="Link" id="links" previewOnly>
+        <div className="pg-row">{linksDemo}</div>
+      </Section>
+      <Section title="InlineCode" id="inline-code" previewOnly>
+        <div style={{ textAlign: "center" }}>{inlineCodeDemo}</div>
       </Section>
       <Section title="Separator" id="separator" previewOnly>
         <Stack gap={5}>{separatorDemo}</Stack>
