@@ -33,6 +33,13 @@
   </p>
 </div>
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/showcase-dark.png" />
+    <img src=".github/assets/showcase-light.png" alt="cherry components: buttons, inputs, toggles, a stat card, progress bars, a calendar, a form, a range slider, a one-time code input, a sidebar, an empty state, pagination and an AI chat." width="100%" />
+  </picture>
+</p>
+
 ## Install
 
 ```bash
