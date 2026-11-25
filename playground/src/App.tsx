@@ -160,6 +160,12 @@ function Showcase() {
           {previewName === null ? spinners : null}
         </div>
       </Section>
+      <Section title="ThemeToggle" id="theme-toggle" previewOnly>
+        <div className="pg-row">
+          <ThemeToggle size="sm" />
+          <ThemeToggle />
+        </div>
+      </Section>
       <Section title="Spinner" id="spinner" previewOnly>
         <div className="pg-row">{spinners}</div>
       </Section>
