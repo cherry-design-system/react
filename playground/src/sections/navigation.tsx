@@ -46,14 +46,8 @@ import {
 import { Section } from "../Section";
 
 const stack = { display: "grid", gap: 24 } as const;
-// A grid column grows to its widest child unless told not to, which would
-// stop a NavPill from shrinking (and scrolling its items) on narrow screens.
-const pillStack = {
-  display: "grid",
-  gap: 24,
-  gridTemplateColumns: "minmax(0, 1fr)",
-  justifyItems: "start",
-} as const;
+// The NavPill demos stack in .pg-pill-stack (styles.css): a grid column
+// that lets a NavPill shrink and scroll its items on narrow screens.
 
 function NavPillDemo() {
   const items = ["Home", "AI kit", "Components", "Docs"];
@@ -83,7 +77,7 @@ function NavPillTrackingDemo() {
   const [position, setPosition] = useState<NavPillPosition>("static");
   const [placement, setPlacement] = useState<NavPillPlacement>("top");
   return (
-    <div style={pillStack}>
+    <div className="pg-pill-stack">
       <div className="pg-row">
         <Field label="Position">
           <Select
@@ -387,7 +381,7 @@ export function NavigationSections() {
   return (
     <>
       <Section title="NavPill">
-        <div style={pillStack}>
+        <div className="pg-pill-stack">
           <NavPillDemo />
           <NavPillTrackingDemo />
         </div>

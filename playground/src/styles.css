@@ -58,6 +58,15 @@ body {
   max-width: 360px;
 }
 
+/* NavPill demos: a grid column grows to its widest child unless told not
+   to, which would stop a NavPill from shrinking on narrow screens. */
+.pg-pill-stack {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: 24px;
+}
+
 /* Footer: the repo link as GitHub's mark, a 40px target with the cherry ring. */
 .pg-footer {
   display: flex;
@@ -84,23 +93,48 @@ body {
   box-shadow: var(--cherry-ring);
 }
 
-/* Preview routes (/preview/<id>): one demo centered on the page, in a box
-   with a stable selector for screenshots and embeds. */
+/* Preview routes (/preview/<id>), as in cherry 1.x: one demo centered on
+   the page, horizontally and vertically, in a box with a stable selector
+   (#preview-box) for iframes and screenshots. border-box keeps the padding
+   inside the viewport height, so a preview that fits never scrolls. */
 .pg-preview {
-  display: grid;
+  box-sizing: border-box;
+  display: flex;
+  align-items: safe center;
+  justify-content: safe center;
   min-height: 100vh;
-  place-items: center;
+  min-height: 100dvh;
   padding: 40px 24px;
 }
 .pg-preview-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
+  box-sizing: border-box;
   width: 640px;
   max-width: 100%;
-  padding: 32px;
+  padding: 24px;
+}
+/* Block layout, so demos that fill their space (progress bars, grids) keep
+   the full width while narrower ones center: rows of controls center their
+   items, capped stacks and fixed-width blocks center themselves. */
+.pg-preview-box > * {
+  max-width: 100%;
+  margin-inline: auto;
+}
+.pg-preview-box > * + * {
+  margin-top: 24px;
+}
+.pg-preview-box .pg-row {
+  justify-content: center;
+}
+.pg-preview-box :is(.cherry-breadcrumb, .cherry-pagination) {
+  width: fit-content;
+  margin-inline: auto;
+}
+.pg-preview-box > .cherry-flex,
+.pg-preview-box > .cherry-flex > .cherry-flex {
+  justify-content: center;
+}
+.pg-preview-box .pg-pill-stack {
+  justify-items: center;
 }
 /* Shown only when no section matched the preview id. */
 .pg-preview-missing {
