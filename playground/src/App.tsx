@@ -128,6 +128,15 @@ function ToastDemo() {
   );
 }
 
+// Shared by the "Badges and spinners" row and the stand-alone /preview/spinner.
+const spinners = (
+  <>
+    <Spinner size="xs" />
+    <Spinner size="md" />
+    <Spinner size="lg" />
+  </>
+);
+
 function Showcase() {
   const [email, setEmail] = useState("");
   return (
@@ -147,10 +156,12 @@ function Showcase() {
           <Badge variant="warning">Pending</Badge>
           <Badge variant="danger">Failed</Badge>
           <Badge variant="info">Beta</Badge>
-          <Spinner size="xs" />
-          <Spinner size="md" />
-          <Spinner size="lg" />
+          {/* The badges preview shows badges only; spinners have their own. */}
+          {previewName === null ? spinners : null}
         </div>
+      </Section>
+      <Section title="Spinner" id="spinner" previewOnly>
+        <div className="pg-row">{spinners}</div>
       </Section>
       <Section title="Fields">
         <div className="pg-stack">
