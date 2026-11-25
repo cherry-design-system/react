@@ -34,6 +34,20 @@
      colors (Windows High Contrast) drop box-shadows but repaint that
      outline in a system color, so focus stays visible there. */
 
+  /* iOS Safari zooms the page when a focused field's text is under 16px.
+     Text-entry controls read this floor (`max(floor, own size)`). Their boxes
+     have fixed heights and multi-line ones pin their line height, so on touch
+     screens only the glyphs grow: controls stay the same size and still line
+     up with buttons. Set it to 0px to opt out. */
+  :root {
+    --cherry-control-text-min: 0px;
+  }
+  @media (pointer: coarse) {
+    :root {
+      --cherry-control-text-min: 16px;
+    }
+  }
+
   /* Honour [hidden] on every cherry element, whatever display it sets. */
   :where([class^="cherry-"], [class*=" cherry-"])[hidden] {
     display: none;

@@ -16,7 +16,11 @@
     color: var(--cherry-fg-default);
     font-family: var(--cherry-font-sans);
     font-size: var(--cherry-text-body-sm-size);
-    line-height: var(--cherry-text-body-sm-line-height);
+    /* A length, not a ratio: the control inherits it as is, so the text floor
+       (base.css) never changes the row height. */
+    line-height: calc(
+      var(--cherry-text-body-sm-size) * var(--cherry-text-body-sm-line-height)
+    );
     cursor: text;
     transition:
       border-color var(--cherry-duration-fast) var(--cherry-easing-standard),
@@ -51,6 +55,7 @@
     background: transparent;
     color: inherit;
     font: inherit;
+    font-size: max(var(--cherry-control-text-min, 0px), 1em);
     letter-spacing: inherit;
     resize: vertical;
     scrollbar-width: thin;
@@ -96,6 +101,8 @@
     --_px: var(--cherry-space-4);
     --_py: var(--cherry-space-3);
     font-size: var(--cherry-text-body-md-size);
-    line-height: var(--cherry-text-body-md-line-height);
+    line-height: calc(
+      var(--cherry-text-body-md-size) * var(--cherry-text-body-md-line-height)
+    );
   }
 }

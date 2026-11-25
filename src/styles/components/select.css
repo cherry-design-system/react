@@ -53,6 +53,7 @@
     background: transparent;
     color: inherit;
     font: inherit;
+    font-size: max(var(--cherry-control-text-min, 0px), 1em);
     letter-spacing: inherit;
     text-overflow: ellipsis;
     cursor: pointer;

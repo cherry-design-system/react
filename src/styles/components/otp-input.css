@@ -44,6 +44,7 @@
     box-shadow: var(--cherry-elevation-xs), var(--_ring);
     color: inherit;
     font: inherit;
+    font-size: max(var(--cherry-control-text-min, 0px), 1em);
     font-variant-numeric: tabular-nums;
     text-align: center;
     caret-color: transparent;

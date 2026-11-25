@@ -70,8 +70,14 @@
     background: transparent;
     color: var(--cherry-fg-default);
     font: inherit;
-    font-size: var(--cherry-text-body-sm-size);
-    line-height: var(--cherry-text-body-sm-line-height);
+    font-size: max(
+      var(--cherry-control-text-min, 0px),
+      var(--cherry-text-body-sm-size)
+    );
+    /* A length, so the text floor (base.css) keeps the row height. */
+    line-height: calc(
+      var(--cherry-text-body-sm-size) * var(--cherry-text-body-sm-line-height)
+    );
     letter-spacing: var(--cherry-text-body-sm-tracking);
     resize: none;
     field-sizing: content;

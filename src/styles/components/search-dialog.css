@@ -110,7 +110,10 @@
     color: var(--cherry-fg-default);
     caret-color: var(--cherry-accent-default);
     font-family: var(--cherry-font-sans);
-    font-size: var(--cherry-text-body-md-size);
+    font-size: max(
+      var(--cherry-control-text-min, 0px),
+      var(--cherry-text-body-md-size)
+    );
     line-height: var(--cherry-text-body-md-line-height);
     letter-spacing: var(--cherry-text-body-md-tracking);
   }
