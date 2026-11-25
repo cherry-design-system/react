@@ -94,6 +94,15 @@ interface Upload {
   error?: string;
 }
 
+// Shared by the Uploads demo and the stand-alone /preview/avatar-dropzone.
+const avatarDropzonesDemo = (
+  <Flex gap={6} align="center">
+    <AvatarDropzone size="sm" />
+    <AvatarDropzone size="md" defaultSrc={photoA} />
+    <AvatarDropzone size="lg" />
+  </Flex>
+);
+
 function Uploads() {
   const [files, setFiles] = useState<Upload[]>([
     {
@@ -195,11 +204,8 @@ function Uploads() {
             onRemove={() => setFiles((all) => all.filter((x) => x.id !== f.id))}
           />
         ))}
-        <Flex gap={6} align="center">
-          <AvatarDropzone size="sm" />
-          <AvatarDropzone size="md" defaultSrc={photoA} />
-          <AvatarDropzone size="lg" />
-        </Flex>
+        {/* The Dropzone preview leaves these to /preview/avatar-dropzone. */}
+        {previewName === null ? avatarDropzonesDemo : null}
       </Stack>
     </Grid>
   );
@@ -634,6 +640,9 @@ export function MediaSections() {
       </Section>
       <Section title="Dropzone, FileItem and AvatarDropzone">
         <Uploads />
+      </Section>
+      <Section title="AvatarDropzone" id="avatar-dropzone" previewOnly>
+        {avatarDropzonesDemo}
       </Section>
       <Section title="Card">
         <Cards />
