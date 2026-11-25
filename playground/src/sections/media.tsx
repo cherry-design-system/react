@@ -44,6 +44,7 @@ import {
   type FileItemStatus,
 } from "../../../src";
 import { Section } from "../Section";
+import { previewName } from "../preview";
 
 /** A gradient "photo" as a data URI, so no external image host is needed. */
 const photo = (from: string, to: string) =>
@@ -243,60 +244,62 @@ export function Save() {
 }
 `;
 
-function Surfaces() {
+// Three across on the playground page; two across in /preview/stat-card,
+// whose box is too narrow for three (the sparklines would run into the
+// values).
+const statCards = (
+  <>
+    <StatCard
+      label="Monthly active users"
+      value="12,480"
+      delta="+12.4%"
+      trend="up"
+      deltaLabel="vs last month"
+      data={[4, 6, 5, 7, 6, 8, 7, 9, 8, 11, 10, 12]}
+    />
+    <StatCard
+      label="Conversion rate"
+      value="3.2%"
+      delta="-0.8%"
+      trend="down"
+      deltaLabel="vs last month"
+      data={[12, 11, 12, 9, 10, 8, 7, 8, 6, 5, 4, 3]}
+    />
+    <StatCard
+      label="Infra cost"
+      value="$1,920"
+      delta="+4.1%"
+      trend="up"
+      inverse
+      deltaLabel="up is bad here"
+      data={[5, 5, 6, 5, 6, 7, 7, 8]}
+    />
+  </>
+);
+
+function Cards() {
   return (
-    <Stack gap={6}>
-      <Grid cols={{ xs: 1, md: 3 }} gap={4}>
-        <Card>
-          <CardIcon>
-            <Layers />
-          </CardIcon>
-          <CardTitle>Token-driven theming</CardTitle>
-          <CardDescription>
-            Swap brands and flip light or dark from a single set of variables.
-          </CardDescription>
-        </Card>
-        <Card variant="elevated" interactive tabIndex={0}>
-          <CardTitle>Elevated, interactive</CardTitle>
-          <CardDescription>
-            Lifts on hover. Focus it with Tab to see the ring.
-          </CardDescription>
-        </Card>
-        <Card variant="filled" padding="lg">
-          <CardTitle>Filled, large padding</CardTitle>
-          <CardDescription>
-            A quiet surface for grouped content.
-          </CardDescription>
-        </Card>
-      </Grid>
-      <Grid cols={{ xs: 1, md: 3 }} gap={4}>
-        <StatCard
-          label="Monthly active users"
-          value="12,480"
-          delta="+12.4%"
-          trend="up"
-          deltaLabel="vs last month"
-          data={[4, 6, 5, 7, 6, 8, 7, 9, 8, 11, 10, 12]}
-        />
-        <StatCard
-          label="Conversion rate"
-          value="3.2%"
-          delta="-0.8%"
-          trend="down"
-          deltaLabel="vs last month"
-          data={[12, 11, 12, 9, 10, 8, 7, 8, 6, 5, 4, 3]}
-        />
-        <StatCard
-          label="Infra cost"
-          value="$1,920"
-          delta="+4.1%"
-          trend="up"
-          inverse
-          deltaLabel="up is bad here"
-          data={[5, 5, 6, 5, 6, 7, 7, 8]}
-        />
-      </Grid>
-    </Stack>
+    <Grid cols={{ xs: 1, md: 3 }} gap={4}>
+      <Card>
+        <CardIcon>
+          <Layers />
+        </CardIcon>
+        <CardTitle>Token-driven theming</CardTitle>
+        <CardDescription>
+          Swap brands and flip light or dark from a single set of variables.
+        </CardDescription>
+      </Card>
+      <Card variant="elevated" interactive tabIndex={0}>
+        <CardTitle>Elevated, interactive</CardTitle>
+        <CardDescription>
+          Lifts on hover. Focus it with Tab to see the ring.
+        </CardDescription>
+      </Card>
+      <Card variant="filled" padding="lg">
+        <CardTitle>Filled, large padding</CardTitle>
+        <CardDescription>A quiet surface for grouped content.</CardDescription>
+      </Card>
+    </Grid>
   );
 }
 
@@ -632,8 +635,13 @@ export function MediaSections() {
       <Section title="Dropzone, FileItem and AvatarDropzone">
         <Uploads />
       </Section>
-      <Section title="Card and StatCard">
-        <Surfaces />
+      <Section title="Card">
+        <Cards />
+      </Section>
+      <Section title="StatCard" id="stat-card">
+        <Grid cols={{ xs: 1, md: previewName === null ? 3 : 2 }} gap={4}>
+          {statCards}
+        </Grid>
       </Section>
       <Section title="Table">
         <Stack gap={4}>
