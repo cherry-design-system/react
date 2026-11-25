@@ -384,28 +384,33 @@ const codeBlockDemo = (
   />
 );
 
+// Shared by the Typography demo and the stand-alone /preview/prose.
+const proseDemo = (
+  <Prose>
+    <h2>Rendered markdown</h2>
+    <p>
+      Prose styles <a href="#links">links</a>, lists, tables and{" "}
+      <code>inline code</code> with cherry typography. Use it for docs and for
+      assistant answers.
+    </p>
+    <ul>
+      <li>Token-driven light and dark modes</li>
+      <li>Responsive primitives per breakpoint</li>
+      <li>Server-rendered, tree-shaken icons</li>
+    </ul>
+    <ol>
+      <li>Install the package</li>
+      <li>Import the stylesheet once</li>
+    </ol>
+    <blockquote>Static CSS, zero runtime.</blockquote>
+    <pre>pnpm add @cherry-design-system/react</pre>
+  </Prose>
+);
+
 function Typography() {
   return (
     <Grid cols={{ xs: 1, lg: 2 }} gap={8}>
-      <Prose>
-        <h2>Rendered markdown</h2>
-        <p>
-          Prose styles <a href="#links">links</a>, lists, tables and{" "}
-          <code>inline code</code> with cherry typography. Use it for docs and
-          for assistant answers.
-        </p>
-        <ul>
-          <li>Token-driven light and dark modes</li>
-          <li>Responsive primitives per breakpoint</li>
-          <li>Server-rendered, tree-shaken icons</li>
-        </ul>
-        <ol>
-          <li>Install the package</li>
-          <li>Import the stylesheet once</li>
-        </ol>
-        <blockquote>Static CSS, zero runtime.</blockquote>
-        <pre>pnpm add @cherry-design-system/react</pre>
-      </Prose>
+      {proseDemo}
       <Stack gap={5}>
         {linksDemo}
         {inlineCodeDemo}
@@ -641,6 +646,9 @@ export function MediaSections() {
       </Section>
       <Section title="CodeBlock" id="codeblock" previewOnly>
         {codeBlockDemo}
+      </Section>
+      <Section title="Prose" id="prose" previewOnly>
+        {proseDemo}
       </Section>
       <Section title="Link" id="links" previewOnly>
         <div className="pg-row">{linksDemo}</div>
