@@ -334,6 +334,16 @@ function TableDemo({ striped }: { striped?: boolean }) {
   );
 }
 
+// Shared by the Typography demo and the stand-alone /preview/codeblock.
+const codeBlockDemo = (
+  <CodeBlock
+    code={sample}
+    filename="save-button.tsx"
+    language="tsx"
+    highlightLines={[5]}
+  />
+);
+
 function Typography() {
   return (
     <Grid cols={{ xs: 1, lg: 2 }} gap={8}>
@@ -383,12 +393,7 @@ function Typography() {
           <span>Tokens</span>
         </Flex>
         <Separator label="or" />
-        <CodeBlock
-          code={sample}
-          filename="save-button.tsx"
-          language="tsx"
-          highlightLines={[5]}
-        />
+        {codeBlockDemo}
       </Stack>
     </Grid>
   );
@@ -616,6 +621,9 @@ export function MediaSections() {
       </Section>
       <Section title="Prose, Link, InlineCode, Separator, CodeBlock">
         <Typography />
+      </Section>
+      <Section title="CodeBlock" id="codeblock" previewOnly>
+        {codeBlockDemo}
       </Section>
       <Section title="Chat panel (inline)" id="chat-inline">
         <ChatDemo />
