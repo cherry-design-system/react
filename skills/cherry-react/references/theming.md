@@ -27,6 +27,34 @@ function ModeMenu() {
 
 The preference is stored in `localStorage` (`themePreference`) and mirrored to a `theme` cookie; "system" follows the OS live. `useColorMode` reports light/system during server rendering; the init script has already applied the real mode, so nothing visible depends on it.
 
+### A keyboard shortcut
+
+Opt in to a light / dark shortcut with `useColorModeShortcut()`, once, in a layout or next to the toggle. The default is `mod+shift+l` (⌘⇧L on Apple, Ctrl+Shift+L elsewhere):
+
+```tsx
+"use client";
+import {
+  ThemeToggle,
+  Tooltip,
+  useColorModeShortcut,
+} from "@cherry-design-system/react";
+
+function HeaderThemeToggle() {
+  const shortcut = useColorModeShortcut(); // or ("mod+alt+t", { enabled })
+  return (
+    <Tooltip content={`Toggle light and dark · ${shortcut.label}`}>
+      <ThemeToggle aria-keyshortcuts={shortcut.ariaKeyShortcuts} />
+    </Tooltip>
+  );
+}
+```
+
+- Keys are `+`-joined: `mod`, `ctrl`, `meta` (`cmd`), `alt` (`option`), `shift`, then one key. A shortcut must hold `mod`, `ctrl`, `meta` or `alt`; a bare or Shift-only key throws, since it would fire while people type (WCAG 2.1.4).
+- It never fires inside an input, textarea, select or contenteditable, on key repeat, during IME composition, or when another handler already called `preventDefault()`.
+- Calling it from several components with the same keys still toggles once; it stops listening when they all unmount or pass `{ enabled: false }`.
+- It returns `ariaKeyShortcuts` (for the attribute) and `label` (for a `Kbd` or tooltip). Both say Ctrl until hydration, then follow the platform.
+- Pick keys your app does not already use, and tell people about the shortcut (the tooltip above does).
+
 ### A section in a fixed mode
 
 Scope any element to a mode, regardless of the page:

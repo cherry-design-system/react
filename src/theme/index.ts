@@ -17,6 +17,11 @@ export {
 } from "./theme-init";
 export { useColorMode, type UseColorMode } from "./use-color-mode";
 export {
+  useColorModeShortcut,
+  type ColorModeShortcut,
+  type ColorModeShortcutOptions,
+} from "./use-color-mode-shortcut";
+export {
   createBrand,
   assertBrandColor,
   BrandValidationError,

@@ -97,7 +97,7 @@ import { Mail } from "lucide-react";
 | Text content                       | `Prose` (markdown), `CodeBlock`, `InlineCode`, `Snippet`, `Kbd`, `Link`, `Separator`, `Card`                               |
 | Layout                             | `Container`, `Grid` + `Col`, `Flex`, `Stack`                                                                               |
 | AI chat                            | `ChatPanel`, `ChatMessageList`, `ChatMessage`, `ChatInput`, `ChatLauncher`, `ChatTyping`, `ChatSources`, `ChatSuggestions` |
-| Light / dark switch                | `ThemeToggle`, or `useColorMode()`                                                                                         |
+| Light / dark switch                | `ThemeToggle`, or `useColorMode()`; a keyboard shortcut with `useColorModeShortcut()`                                      |
 
 When cherry has no component for something, build it with plain elements and a class whose CSS uses `--cherry-*` tokens, a `:focus-visible` ring (`outline: 2px solid transparent; box-shadow: var(--cherry-ring)`) and the motion tokens. See `references/theming.md`.
 

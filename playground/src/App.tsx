@@ -14,6 +14,8 @@ import {
   Toaster,
   ToastProvider,
   Toggle,
+  Tooltip,
+  useColorModeShortcut,
   useToast,
 } from "../../src";
 
@@ -241,6 +243,17 @@ function PreviewApp() {
   );
 }
 
+// The header switch: ⌘⇧L / Ctrl+Shift+L flips light and dark anywhere on
+// the playground (never on previews, whose mode is pinned by ?theme=).
+function HeaderThemeToggle() {
+  const shortcut = useColorModeShortcut();
+  return (
+    <Tooltip content={`Toggle light and dark · ${shortcut.label}`}>
+      <ThemeToggle aria-keyshortcuts={shortcut.ariaKeyShortcuts} />
+    </Tooltip>
+  );
+}
+
 export function App() {
   return (
     <ToastProvider>
@@ -254,7 +267,7 @@ export function App() {
                 <CherryLogo title="cherry" size={28} />
                 <span>playground</span>
               </h1>
-              <ThemeToggle />
+              <HeaderThemeToggle />
             </header>
             <AllSections />
             <div data-cherry-mode="dark" className="pg-section">
