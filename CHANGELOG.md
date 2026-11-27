@@ -5,6 +5,12 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-11-27
+
+### Added
+
+- `useColorModeShortcut(keys?, { enabled? })`: an opt-in keyboard shortcut that toggles light and dark, `mod+shift+l` by default (⌘⇧L on Apple, Ctrl+Shift+L elsewhere). It ignores keys typed in inputs, textareas, selects and editors, key repeat, IME composition and events another handler already took, toggles once however many components call it with the same keys, and returns `ariaKeyShortcuts` and a display `label` for the toggle's `aria-keyshortcuts` and tooltip. A shortcut without `mod`, `ctrl`, `meta` or `alt` throws, so it can never fire while someone types (WCAG 2.1.4)
+
 ## [2.0.2] - 2026-11-26
 
 ### Added
