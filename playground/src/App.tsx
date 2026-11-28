@@ -1,4 +1,4 @@
-import { Bell, Mail, Plus, Search, Trash2 } from "lucide-react";
+import { ArrowLeft, Bell, Mail, Plus, Search, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { CherryLogo } from "./CherryLogo";
 import { GitHubMark } from "./GitHubMark";
@@ -264,7 +264,9 @@ export function App() {
           <main className="pg">
             <header className="pg-header">
               <h1 className="pg-title">
-                <CherryLogo title="cherry" size={28} />
+                <a className="pg-home-link" href="https://cherry.al">
+                  <CherryLogo title="cherry home" size={28} />
+                </a>
                 <span>playground</span>
               </h1>
               <HeaderThemeToggle />
@@ -280,6 +282,10 @@ export function App() {
             </div>
           </main>
           <footer className="pg-footer">
+            <a className="pg-footer__home" href="https://cherry.al">
+              <ArrowLeft aria-hidden="true" size={16} />
+              <span>Back to cherry</span>
+            </a>
             <a
               className="pg-footer__github"
               href="https://github.com/cherry-design-system/react"

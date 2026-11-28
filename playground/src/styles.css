@@ -175,7 +175,9 @@ body {
 /* Footer: the repo link as GitHub's mark, a 40px target with the cherry ring. */
 .pg-footer {
   display: flex;
+  align-items: center;
   justify-content: center;
+  gap: 8px;
   padding: 0 24px 48px;
 }
 .pg-footer__github {
@@ -194,6 +196,38 @@ body {
   background: var(--cherry-ghost-hover);
 }
 .pg-footer__github:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: var(--cherry-ring);
+}
+
+/* Back to the cherry home page, a pill sized to match the GitHub target. */
+.pg-footer__home {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 40px;
+  padding-inline: 14px;
+  border-radius: var(--cherry-radius-full);
+  color: var(--cherry-fg-muted);
+  font-size: var(--cherry-text-body-sm-size);
+  text-decoration: none;
+  transition:
+    color var(--cherry-duration-fast) var(--cherry-easing-standard),
+    background-color var(--cherry-duration-fast) var(--cherry-easing-standard);
+}
+.pg-footer__home:hover {
+  color: var(--cherry-fg-default);
+  background: var(--cherry-ghost-hover);
+}
+
+/* The header logo links home; keep its ring visible on keyboard focus. */
+.pg-home-link {
+  display: inline-flex;
+  border-radius: var(--cherry-radius-sm);
+  color: inherit;
+}
+.pg-home-link:focus-visible,
+.pg-footer__home:focus-visible {
   outline: 2px solid transparent;
   box-shadow: var(--cherry-ring);
 }
